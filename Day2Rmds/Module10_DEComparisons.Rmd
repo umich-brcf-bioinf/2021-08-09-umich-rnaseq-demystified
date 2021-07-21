@@ -94,7 +94,7 @@ This [HBC tutorial](https://hbctraining.github.io/DGE_workshop/lessons/04_DGE_DE
 
 ## Results table output
 
-**TODO: Add image or hidden code block to show results **
+**TODO: Add image or hidden code block to show results example - perhaps from DESeq2 documentation so more generic? **
 
 In the results table that we'll generate the row name are gene symbols and there are [six columns of values](https://support.illumina.com/help/BS_App_RNASeq_DE_OLH_1000000071939/Content/Source/Informatics/Apps/DESeq2ResultFile_swBS.htm#:~:text=baseMean%E2%80%94The%20average%20of%20the,factors%2C%20taken%20over%20all%20samples.&text=log2FoldChange%E2%80%93The%20effect%20size%20estimate,the%20comparison%20and%20control%20groups). 
 
