@@ -1,6 +1,22 @@
+---
+title: "Day 1 - Module 04: Alignment"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
 # Alignment
 
 In this module, we will learn:
+
 * the concept of splice-aware alignments
 * the two steps needed to run RSEM+STAR
 * details of SAM and BAM files, and RSEM outputs

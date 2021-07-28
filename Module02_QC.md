@@ -1,6 +1,22 @@
+---
+title: "Day 1 - Module 02: QC"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
 # QC
 
 In this Quality Control (QC) module, we will learn:
+
 * what a FASTQ file is
 * how to use FastQC to assess the quality of sequencing reads
 * how to interpret FastQC reports
