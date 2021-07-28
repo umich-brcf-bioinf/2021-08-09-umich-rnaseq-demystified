@@ -1,3 +1,18 @@
+---
+title: "Welcome to RNA-seq Demystified"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
 # Welcome to RNA-Seq Demystified
 
 ## About this workshop
