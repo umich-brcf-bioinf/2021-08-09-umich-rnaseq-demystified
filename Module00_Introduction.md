@@ -24,13 +24,6 @@
 
 ![Sponsors](images/Module00_sponsor_logos.png)
 
-
-- [Biomedical Research Core Facilities](https://brcf.medicine.umich.edu/)
-
-  Biomedical Research Core Facilities (BRCF) helps researchers economically take advantage of
-  the latest technology and collaborate with top experts in the field. Established in 1986, the
-  BRCF was formed to offer centralized access to research services and equipment.
-
 - [University of Michigan Library](https://www.lib.umich.edu/)
 
   Our mission is to support, enhance, and collaborate in the instructional, research, and
@@ -38,11 +31,12 @@
   collecting, organizing, preserving, communicating, sharing, and creating the record of human
   knowledge.
 
-- [Michigan Institute for Data Science (MIDAS)](https://midas.umich.edu/)
+- [Biomedical Research Core Facilities](https://brcf.medicine.umich.edu/)
 
-  To strengthen University of Michigan’s preeminence in Data Science and to catalyze the
-  transformative use of Data Science in a wide range of disciplines to achieve lasting societal
-  impact.
+  Biomedical Research Core Facilities (BRCF) helps researchers economically take advantage of
+  the latest technology and collaborate with top experts in the field. Established in 1986, the
+  BRCF was formed to offer centralized access to research services and equipment.
+
 
 ## What is the Bioinformatics Core?
 
@@ -93,7 +87,7 @@
   Equity at institutional.equity@umich.edu.
 
 
-## Workshop patterns and Zoom controls
+## Workshop patterns, Zoom controls, and using Slack
 
 - We will be recording this session. Recordings will be available to participants following
   the workshop.
@@ -104,7 +98,6 @@
 - To minimize distractions, we encourage participants to keep their audio muted (1) (unless
   actively asking a question).
 - To maximize engagement, we encourage participants to keep their video on.
-- **Chat** can be used to communicate to the group or to individuals.
 - Zoom's "non-verbal controls" are a useful way to interact
   - Depending on your version of Zoom you can access these either
     - in the **Reactions** button on you main Zoom window
@@ -113,38 +106,39 @@
 ![Zoom non verbals](images/Module00_zoom_nonverbals.png)
 
   - **Raise Hand** to request clarification or ask a question. (Same an in-person workshop.)
-  - **Yes** when you complete an assigned task or other instructor feedback
-  - **No** to request assistance from helper
+  - **Green check [Ok!]** when you complete an assigned task or for other
+    feedback specified by instructor
+  - **Red "X" [I need help]** to request assistance from helper
     - Hosts will connect you with a helper in a breakout room.
+  - **Gray chevron [Give me a sec]** when you need more time to complete
+    an exercise or you would like the instructor to repeat an idea
 
+- **Slack** can be used to communicate to the group or to individuals.
 
-### Schedule
+![Posting messages to Slack](images/Module00_slack.png)
 
-| Time | Topic | Instructor |
-| ---- | ----------------- | ---------- |
-| **Day 1** |
-| 9:00 | [Workshop Introduction](Module00_Introduction) | Chris Gates |
-| 9:15 | Warming Up, Quality Control | Travis Saari |
-| 10:30 | **Break** | |
-|  | Reference Genomes, Alignment, Quantification, QC | |
-| 1:00 | **Day  1 concludes** | |
-| **Day 2** |
-| 9:00 | Intro Day 2 | Chris Gates |
-| 9:10 | Introduction to DESeq2, Count Normalizations, Models | Dana King |
-| 10:30 | **Break** | |
-|  | Comparisons, Annotations, Visualization | |
-| 12:45  | Wrap-up | Chris Gates |
-| 1:00 | **Workshop concludes** | |
+  - Slack messages will be posted to the **rsd-workshop-general** channel.  
+    Click on the channel in the left pane (1) to select this channel.
+  - You can type in the **message field** (2); click **send** (3) to
+    post your message to everyone.
 
-### Any questions?
- -
- -
+## TODO: GoogleDoc
+## TODO: Arranging your windows
 
 ### Breakout Rooms
 
  - We're all going to be transported into randomized breakout rooms to see what that's like.
  - Introduce yourself and share a reason you signed up for this workshop.
  - When you have completed introductions, you can leave the breakout room to rejoin the main room.
+
+
+### Schedule
+
+![Workshop topics](images/wayfinder_00.png)
+
+### Any questions?
+ -
+ -
 
 
 ---
