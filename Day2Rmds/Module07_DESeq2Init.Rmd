@@ -58,6 +58,29 @@ Here we will proceed with continuing to set up the inputs we need to initialize 
 
 ---
 
+# DESeq2 objects
+
+Bioconductor software packages often define and use custom classes within R for storing data in a way that better fits expectations around biological data, such as illustrated below from [Huber et al. 2015](https://www.nature.com/articles/nmeth.3252).
+
+![](./images/SummarizedExperiment.jpg)
+
+These custom data structures have pre-specified data slots, which hold specific types/classes of data and therefore can be more easily accessed by functions from the same package.
+
+To create the DESeqDataSet we need two things: count matrix (which we already have) and a table that assigns the condition labels for each sample (which we will generate below). To complete the DESeqDataSet, we will also need to specify a **design formula** that tells DESeq2 what column indicates how the samples should be grouped.
+
+## Making model choices
+
+The design formula specified informs many of the DESeq2 functions how to treat the samples in the analysis, specifically which column in the samaple metadata table specifies the experimental design.
+
+In this case, there aren't known [**covariates**](https://methods-sagepub-com.proxy.lib.umich.edu/reference/encyc-of-research-design/n85.xml) to include in the sample table. However, if there are additional attributes of the samples that may impact the DE comparisons, like sex, date of collection, or patient of origin, these should be added as [additional columns](https://support.bioconductor.org/p/75309/) in the sample information table and [added to a design formula](https://support.bioconductor.org/p/98700/). 
+
+
+<details>
+    <summary>*Click for Note*</summary> 
+    More complex questions, including determining if a fold-change due to treatment is different across groups, such as patient samples, "interaction terms" can be included in the design formula, such as outlined in [this support thread](https://support.bioconductor.org/p/98628/).
+</details> 
+
+
 # Sample Information 
 
 For this representative dataset, we have somewhat limited information from [public records](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144588), but we know these samples were isolated from either wild-type or knock-out T-cells harvested from control mice or isolated from previously transplanted mice. 
@@ -114,31 +137,13 @@ all(colnames(data) == rownames(MetaInfo))
 ```
 This line of code checks if both the identity and order match between our `data` table and our `MetaInfo`.
 
-**Checkpoint**: *Questions?*
+**Checkpoint**: *If you your sample info check returns `TRUE`, please indicate with the green 'yes' button. Otherwise, please use the grey 'slow down' button to have the command repeated*
 
 # Creating DESeq2 object
 
-Bioconductor software packages often define and use custom classes within R for storing data in a way that better fits expectations around biological data, such as illustrated below from [Huber et al. 2015](https://www.nature.com/articles/nmeth.3252).
+To create the DESeqDataSet we will need the count matrix, the "MetaInfo" sample data table, and we will also need to specify the **design formula**. 
 
-![](./images/SummarizedExperiment.jpg)
-
-These custom data structures have pre-specified data slots, which hold specific types/classes of data and therefore can be more easily accessed by functions from the same package.
-
-To create the DESeqDataSet we need two things we already have: count matrix and the "MetaInfo" sample data table. To complete the DESeqDataSet, we will also need to specify a **design formula** that tells DESeq2 what column indicates how the samples should be grouped.
-
-The design formula specifies the column(s) in the metadata table and how they should be used in the analysis. For our dataset we only have one column we are interested in, that is `Gtype.Tx`. This column has three factor levels, which tells DESeq2 that for each gene we want to evaluate gene expression change with respect to these different levels.
-
-## Making model choices
-
-The design formula specified informs many of the DESeq2 functions how to treat the samples in the analysis, specifically which column in the samaple metadata table specifies the experimental design.
-
-In this case, there aren't known [**covariates**](https://methods-sagepub-com.proxy.lib.umich.edu/reference/encyc-of-research-design/n85.xml) to include in the sample table. However, if there are additional attributes of the samples that may impact the DE comparisons, like sex, date of collection, or patient of origin, these should be added as [additional columns](https://support.bioconductor.org/p/75309/) in the sample information table and [added to a design formula](https://support.bioconductor.org/p/98700/). 
-
-
-<details>
-    <summary>*Click for Note*</summary> 
-    More complex questions, including determining if a fold-change due to treatment is different across groups, such as patient samples, "interaction terms" can be included in the design formula, such as outlined in [this support thread](https://support.bioconductor.org/p/98628/).
-</details> 
+The design formula specifies the column(s) in the metadata table and how they should be used in the analysis. For our dataset we only have one column we are interested in, that is `Gtype.Tx`. This column has three factor levels, which tells DESeq2 that for each gene we want to evaluate gene expression change with respect to these different levels. 
 
 
 ```{r DESeq2Object}
@@ -148,18 +153,7 @@ dds <- DESeqDataSetFromMatrix(countData = CountTable,
                               design = ~ Gtype.Tx)
 ```
 
-**Checkpoint**: *If you see `dds` in your environment panel, please indicate with the green 'check' button. Otherwise, please use  use the grey 'slow down' button in your zoom reaction panel to have the steps repeated or the red 'x' to be put in a breakout room*
-
-
----
-[Exercise]
-
-Look at the `dds` object to see how our data is organized.
-```{r DESeq2ObjectCheck, eval = FALSE}
-str(dds)
-```
-Right now, there are many "empty" slots that will be filled in when we proceed with the model fitting. 
----
+**Checkpoint**: *If you see `dds` in your environment panel, please indicate with the green 'check' button. Otherwise, please use  use the grey 'slow down' button in your zoom reaction panel to have this step repeated or the red 'x' to be put in a breakout room for help*
 
 
 <details>
@@ -200,7 +194,7 @@ Notice how the `dds` object now has less elements after filtering, so there were
 
 **TODO: Format optional exercises as drop down code blocks**
 
-[Optional exercise]
+### [Optional exercise]
 
 **TODO: Double check that covariate is no longer used in required code later in modules**
 
