@@ -2,9 +2,7 @@
 
 ## [Setup instructions](setup_instructions)
 
-## [Shared Google Doc](https://docs.google.com/document/d/1EM95ZRFHheDRZB-_lArwz0gxOrgxpVkvNDCBis3Itco/edit?usp=sharing)
-
-## [Slack](https://20210809umich-elp6472.slack.com)
+## [Slack](https://umcoderspaces.slack.com)
 
 ## Schedule
 

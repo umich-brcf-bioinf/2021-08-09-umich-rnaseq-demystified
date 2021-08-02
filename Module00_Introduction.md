@@ -1,26 +1,15 @@
 # Welcome to RNA-Seq Demystified
 
-## About this workshop
+## About us
 
-- By the end of the workshop, attendees will be able to
-  - Transform raw sequencing data into annotated differential expression values using a suite of
-    open-source tools.
-  - Identify common data quality problems and understand their impact and possible mitigations
-  - Visualize differential expression data in RStudio plots.
-
-- This workshop is targeted toward researchers who would like to be able to run RNA-Seq analysis on their
-  own. It assumes a very basic familiarity with genetics, the command line, and R or R-Studio.
-
-- Our purpose is not to be exhaustive, and we don't expect anyone to be an expert at the end of
-  the workshop. But we hope you will have a familiarity with key concepts, data types,
-  tools, and how they all connect to one another in the service of a biological question.
-- The first day will be a mix of hands-on content and lecture-style components, while the second
-  day will primarily be a hands-on experience.
-
-- Please let us know if there is anything we can do to improve the workshop experience.
+- Chris Gates cgates@umich.edu
+- Marci Brandenburg mbradenb@umich.edu
+- Dana King damki@umich.edu
+- Travis Saari trsaari@umich.edu
+- Helpers
 
 
-## Thanks to our sponsors
+## A brief word from our sponsors
 
 ![Sponsors](images/Module00_sponsor_logos.png)
 
@@ -38,7 +27,7 @@
   BRCF was formed to offer centralized access to research services and equipment.
 
 
-## What is the Bioinformatics Core?
+## About the BRCF Bioinformatics Core
 
 - The UM Bioinformatics Core is a team seven analysts; we help researchers **design, analyze,
   and interpret** high-throughput genomics experiments.
@@ -53,13 +42,27 @@
 - We are also creating a series of bioinformatics-focused workshops
 
 
-## Who are your hosts/instructors?
+## About this workshop
 
-- Chris Gates cgates@umich.edu
-- Marci Brandenburg mbradenb@umich.edu
-- Dana King damki@umich.edu
-- Travis Saari trsaari@umich.edu
-- Helpers
+- By the end of the workshop, attendees will be able to
+  - Transform raw sequencing data into annotated differential expression values using a suite of
+    open-source tools.
+  - Identify common data quality problems and understand their impact and possible mitigations
+  - Visualize differential expression data in RStudio plots.
+
+- This workshop is targeted toward researchers who would like to be able to run RNA-Seq analysis on their
+  own. It assumes a very basic familiarity with genetics, the command line, and R or R-Studio.
+
+- The first day will be a mix of hands-on content and lecture-style components, while the second
+  day will primarily be a hands-on experience.
+
+- Please let us know if there is anything we can do to improve the workshop experience.
+
+- Our purpose is not to be exhaustive, and we don't expect anyone to be an expert at the end of
+  the workshop. But we hope you will have a familiarity with key concepts, data types,
+  tools, and how they all connect to one another in the service of a biological question.
+
+![Diagram of bike parts](images/Module00_bicycle.svg)
 
 
 # Housekeeping
@@ -87,10 +90,13 @@
   Equity at institutional.equity@umich.edu.
 
 
+
 ## Workshop patterns, Zoom controls, and using Slack
 
 - We will be recording this session. Recordings will be available to participants following
   the workshop.
+
+#### Using <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/>
 
 - Zoom controls are at the bottom of the Zoom window:
 ![Zoom controls](images/Module00_zoom_controls.png)
@@ -108,10 +114,13 @@
   - **Raise Hand** to request clarification or ask a question. (Same an in-person workshop.)
   - **Green check [Ok!]** when you complete an assigned task or for other
     feedback specified by instructor
-  - **Red "X" [I need help]** to request assistance from helper
-    - Hosts will connect you with a helper in a breakout room.
   - **Gray chevron [Give me a sec]** when you need more time to complete
     an exercise or you would like the instructor to repeat an idea
+    - **Red "X" [I need help]** to request assistance from helper
+      - Hosts will connect you with a helper in a breakout room.
+
+
+#### Using <img src="images/Module00_slack_logo.png" alt="Slack" width=120/>
 
 - **Slack** can be used to communicate to the group or to individuals.
 
@@ -122,8 +131,22 @@
   - You can type in the **message field** (2); click **send** (3) to
     post your message to everyone.
 
-## TODO: GoogleDoc
-## TODO: Arranging your windows
+
+#### Arranging you screens
+ - Zoom (instructor's shared screen + reactions)
+ - Slack
+ - Your terminal/command window
+
+#### Communication patterns
+| | <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/> | <img src="images/Module00_Slack_logo.png" alt="Slack" width=120/> |
+|-|-|-|
+| "Yep - I got it" | **green check** | |
+| "I need to you repeat that last part" | **slow down** | |
+| "I have an urgent question" | **raise hand** | **post a question** |
+| "I have a general question" | | **post a question** |
+| "I'm stuck / I need a hand" | **red X** | **request a breakout** |
+
+
 
 ### Breakout Rooms
 
@@ -143,8 +166,10 @@
 
 ---
 
-*The workshop Code of Conduct has been adapted the NumFocus Code of Conduct (https://numfocus.org/code-of-conduct) which itself draws frin from numerous sources, including the Geek Feminism wiki, created by the Ada Initiative and other volunteers, which is under a Creative Commons Zero license, the Contributor Covenant version 1.2.0, the Bokeh Code of Conduct, the SciPy Code of Conduct, the Carpentries Code of Conduct, and the NeurIPS Code of Conduct.
+* This workshop content is licensed under a [Creative Commons Attribution 4 License](https://creativecommons.org/licenses/by/4.0/).
 
-This workshop content is licensed under a [Creative Commons Attribution 4 License](https://creativecommons.org/licenses/by/4.0/).
+* The workshop Code of Conduct has been adapted the NumFocus Code of Conduct (https://numfocus.org/code-of-conduct) which itself draws frin from numerous sources, including the Geek Feminism wiki, created by the Ada Initiative and other volunteers, which is under a Creative Commons Zero license, the Contributor Covenant version 1.2.0, the Bokeh Code of Conduct, the SciPy Code of Conduct, the Carpentries Code of Conduct, and the NeurIPS Code of Conduct.
 
-Sections of the workshop content have been adapted and extended from materials created by the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.
+* Sections of the workshop content have been adapted and extended from materials created by the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.
+
+* "File:Bicycle diagram-en.svg" by Al2 is licensed under CC BY 3.0

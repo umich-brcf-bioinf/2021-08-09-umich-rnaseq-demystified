@@ -20,7 +20,7 @@ this setup, you will need:
 -   For simplicity, partipicants will log in to a pre-built server which
     has the necessary data, software, and configuration already installed.
 -   While not required, advanced users may elect to install some software
-    locally; more detailed advanced instructions included below.
+    locally; see [advanced setup instructions](setup_instructions_advanced).
 
 ### How to get help
 
@@ -75,7 +75,7 @@ be happy to lend a hand to get things working.
 
    2.3. Note that once your Slack account is established and you have accepted the
       Slack invite you can access the Slack channel by pointing your web browser
-      here: https://20210809umich-elp6472.slack.com
+      here: https://umcoderspaces.slack.com
 
 3. **Launch a command window:**
 
@@ -96,7 +96,7 @@ be happy to lend a hand to get things working.
    - If you are using a Mac:
 
      - Macintosh OSX has a built in command window called **Terminal**. Press
-       < Command Space > to launch Spotlight. In the search field, type
+       **Command + Space** to launch Spotlight. In the search field, type
        "Terminal" and double-click on the top result.
 
      - You will see a new Terminal window containing something like this
@@ -111,15 +111,15 @@ be happy to lend a hand to get things working.
 
    4.1. In the command window, type the following
       command, replacing the **YOUR_USERNAME** with the username supplied to you by
-      the workshop hosts; hit <Enter/Return> to execute the command.
+      the workshop hosts; hit **Enter or Return** to execute the command.
 
       _Note: you can copy the command below to the clipboard and then
       right-click in the command window to paste._
 
-       ```ssh YOUR_USERNAME@bfx-workshop01.med.umich.edu```
+          ssh YOUR_USERNAME@bfx-workshop01.med.umich.edu
 
    4.2. The first time you run this command, you may see a prompt like the
-   following; hit <Enter/Return> to continue.
+   following; hit **Enter/Return** to continue.
 
        The authenticity of host '...' can't be established.
        ECDSA key fingerprint is SHA256:nz9lJaGEI5QFy7....
@@ -128,13 +128,14 @@ be happy to lend a hand to get things working.
      The command will print a warning (e.g. Warning: Permanently added
      ‘SERVER_ADDRESS’ (ECDSA) to the list of known hosts). This is fine.
 
-   4.3. When prompted,  type the password supplied by the workshop hosts. (Note this
-   password is case sensitive.) If you successfully logged in, the command window
-   should show a command prompt that looks something like this:
+   4.3. When prompted,  type the password supplied by the workshop hosts followed
+   by **Enter/Return**. (Note that the password is case sensitive. Also note that the server will not echo any characters when you are typing your password; this is ok.)
+
+   After successfully logging in, your command window should end looking something like this:
 
        Welcome to RNA-Seq Demystified
        ------------------------------
-       (/rsd/conda/workshop) YOUR_USER_NAME@ip:~$
+       (/rsd/conda/workshop) YOUR_USERNAME@ip:~$
 
 5. **Launch R/RStudio in a web browser**
 
