@@ -15,15 +15,13 @@ connect to enable gene expression analysis from bulk RNA-Seq data.
 ## Housekeeping
 
 - Course contents will be available.
-  - [Course lessons](https://umich-brcf-bioinf.github.io/2021-04-26-umich-rnaseqDemystified/)
-  - [Shared Google Doc](https://docs.google.com/document/d/1TRjD10zSwktd63irw8dZmdAZtzQ0gr4_eKEf0XQ1s-M/edit?usp=sharing)
+  - [Course lessons](https://umich-brcf-bioinf.github.io/2021-08-09-umich-rnaseq-demystified/)
 
-- Linux/Unix workshop compute environment (at Amazon) will be available until Friday.
+- Shared compute environment will be available until Friday.
 
 - We will email you a link to the session recordings by next week.
 
-- Please take our optional [post-workshop survey](https://forms.gle/mrx9L4xhoSpXCZfXA) (5-10 minutes) <br />
-  [https://forms.gle/mrx9L4xhoSpXCZfXA](https://forms.gle/mrx9L4xhoSpXCZfXA)
+- Please take our optional [Post-workshop survey](https://forms.gle/zA2pt9TqNpimEnJq5) (5-10 minutes) <br />
 
 ---
 

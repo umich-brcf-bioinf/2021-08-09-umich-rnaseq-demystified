@@ -58,7 +58,8 @@
 
 - Please let us know if there is anything we can do to improve the workshop experience.
 
-- Our purpose is not to be exhaustive, and we don't expect anyone to be an expert at the end of
+- Our purpose is not to be exhaustive, there is a lot that we cannot cover in
+  the allotted time, and we don't expect anyone to be an expert at the end of
   the workshop. But we hope you will have a familiarity with key concepts, data types,
   tools, and how they all connect to one another in the service of a biological question.
 
@@ -130,22 +131,27 @@
     Click on the channel in the left pane (1) to select this channel.
   - You can type in the **message field** (2); click **send** (3) to
     post your message to everyone.
+  - You can respond in a message thread by hovering over a message to trigger
+    the message menu and clicking the speech bubble (4).
 
 
 #### Arranging you screens
+It is vital that you can see:
  - Zoom (instructor's shared screen + reactions)
  - Slack
- - Your terminal/command window
+ - Your terminal/command window (day 1) or R/Studio (day 2)
+
+![arranged screens](images/Module00_arranged_screens.png)
+
 
 #### Communication patterns
 | | <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/> | <img src="images/Module00_Slack_logo.png" alt="Slack" width=120/> |
-|-|-|-|
-| "Yep - I got it" | **green check** | |
-| "I need to you repeat that last part" | **slow down** | |
-| "I have an urgent question" | **raise hand** | **post a question** |
+|-|:-:|-|
+| "Yep - I got it" | <img src="images/Module00_zoom_green_check.png" width=50/> | |
+| "I need to you repeat that last part" | <img src="images/Module00_zoom_slow_down.png" width=50/> | |
+| "I have an urgent question" | <img src="images/Module00_zoom_raise_hand.png" width=50/> -or- <img src="images/Module00_zoom_mute_icon.png" width=50/> | **post a question** |
 | "I have a general question" | | **post a question** |
-| "I'm stuck / I need a hand" | **red X** | **request a breakout** |
-
+| "I'm stuck / I need a hand" | <img src="images/Module00_zoom_red_x.png" width=50/> | **request a breakout** |
 
 
 ### Breakout Rooms

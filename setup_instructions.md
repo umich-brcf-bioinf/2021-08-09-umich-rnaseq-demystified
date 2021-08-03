@@ -160,6 +160,16 @@ Your workstation and logins are ready for the workshop; thank you for
      arrow).  The webpage will announce **R Session Ended**; you may now close
      the web page.
 
+#### A note on the shared compute environment
+
+Please note that this environment is optimized for the exercises in this
+particular workshop but is likely unsuitable for analyzing your own
+datasets. In particular:
+- It is not sized for compute intensive operations or large storage.
+- It is not secured for sensitive data of any kind.
+- This environment is temporary and will be removed shortly after the
+  conclusion of the workshop.
+
 If you had problems and problems or questions about the installation steps
 please see the **[How to get help](#how-to-get-help)** section above for
 more assistance.
