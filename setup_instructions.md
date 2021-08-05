@@ -5,9 +5,9 @@ to participate in the workshop. To complete
 this setup, you will need:
 
 -   A Macintosh or Windows workstation connected to the internet.
--   An email from the hosts which has
-    - an invitation you to the workshop Slack channel
-    - an individual login and password for the shared workshop server
+-   Two emails from the hosts
+    1. An email invitation you to the workshop Slack workspace.
+    2. An email containing your individual login and password for the shared workshop server
 -   About 10 minutes.
 
 
