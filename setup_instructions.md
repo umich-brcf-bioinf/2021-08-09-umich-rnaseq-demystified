@@ -15,9 +15,12 @@ this setup, you will need:
 
 -   The workshop will be conducted over Zoom, Slack, Linux (first day), and R
     with RStudio (second day).
+-   Attendees will use their own workstation/laptop to participate in the workshop
+    and access the server environment;  the workstation/laptop should have a
+    microphone, camera, and reliable internet access.
 -   The workshop will use Slack for group messaging. Messages posted to the
     general channel will be visible to all participants in the workshop.
--   For simplicity, partipicants will log in to a pre-built server which
+-   For simplicity, participants will log in to a pre-built server which
     has the necessary data, software, and configuration already installed.
 -   While not required, advanced users may elect to install some software
     locally; see [advanced setup instructions](setup_instructions_advanced).
