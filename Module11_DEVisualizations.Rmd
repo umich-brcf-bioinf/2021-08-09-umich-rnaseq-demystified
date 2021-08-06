@@ -4,14 +4,14 @@ author: "UM Bioinformatics Core"
 date: "`r Sys.Date()`"
 output:
         html_document:
-            theme: readable
+            theme: paper
             toc: true
             toc_depth: 4
             toc_float: true
             number_sections: true
             fig_caption: true
-            keep_md: true
             markdown: GFM
+            code_download: true
 ---
 
 <!--- Allow the page to be wider --->
@@ -20,7 +20,7 @@ output:
         max-width: 1200px;
     }
 </style>
-> # Objectives    
+> # Objectives:    
 > * Understand advantages of using gene ids when analyzing data.    
 > * Given a list of ENSEMBL gene ids, add gene symbols and Entrez accessions.    
 > * Generate common visualizations for differential expression comparisons    
@@ -32,10 +32,9 @@ library(DESeq2)
 library(ggplot2)
 #library(tidyr)
 #library(dplyr)
-library('ggrepel', character.only=TRUE)
-library('pheatmap', character.only=TRUE)
-library('RColorBrewer', character.only=TRUE)
-load("RunningData.RData")
+library(ggrepel)
+library(RColorBrewer)
+load("rdata/RunningData.RData")
 ```
 
 # Differential Expression Workflow
@@ -50,7 +49,7 @@ Here we will
 | 4 | Assess Quality of Raw Reads |
 | 5 | Splice-aware Mapping to Genome |
 | 6 | Count Reads Associated with Genes |
-| :--: | ---- |
+| --- | --- |
 | 7 | Organize project files locally |
 | 8 | Initialize DESeq2 and fit DESeq2 model |
 | 9 | Assess expression variance within treatment groups |
@@ -79,22 +78,34 @@ Then, we need to sep up some objects to run our plotting code, creating a new ob
 df<- res_WT[order(res_WT$padj),] #select our data of interest
 df <- as.data.frame(df) #convert our object type
 df <- cbind("id" = row.names(df), df) #set rownames to valid column
-str(df) 
+str(df)
 
 Comparison <- "ko.control_v_wt.control"
 
-plotPath = "./Figures/"
+plotPath = "figures/"
+
 ```
 
 Once we've setup the annotations we need, we can proceed with generating the volcano plot, including our thresholds.
 ```{r VolcanoPlot, message=FALSE, warning=FALSE}
 pdf(file = paste0(plotPath,'VolcanoPlot_', Comparison, '.pdf'), onefile = FALSE)
-
 # Initialize the plot, saving as object 'p' and specifying the plot type as 'geom_point'
-p <- ggplot(df, aes(x = log2FoldChange, y = -log10(padj))) + geom_point(shape = 21, fill= 'darkgrey', color= 'darkgrey', size = 1) + theme_classic() + xlab('Log2 fold-change') + ylab('-Log10 adjusted p-value')
+
+p <- ggplot(df, aes(x = log2FoldChange, y = -log10(padj))) +
+    geom_point(shape = 21, fill= 'darkgrey', color= 'darkgrey', size = 1) +
+    theme_classic() +
+    xlab('Log2 fold-change') + ylab('-Log10 adjusted p-value')
 
 # Add threshold lines
-p <- p + geom_vline(xintercept = c(0, -log2(fc), log2(fc)), linetype = c(1, 2, 2), color = c('black', 'black', 'black')) + geom_hline(yintercept = -log10(pval), linetype = 2, color = 'black')
+p <- p +
+    geom_vline(
+        xintercept = c(0, -log2(fc), log2(fc)),
+        linetype = c(1, 2, 2),
+        color = c('black', 'black', 'black')) +
+    geom_hline(
+        yintercept = -log10(pval),
+        linetype = 2,
+        color = 'black')
 
 # Add Title that includes comparison name
 p <- p + ggtitle(as.character(Comparison))
@@ -118,19 +129,32 @@ p
     top <- rbind(head(subset(df, df$dot == 1), 5),head(subset(df, df$dot == 2), 5))
     top$label <- top$id
     df <- merge(x = df, y = top[,c('id','label')], by = "id", all.x = TRUE)
-    
+
     #count the number of significan up and down genes, assign value for legend
     df$dot <- factor(df$dot,levels = c(1,2,3), labels = c(paste0('Up: ', sum(df$dot == 1)),paste0('Down: ', sum(df$dot == 2)),'NS'))
     ```
+
     Once we've setup the annotations we need, we can proceed with generating the volcano plot.
+
     ```{r VolcanoPlot2, message=FALSE, warning=FALSE}
     pdf(file = paste0(plotPath,'VolcanoPlot_Fancier', Comparison, '.pdf'), onefile = FALSE)
-    
-    p <- ggplot(df, aes(x = log2FoldChange, y = -log10(padj))) + geom_point(aes(color = df$dot), size = 1) + theme_classic() + xlab('Log2 fold-change') + ylab('-Log10 adjusted p-value')
+
+    p <- ggplot(df, aes(x = log2FoldChange, y = -log10(padj))) +
+        geom_point(aes(color = df$dot), size = 1) +
+        theme_classic() +
+        xlab('Log2 fold-change') + ylab('-Log10 adjusted p-value')
     # specify colors for up-/down-/nonsignificant genes
     p <- p + scale_color_manual(name = '', values=c('#B31B21', '#1465AC', 'darkgray'))
     # add threshol lines
-    p <- p + geom_vline(xintercept = c(0, -log2(fc), log2(fc)), linetype = c(1, 2, 2), color = c('black', 'black', 'black')) + geom_hline(yintercept = -log10(pval), linetype = 2, color = 'black')
+    p <- p +
+        geom_vline(
+            xintercept = c(0, -log2(fc), log2(fc)),
+            linetype = c(1, 2, 2),
+            color = c('black', 'black', 'black')) +
+        geom_hline(
+            yintercept = -log10(pval),
+            linetype = 2,
+            color = 'black')
     # Add Title that includes comparison name
     p <- p + ggtitle(as.character(Comparison))
 
@@ -175,18 +199,22 @@ If we threshold only on significance, we still identify less DE genes than the 6
 
 <details>
     <summary>*Click for code to generate a table of only DE genes*</summary>
-    You may be interested in identifying only the genes that pass your significance thesholds. A useful way to do this is to conditionally subset your results. 
+    You may be interested in identifying only the genes that pass your significance thesholds. A useful way to do this is to conditionally subset your results.
+
+
     ```{r ConditionalSubset, eval=FALSE}
     res_sig <- na.omit(res_WT)
     res_sig <- res_sig[which(res_sig$padj < 0.05 & abs(res_sig$log2FoldChange) >= log2(1.5)), ]
     head(res_sig)
     ```
-    For more details about subsetting tables in R, we recommend reviewing the [Data Carpentry manipulating and analyzing data module](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html).    
+
+    For more details about subsetting tables in R, we recommend reviewing the [Data Carpentry manipulating and analyzing data module](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html).
     We can also annotate our results to include a column that identifies our significant genes.
+
     ```{r ConditionalAnno, eval=FALSE}
     res_WT_DE <- res_WT # copy table
     # add a column and assign all genes are non-significance
-    res_WT_DE$Call <- rep(FALSE, length(res_WT$baseMean)) 
+    res_WT_DE$Call <- rep(FALSE, length(res_WT$baseMean))
 
     # change 'Call' column to TRUE if meets conditions for significant differences
     res_WT_DE[which(!is.na(res_WT_DE$padj) & res_WT_anno$padj < 0.05 & abs(res_WT_DE$log2FoldChange) >= log2(1.5)), ]$Call <- TRUE
@@ -194,15 +222,14 @@ If we threshold only on significance, we still identify less DE genes than the 6
     # reorder table to rank significant genes at the top
     res_WT_DE <- res_WT_DE[order(-res_WT_DE$Call),]
     ```
-    
 </details>
 
 
 ## Adding genome annotations
 
-Bioconductor provides many tools and resources to facilitate access to [genomic annotation resources](http://bioconductor.org/packages/devel/workflows/vignettes/annotation/inst/doc/Annotation_Resources.html). 
+Bioconductor provides many tools and resources to facilitate access to [genomic annotation resources](http://bioconductor.org/packages/devel/workflows/vignettes/annotation/inst/doc/Annotation_Resources.html).
 
-We can access additional genomic annotations using the [`bioMart` package](https://bioconductor.org/packages/release/bioc/html/biomaRt.html). To identify  we'll structure our 'query' or search of the bioMart resources to use the [ENSEMBL id](https://m.ensembl.org/info/genome/genebuild/gene_names.html) from our alignment to add the gene symbols and gene description for each gene. 
+We can access additional genomic annotations using the [`bioMart` package](https://bioconductor.org/packages/release/bioc/html/biomaRt.html). To identify  we'll structure our 'query' or search of the bioMart resources to use the [ENSEMBL id](https://m.ensembl.org/info/genome/genebuild/gene_names.html) from our alignment to add the gene symbols and gene description for each gene.
 
 ### Gene symbols versus Gene ids
 
@@ -228,7 +255,8 @@ ensembl <- useMart("ENSEMBL_MART_ENSEMBL", host = "jul2016.archive.ensembl.org")
 # alternative host
 #ensembl <- useMart("ENSEMBL_MART_ENSEMBL", host="uswest.ensembl.org")
 
-# search for mouse 
+
+# search for mouse
 searchDatasets(mart = ensembl, pattern = "mus")
 ```
 
@@ -264,7 +292,8 @@ res_WT_anno <- res_WT # copy table
 res_WT_anno <- cbind(genes=row.names(res_WT_anno), res_WT_anno[ ,c(1:6)])
 res_WT_anno <- as.data.frame(res_WT_anno)
 
-res_WT_anno <- merge(GeneKey, res_WT_anno, by.x = "external_gene_name", by.y="genes", all.x = FALSE, all.y = TRUE) # combine the two tables using the merge function
+# combine the two tables using the merge function
+res_WT_anno <- merge(GeneKey, res_WT_anno, by.x = "external_gene_name", by.y="genes", all.x = FALSE, all.y = TRUE)
 head(res_WT_anno)
 ```
 
@@ -282,36 +311,36 @@ The most relevant count tables are the raw, filtered count table that we used as
 
 First, we'll setup a new directory for our output tables.
 ```{r OutputTableDir}
-dir.create("./OutputTables")
+dir.create("tables", showWarnings = FALSE)
 ```
 
 To output the raw counts, we will need to use the `counts` function to access the count table from within its larger `DESeqDataSet` object.
 ```{r OutputCountsRaw}
-write.csv(counts(dds, normalized = FALSE), file="./OutputTables/DESeq2_raw_counts.csv")
+write.csv(counts(dds, normalized = FALSE), file="tables/DESeq2_raw_counts.csv")
 ```
 
 Then we'll output the rlog count table, using the `assay` function to access the normalized count table from within its larger `DESeqDataSet` object.
 ```{r OutputCountsRlog}
-write.csv(assay(rld), file="./OutputTables/DESeq2_rlogNormalized_counts.csv")
+write.csv(assay(rld), file="tables/DESeq2_rlogNormalized_counts.csv")
 ```
 
 ## DE results table
 
-Next we'll write out our DE results for the KD comparison to file, since we added additional information to that table. 
+Next we'll write out our DE results for the KD comparison to file, since we added additional information to that table.
 ```{r DEResultsOuput}
-write.csv(res_WT_anno, 
+write.csv(res_WT_anno,
           row.names = FALSE,
           na = ".",
-          file="./OutputTables/DEResults_ko.control_v_wt.control_annotated.csv")
+          file="tables/DEResults_ko.control_v_wt.control_annotated.csv")
 ```
 
 For the other comparsion, we could repeat our annotations or write the DE results directly to file using the `assay` function for the DESeqDataSet object.
 
-```{r DEResultsOuput}
-write.csv(res_Tx, 
+```{r DEResultsOuput2}
+write.csv(res_Tx,
           row.names = FALSE,
           na = ".",
-          file="./OutputTables/DEResults_ko.Tx_v_wt.Tx.csv")
+          file="tables/DEResults_ko.Tx_v_wt.Tx.csv")
 ```
 
 
@@ -345,9 +374,10 @@ The University of Michigan has license and support for additional tools, such as
 * BioMart vignette: https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/accessing_ensembl.html    
 
 
+
 ```{r WriteOut.RData, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 #Hidden code block to write out data for knitting
-save.image(file = "RunningData_Full.RData")
+save.image(file = "rdata/RunningData_Full.RData")
 ```
 
 # Additional Resources
@@ -361,7 +391,8 @@ save.image(file = "RunningData_Full.RData")
 
 ---
 
-# Session Info    
+
+# Session Info
 ```{r SessionInfo}
 sessionInfo()
 ```

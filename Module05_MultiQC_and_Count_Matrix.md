@@ -1,6 +1,22 @@
+---
+title: "Day 1 - Module 05: MultQC and Counts"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
 # MultiQC, Count Matrix, Wrap-Up
 
 In this module, we will learn:
+
 * how MultiQC gathers STAR alignment information, for QC purposes
 * how MultiQC presents the results of STAR alignment
 * how to combine gene-level results into a count matrix

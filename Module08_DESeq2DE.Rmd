@@ -5,13 +5,11 @@ date: "`r Sys.Date()`"
 output:
         html_document:
             theme: paper
-            #css: styles.css
             toc: true
             toc_depth: 4
             toc_float: true
             number_sections: true
             fig_caption: true
-            keep_md: true
             markdown: GFM
             code_download: true
 ---
@@ -23,13 +21,13 @@ output:
     }
 </style>
 
-> # Objectives
+> # Objectives:    
 > * Discuss count normalizations
 > * Execute model fitting for differential expression comparisons
 
 ```{r LoadRunningData, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 library(DESeq2)
-load("RunningData.RData")
+load("rdata/RunningData.RData")
 ```
 
 ![](./images/Day2Workflow.png){width=75%}
@@ -73,6 +71,7 @@ Two common factors that need to be accounted for during normalization are **sequ
 
 ![*Each pink rectangle represents an aligned read, with reads spanning an intron connected by a dashed line. Figure from [HBC  training materials](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html)*](./images/normalization_methods_length.png)      
     
+
 > **Note**: The above figures are originally from a [HBC  tutorial](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html) that also includes a detailed comparison of different normalization (CPM, TPM, FPKM) approaches and their best uses.
 
 ## DESeq2 normalizations
@@ -84,6 +83,7 @@ DESeq2 has an [internal normalization process](https://genomebiology.biomedcentr
 For downstream sample level quality control visualizations, we will use the [rlog transformation](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-data-transformations) that accounts for sequencing depth for each sample and RNA composition differences in the overall experiment.
 
 The rlog transformation produces log2 scale data that has also been normalized to overall library size as well as variance across genes at different mean expression levels. For larger numbers of samples, there is an alternative transformation method, [vst](http://www.bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-data-transformations) that can be used instead for count normalizations. 
+
 
 The command to generate the normalized count object has a few parts, including `dds` as an input and providing a value to the option `blind`.
 ```{r CountNorm}
@@ -123,9 +123,10 @@ head(dds)
 
 **TODO: Format optional exercises as drop down code blocks**
 
-[Optional Exercise]
+#### [Optional Exercise]
 
 If you executed the commands in the option exercise from Module 07, you can fit a seperate DESeq2 model for the patient sample example, which included a covariate in our model. 
+
 ```{r FitModelCovariate, eval= FALSE, message=FALSE}
 dds_patient <- DESeq(dds_patient)
 ```
@@ -156,7 +157,8 @@ If you run through the optional exercises, you can explore the impact of adding 
 
 ```{r WriteOut.RData, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 #Hidden code block to write out data for knitting
-save.image(file = "RunningData.RData")
+save.image(file = "rdata/RunningData.RData")
+
 ```
 
 

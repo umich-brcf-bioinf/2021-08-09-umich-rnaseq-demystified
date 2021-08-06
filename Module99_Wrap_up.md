@@ -1,3 +1,18 @@
+---
+title: "Wrapping up RNA-seq Demystified"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
 # Wrapping up RNA-Seq Demystified
 
 ## In summary
@@ -34,4 +49,4 @@ We welcome your questions and feedback.
 - Travis Saari [trsaari@umich.edu](trsaari@umich.edu)
 - Dana King [damki@umich.edu](damki@umich.edu)
 
-![Sponsors](images/Module1_sponsor_logos.png)
+![Sponsors](images/Module00_sponsor_logos.png)

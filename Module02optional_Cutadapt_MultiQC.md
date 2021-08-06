@@ -1,6 +1,22 @@
+---
+title: "Day 1 - Module 02: More QC"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
 # More QC - Cutadapt and MultiQC
 
 In this module we will learn:
+
 * about the cutadapt software and its uses
 * how to use the cutadapt tool for trimming adapters
 * how to trim all of our samples in a for-loop
