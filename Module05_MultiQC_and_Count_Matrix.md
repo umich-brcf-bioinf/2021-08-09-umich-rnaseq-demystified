@@ -36,7 +36,7 @@ Here we will take the results from the previous module and operate on them a bit
 | 7 | Test for DE Genes |
 
 
-[](images/wayfinder_06.png)
+![](images/wayfinder_06.png)
 
 ## Alignment Statistics with MultiQC
 
