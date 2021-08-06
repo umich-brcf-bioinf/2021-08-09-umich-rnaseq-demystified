@@ -145,8 +145,8 @@ If there are comparisons that are not included in the `resultsName`, since our d
 
 As the function description specifies, we need to provide a list of three elements: the name of the factor in the model design, the name of the numerator for the fold-change, and the name of denominator. 
 ```{r AdditionalComparisons}
-res_Wt <- results(dds, contrast=c("Gtype.Tx", "ko.control", "wt.control")) 
-head(res_Wt)
+res_WT <- results(dds, contrast=c("Gtype.Tx", "ko.control", "wt.control")) 
+head(res_WT)
 ```
 
 
