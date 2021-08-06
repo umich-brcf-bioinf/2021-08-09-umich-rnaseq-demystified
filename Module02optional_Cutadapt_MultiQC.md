@@ -35,15 +35,11 @@ As a reminder, our overall differential expression workflow is shown below. In t
 | **4** | **Assess Quality of Reads** |
 | 5 | Splice-aware Mapping to Genome |
 | 6 | Count Reads Associated with Genes |
-| :--: | ---- |
-| 7 | Organize project files locally |
-| 8 | Initialize DESeq2 and fit DESeq2 model |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+| 7 | Test for DE Genes |
 
-## Cutadapt
+[](images/wayfinder_04.png)
+
+# Cutadapt
 
 [Cutadapt](https://cutadapt.readthedocs.io/en/stable/) is a very widely used read trimming and fastq processing software, cited several thousands of times. It's written in python, and is user-friendly and reasonably fast.
 
@@ -51,91 +47,62 @@ It is used for removing adapter sequences, primers, and poly-A tails, for trimmi
 
 It can operate on both FASTA and FASTQ file formats, and it supports compressed or raw inputs and outputs.
 
-Notably, cutadapt's error-tolerant adapter trimming likely contributed greatly to its early popularity. We will use it to trim the adapters from our reads. As usual, we'll view the help page to get a sense for how to structure our command.
+Notably, cutadapt's error-tolerant adapter trimming likely contributed greatly to its early popularity. We will use it to trim the adapters from our reads. Similar to earlier, we'll discuss the details of cutadapt's functionality and input/output files, before proceeding to an exercise where we can try running the software ourselves.
 
-<br>
-<br>
-<br>
-<br>
 
-Cutadapt Exercise:
+## Cutadapt details
+
+Cutadapt's input and output files are simple to understand given its stated purpose. Both input and output are fastq files - the input being the fastq files that need processing, and output being the fastq files after they've been processed. Depending on the parameters chosen outputs will often have shorter read lengths due to trimming processes and fewer reads included in the file due to filtering.
+
+
+    # Given the paired-end input files:
+    reads/sample_01_R1.fastq.gz
+    reads/sample_01_R2.fastq.gz
+    # Suitable output filename/paths:
+    out_trimmed/sample_01_R1.trimmed.fastq.gz
+    out_trimmed/sample_01_R2.trimmed.fastq.gz
+
+
+As mentioned above, cutadapt has many capabilities. Depending on the parameters given, we can invoke different functionalities. Given our results from the previous QC module, we know that we need to trim adapters from the reads in our fastq files.
+
+
+## Cutadapt Exercise
 
 1. View the help page of the cutadapt tool
 2. Construct a cutadapt command to trim the adapters from paired-end reads
 3. View the output of cutadapt, and verify that it's correct
-4. Construct commands to trim the reads for all of our samples
+
+
+    # View the help page of Cutadapt
+    cutadapt --help
+    # Construct a cutadapt command to trim adapters from paired-end reads
+    cutadapt -a AGATCGGAAGAG -A AGATCGGAAGAG -o out_trimmed/sample_01_R1.trimmed.fastq.gz -p out_trimmed/sample_01_R2.trimmed.fastq.gz reads/sample_01_R1.fastq.gz reads/sample_01_R2.fastq.gz
+    # View the output of cutadapt, (verify presence of output files and peek into the files)
+
 
 <details>
-<summary>Click here for solution - cutadapt exercise</summary>
+<summary>Running cutadapt on all samples using a bash variable</summary>
 
-1. Log back in to aws instance with `ssh <username>@50.17.210.255`
-
-2. View cutadapt help page
-
-        cutadapt --help | less
-        # Will need to type `q` to exit from `less`
-
-3. Trim the adapters from sample_01 with cutadapt
-
-        # Need to create directory for trimmed outputs
-        mkdir ~/analysis/trimmed
-
-        cutadapt -a AGATCGGAAGAG -A AGATCGGAAGAG -o ~/analysis/trimmed/sample_01.trimmed.fastq.gz -p ~/analysis/trimmed/sample_01_R2.trimmed.fastq.gz ~/data/reads/sample_01_R1.fastq.gz ~/data/reads/sample_01_R2.fastq.gz
-
-4. View cutadapt output
-
-        ls -l ~/analysis/trimmed
-
-5. Construct commands to trim the reads for all of our samples
-
-Note: We're re-using the same command. We can update `$SAMPLE`, then press 'up' to re-run cutadapt command with newly defined variable.
-
-        SAMPLE=sample_02
-        cutadapt -a AGATCGGAAGAG -A AGATCGGAAGAG -o ~/analysis/trimmed/${SAMPLE}_R1.trimmed.fastq.gz -p ~/analysis/trimmed/${SAMPLE}_R2.trimmed.fastq.gz ~/data/reads/${SAMPLE}_R1.fastq.gz ~/data/reads/${SAMPLE}_R2.fastq.gz
-
-        SAMPLE=sample_03
-        cutadapt -a AGATCGGAAGAG -A AGATCGGAAGAG -o ~/analysis/trimmed/${SAMPLE}_R1.trimmed.fastq.gz -p ~/analysis/trimmed/${SAMPLE}_R2.trimmed.fastq.gz ~/data/reads/${SAMPLE}_R1.fastq.gz ~/data/reads/${SAMPLE}_R2.fastq.gz
-
-        SAMPLE=sample_04
-        cutadapt -a AGATCGGAAGAG -A AGATCGGAAGAG -o ~/analysis/trimmed/${SAMPLE}_R1.trimmed.fastq.gz -p ~/analysis/trimmed/${SAMPLE}_R2.trimmed.fastq.gz ~/data/reads/${SAMPLE}_R1.fastq.gz ~/data/reads/${SAMPLE}_R2.fastq.gz
-
+[Here](https://gist.github.com/twsaari/aaa43ae3ad45ad4cb2f28f2268e71148) is an example of using a bash variable to run cutadapt on all of our samples.
 
 </details>
-
-<br>
-<br>
-<br>
-<br>
 
 ## Re-running FastQC
 
-Now that we've run cutadapt and trimmed the adapters from our reads, we will quickly re-run FastQC on these trimmed read FASTQs. This will confirm that we've successfully trimmed the adapters, and we'll see that our FASTQ files are ready for sequencing.
+Now that we've run cutadapt and trimmed the adapters from our reads, we will quickly re-run FastQC on these trimmed read FASTQs. This will confirm that we've successfully trimmed the adapters, and we'll see that our FASTQ files are ready for sequencing. Since we've discussed the FastQC input/output and functionality in the previous module, we'll go next to an exercise re-running FastQC on the trimmed read data
 
 Re-running FastQC Exercise:
 
-1. Create directory for new fastqc results
-2. Construct and execute FastQC command to evaluate trimmed read FASTQ files
-3. View the output (filenames)
+1. Construct and execute FastQC command to evaluate trimmed read FASTQ files
+2. View the output (filenames)
 
 
-<details>
-<summary>Click here for solution - re-running FastQC exercise</summary>
+    # Construct the fastqc command
+    fastqc -o out_fastqc_trimmed out_trimmed/*.fastq.gz
+    # Execute the command
+    # Then verify that the output files are present
+    ls -l out_fastqc_trimmed
 
-1. Create directory for new fastqc results
-
-        mkdir ~/analysis/fastqc_trimmed
-
-2. FastQC command to evaluate trimmed FASTQ files
-
-        fastqc -o ~/analysis/fastqc_trimmed ~/analysis/trimmed/*.fastq.gz
-
-
-</details>
-
-<br>
-<br>
-<br>
-<br>
 
 # MultiQC
 
@@ -143,40 +110,48 @@ FastQC is an excellent tool, but it can be tedious to look at the report for eac
 
 MultiQC is designed to interpret and aggregate reports from [various tools](https://multiqc.info/#supported-tools) and output a single report as an HTML document.
 
-<br>
-<br>
-<br>
-<br>
+## MultiQC Details
 
-MultiQC Exercise:
+MultiQC's main output is the report file in HTML format. This can be viewed in a web browser. Additionally, it creates a `data` directory with text files containing the data that MultiQC gathered during its execution - this same data is what is shown in the report.
+
+    # Given an output directory out_multiqc, we should see the following
+    # directory of multiqc data files
+    out_multiqc/multiqc_data/multiqc.log
+    out_multiqc/multiqc_data/multiqc_data.json
+    out_multiqc/multiqc_data/multiqc_fastqc.txt
+    out_multiqc/multiqc_data/multiqc_general_stats.txt
+    out_multiqc/multiqc_data/multiqc_sources.txt
+    # multiqc report
+    out_multiqc/multiqc_report.html
+
+
+## MultiQC Exercise
 
 1. View the multiQC help page
 2. Construct a MultiQC command to aggregate our QC results into a single report
-3. Transfer the MultiQC report to personal computer using scp
-4. View the MultiQC report
+3. View the MultiQC report
+
+
+    # View MultiQC help page
+    multiqc --help
+    # Construct a MultiQC command
+    multiqc --outdir out_multiqc out_fastqc_trimmed/
+
+
+
+
 
 <details>
-<summary>MultiQC solution</summary>
+<summary>Optional exercise - Transfer the MultiQC report to personal computer</summary>
 
-1. View MultiQC help page
+Make sure you're running scp on your **local** computer, requesting a file from the **remote** computer we were just using.
 
-        multiqc --help | less
-        # Will need to type `q` to exit from `less`
+scp command format, with the address for AWS remote
 
-2. MultiQC command to process our trimmed read results
-
-        multiqc --outdir ~/analysis/multiqc ~/analysis/fastqc_trimmed/
-
-3. Log out of aws instance and use scp to transfer MultiQC report to local computer
-
-        exit # log out from remote
-
-        # Now on local
-        scp <username>@50.17.210.255:~/analysis/multiqc/multiqc_report.html ~/workshop_rsd/
-
-4. View MultiQC report
-Use GUI file manager to find your ~/workshop_rsd folder
-Double-click multiqc_report.html (open it with an internet browser)
+```
+# Usage: scp [source] [destination]
+scp <username>@bfx-workshop01.med.umich.edu:~/example_data/out_multiqc/multiqc_report.html ~/rsd-workshop/
+```
 
 </details>
 
