@@ -37,7 +37,7 @@ As a reminder, our overall differential expression workflow is shown below. In t
 | 6 | Count Reads Associated with Genes |
 | 7 | Test for DE Genes |
 
-[](images/wayfinder_04.png)
+![](images/wayfinder_04.png)
 
 # Cutadapt
 

@@ -35,7 +35,7 @@ An overview of the steps of entire differential expression experiment and analys
 | 6 | Count Reads Associated with Genes |
 | 7 | Test for DE Genes |
 
-[](images/wayfinder_04.png)
+![](images/wayfinder_04.png)
 
 # RNA-seq Data
 

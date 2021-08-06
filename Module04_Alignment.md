@@ -36,7 +36,7 @@ We'll discuss the alignment and gene quantification steps which gather the neces
 | 7 | Test for DE Genes |
 
 
-[](images/wayfinder_05.png)
+![](images/wayfinder_05.png)
 
 
 # Alignment and Gene Quantification
