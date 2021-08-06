@@ -21,8 +21,7 @@ output:
     }
 </style>
 
-> # Objectives
->
+> # Objectives:    
 > * Discuss count normalizations
 > * Execute model fitting for differential expression comparisons
 
@@ -61,16 +60,17 @@ Since counts of mapped reads for each gene is proportional to the expression of 
 
 ## Normalization goals
 
-Two common factors that need to be accounted for during normalization are **sequencing depth** and **gene length**. Common normalization approaches (such as FPKM, RPKM, CPM, TPM, etc.) account for one or both of these factors.
+Two common factors that need to be accounted for during normalization are **sequencing depth** and **gene length**. Common normalization approaches (such as FPKM, RPKM, CPM, TPM, etc.) account for one or both of these factors.    
 
-* **Sequencing depth** normalization is neccessary to account for the proportion of reads per gene expected for more deeply sequenced samples (like in pink below) versus a less deeply sequenced sample (like in green below).
+* **Sequencing depth** normalization is neccessary to account for the proportion of reads per gene expected for more deeply sequenced samples (like in pink below) versus a less deeply sequenced sample (like in green below).    
 
-![*Note that each pink or green rectangle represents an aligned read, with reads spanning an intron connected by a dashed line. Figure from [HBC  training materials](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html)*](./images/normalization_methods_depth.png)
+![*Note that each pink or green rectangle represents an aligned read, with reads spanning an intron connected by a dashed line. Figure from [HBC  training materials](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html)*](./images/normalization_methods_depth.png)    
 
+    
+* **Gene length** normalization is necessary since genes of different lengths have different probablities of generating fragments that end up in the library. In the example below, both genes have similar levels of expression. However, the number of reads that map to the longer gene (Gene X) will be much great than the number of reads that map to the short gene (Gene Y).    
 
-* **Gene length** normalization is necessary since genes of different lengths have different probablities of generating fragments that end up in the library. In the example below, both genes have similar levels of expression. However, the number of reads that map to the longer gene (Gene X) will be much great than the number of reads that map to the short gene (Gene Y).
-
-![*Each pink rectangle represents an aligned read, with reads spanning an intron connected by a dashed line. Figure from [HBC  training materials](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html)*](./images/normalization_methods_length.png)
+![*Each pink rectangle represents an aligned read, with reads spanning an intron connected by a dashed line. Figure from [HBC  training materials](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html)*](./images/normalization_methods_length.png)      
+    
 
 > **Note**: The above figures are originally from a [HBC  tutorial](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html) that also includes a detailed comparison of different normalization (CPM, TPM, FPKM) approaches and their best uses.
 
@@ -82,7 +82,8 @@ DESeq2 has an [internal normalization process](https://genomebiology.biomedcentr
 
 For downstream sample level quality control visualizations, we will use the [rlog transformation](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-data-transformations) that accounts for sequencing depth for each sample and RNA composition differences in the overall experiment.
 
-The rlog transformation produces log2 scale data that has also been normalized to overall library size as well as variance across genes at different mean expression levels. For larger numbers of samples, there is an alternative transformation method, [vst](http://www.bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-data-transformations) that can be used instead for count normalizations.
+The rlog transformation produces log2 scale data that has also been normalized to overall library size as well as variance across genes at different mean expression levels. For larger numbers of samples, there is an alternative transformation method, [vst](http://www.bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#count-data-transformations) that can be used instead for count normalizations. 
+
 
 The command to generate the normalized count object has a few parts, including `dds` as an input and providing a value to the option `blind`.
 ```{r CountNorm}
@@ -95,16 +96,16 @@ Next, we'll look at the results of the tranformation.
 head(assay(rld), 3)
 ```
 
-Looking at the rld values, we can see that they are now in log scale. Since we set `blind=TRUE`, the transformation is blind to the sample information we specified in the design formula. The normalized counts are helpful for visualization methods during expresion-level quality assessment but **aren't used in the model fitting**.
+Looking at the rld values, we can see that they are now in log scale. Since we set `blind=TRUE`, the transformation is blind to the sample information we specified in the design formula. The normalized counts are helpful for visualization methods during expresion-level quality assessment but **aren't used in the model fitting**. 
 
 # DESeq2 Model Fitting
 
-Next, we'll fit our standard model using the `DESeq` function and take a look at the objects we generate.
+Next, we'll fit our standard model using the `DESeq` function and take a look at the objects we generate. 
 ```{r FitModelStandard, message=FALSE}
 dds <- DESeq(dds)
 ```
 
-This command applies the model to our data, using the sample information supplied when generating the `dds` object so it takes some time to run.
+This command applies the model to our data, using the sample information supplied when generating the `dds` object so it takes some time to run. 
 
 ```{r FitModelStandardCheck1, eval=TRUE}
 resultsNames(dds)
@@ -122,9 +123,10 @@ head(dds)
 
 **TODO: Format optional exercises as drop down code blocks**
 
-[Optional Exercise]
+#### [Optional Exercise]
 
-If you executed the commands in the option exercise from Module 07, you can fit a seperate DESeq2 model for the patient sample example, which included a covariate in our model.
+If you executed the commands in the option exercise from Module 07, you can fit a seperate DESeq2 model for the patient sample example, which included a covariate in our model. 
+
 ```{r FitModelCovariate, eval= FALSE, message=FALSE}
 dds_patient <- DESeq(dds_patient)
 ```
@@ -156,6 +158,7 @@ If you run through the optional exercises, you can explore the impact of adding 
 ```{r WriteOut.RData, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 #Hidden code block to write out data for knitting
 save.image(file = "rdata/RunningData.RData")
+
 ```
 
 

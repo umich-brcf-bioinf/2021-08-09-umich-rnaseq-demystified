@@ -20,10 +20,11 @@ output:
         max-width: 1200px;
     }
 </style>
-> # Objectives
+
+> # Objectives 
 > * Generate tables of DE results
-> * Understand what a p-value represents.
-> * Understand multiple hypothesis correction application and importance
+> * Understand what a p-value represents.   
+> * Understand multiple hypothesis correction application and importance    
 
 
 ```{r Modules, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
@@ -71,7 +72,8 @@ We have already fit our DESeq2 model, specifing our model as `~ Gtype.Tx` and ou
 
 The first step for any statistical test is to define the *null hypothesis*. In this case, the null hypothesis would be that there is no difference in the expression of a gene between two groups of samples, such as illustrated at the bottom of the first figure in this module. The next step is to use a statistical test to determine if, based on the observed data, the null hypothesis can be rejected.
 
-To do this, [DESeq2 applies the Wald test](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#theory-behind-deseq2) to compare two groups. A Wald test statistic is computed as well as the probability that the observed value or more extreme test statistic would be observed. This probability is called the p-value of the test. If the p-value is smaller than a pre-defined threshold, we would reject the null hypothesis and state that there is evidence against the null, i.e. the gene is differentially expressed. However, if the p-value is larger than our threshold, we would *fail to reject* the null hypothesis, meaning that we lack evidence that the expression of this gene is different *NOT* that we have evidence that the expression is indeed the same in both groups.
+To do this, [DESeq2 applies the Wald test](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#theory-behind-deseq2) to compare two groups. A Wald test statistic is computed as well as the probability that the observed value or more extreme test statistic would be observed. This probability is called the p-value of the test. If the p-value is smaller than a pre-defined threshold, we would reject the null hypothesis and state that there is evidence against the null, i.e. the gene is differentially expressed. However, if the p-value is larger than our threshold, we would *fail to reject* the null hypothesis, meaning that we lack evidence that the expression of this gene is different *NOT* that we have evidence that the expression is indeed the same in both groups. 
+
 
 For a more detailed overview of the statistical comparisons , please refer to [this HBC tutorial](https://hbctraining.github.io/DGE_workshop/lessons/05_DGE_DESeq2_analysis2.html) or the [DESeq2 vignette](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#theory-behind-deseq2).
 
@@ -87,8 +89,7 @@ plotDispEsts(dds)
 
 We can see the raw data plotted in black, the fitted (or expected) dispersion in red, and the normalized data with scaled variance in blue. Since we have fairly small sample sizes for each condition, we see shrinkage for many genes but a reasonable correlation between the expression level and dispersions.
 
-This [HBC tutorial](https://hbctraining.github.io/DGE_workshop/lessons/04_DGE_DESeq2_analysis.html) has a more detailed overview of estimating size factors, estimating gene dispersion, and the shrinkage procedure, as well as examples of concerning dispersion plots that may suggest reassessing quality of the experimental data.
-
+This [HBC tutorial](https://hbctraining.github.io/DGE_workshop/lessons/04_DGE_DESeq2_analysis.html) has a more detailed overview of estimating size factors, estimating gene dispersion, and the shrinkage procedure, as well as examples of concerning dispersion plots that may suggest reassessing quality of the experimental data. 
 
 
 
@@ -96,11 +97,11 @@ This [HBC tutorial](https://hbctraining.github.io/DGE_workshop/lessons/04_DGE_DE
 
 **TODO: Add image or hidden code block to show results example - perhaps from DESeq2 documentation so more generic? **
 
-In the results table that we'll generate the row name are gene symbols and there are [six columns of values](https://support.illumina.com/help/BS_App_RNASeq_DE_OLH_1000000071939/Content/Source/Informatics/Apps/DESeq2ResultFile_swBS.htm#:~:text=baseMean%E2%80%94The%20average%20of%20the,factors%2C%20taken%20over%20all%20samples.&text=log2FoldChange%E2%80%93The%20effect%20size%20estimate,the%20comparison%20and%20control%20groups).
+In the results table that we'll generate the row name are gene symbols and there are [six columns of values](https://support.illumina.com/help/BS_App_RNASeq_DE_OLH_1000000071939/Content/Source/Informatics/Apps/DESeq2ResultFile_swBS.htm#:~:text=baseMean%E2%80%94The%20average%20of%20the,factors%2C%20taken%20over%20all%20samples.&text=log2FoldChange%E2%80%93The%20effect%20size%20estimate,the%20comparison%20and%20control%20groups). 
 
-The first column, 'baseMean' is the average of the normalized count values, dividing by size factors, taken over all samples, and can be interpreted as the relative expression level of that gene across all samples.
+The first column, 'baseMean' is the average of the normalized count values, dividing by size factors, taken over all samples, and can be interpreted as the relative expression level of that gene across all samples. 
 
-The second column, 'log2FoldChange', is the ratio of the expression of the numerator group (`ko.Tx`) over the denominator group (`wt.Tx`). If the value is positive, that means the expression of that gene is greater across the `ko.Tx` samples than across the `wt.Tx` samples. If the value is negative, that means the expression of that gene is greater across the `wt.Tx` samples. The third column, 'lfcSE' is the standard error for the log2 fold change estimate.
+The second column, 'log2FoldChange', is the ratio of the expression of the numerator group (`ko.Tx`) over the denominator group (`wt.Tx`). If the value is positive, that means the expression of that gene is greater across the `ko.Tx` samples than across the `wt.Tx` samples. If the value is negative, that means the expression of that gene is greater across the `wt.Tx` samples. The third column, 'lfcSE' is the standard error for the log2 fold change estimate. 
 
 The fourth column, 'stat', is the calculated Wald statistic for that gene, while the fifth column 'pvalue' is the *nominal* significance for that gene.
 
@@ -116,15 +117,15 @@ DESeq2 reduces the number of genes that will be tested by removing genes with lo
 
 The default FDR rate cutoff for DESeq2 is `alpha = 0.05`. By setting the cutoff to < 0.05, we expect that the proportion of false positives amongst our differentially expressed genes is now controlled to 5%. For example, if we call 500 genes as differentially expressed with this FDR cutoff, we expect only 25 of them to be false positives. DESeq2 vignette's includes a [further discussion of filtering and multiple testing](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#independent-filtering-and-multiple-testing)
 
-> **Note on 'padj' values set to NA**
-> As discussed in the [HBC tutorial](https://hbctraining.github.io/DGE_workshop/lessons/05_DGE_DESeq2_analysis2.html) as well as the [DESeq2 vignette](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#i-want-to-benchmark-deseq2-comparing-to-other-de-tools.)
-> * If within a row, all samples have zero counts, the baseMean column will be zero, and the log2 fold change estimates, p-value and adjusted p-value will all be set to NA.
-> * If a row contains a sample with an extreme count outlier then the p-value and adjusted p-value will be set to NA. These outlier counts are detected by Cook’s distance.
-> * If a row is filtered by automatic independent filtering, for having a low mean normalized count, then only the adjusted p-value will be set to NA.
+> **Note on 'padj' values set to NA**    
+> As discussed in the [HBC tutorial](https://hbctraining.github.io/DGE_workshop/lessons/05_DGE_DESeq2_analysis2.html) as well as the [DESeq2 vignette](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#i-want-to-benchmark-deseq2-comparing-to-other-de-tools.)    
+> * If within a row, all samples have zero counts, the baseMean column will be zero, and the log2 fold change estimates, p-value and adjusted p-value will all be set to NA.    
+> * If a row contains a sample with an extreme count outlier then the p-value and adjusted p-value will be set to NA. These outlier counts are detected by Cook’s distance.     
+> * If a row is filtered by automatic independent filtering, for having a low mean normalized count, then only the adjusted p-value will be set to NA.   
 
 ## Generating results
 
-We can check what comparisons were automatically generated during fitting using the `resultsNames()`.
+We can check what comparisons were automatically generated during fitting using the `resultsNames()`. 
 ```{r Results1}
 resultsNames(dds)
 ```
@@ -137,15 +138,15 @@ res_Tx <- results(dds, name=Comparison)
 
 ## How to generate additional contrasts
 
-If there are comparisons that are not included in the `resultsName`, since our dds object already has the fitted data we can generate Wald test results by specifying those comparisons as an additional arguement to the results function.
-```{r ResultsFunction, eval = FALSE}
+If there are comparisons that are not included in the `resultsName`, since our dds object already has the fitted data we can generate Wald test results by specifying those comparisons as an additional arguement to the results function. 
+```{r ResultsFunction}
 ?results
 ```
 
-As the function description specifies, we need to provide a list of three elements: the name of the factor in the model design, the name of the numerator for the fold-change, and the name of denominator.
+As the function description specifies, we need to provide a list of three elements: the name of the factor in the model design, the name of the numerator for the fold-change, and the name of denominator. 
 ```{r AdditionalComparisons}
-res_WT <- results(dds, contrast=c("Gtype.Tx", "ko.control", "wt.control"))
-head(res_WT)
+res_Wt <- results(dds, contrast=c("Gtype.Tx", "ko.control", "wt.control")) 
+head(res_Wt)
 ```
 
 
@@ -154,11 +155,10 @@ Last, we'll at our own results table.
 head(res_Tx)
 ```
 
-
-
 Now that we've generated our differential comparisons and have an understanding of our results, including multiple hypothesis correction, we can proceed with generating summary figures and tables for our differential expression analysis.
 
 ---
+
 
 # Sources Used
 * HBC DGE training module, part 1: https://hbctraining.github.io/DGE_workshop/lessons/04_DGE_DESeq2_analysis.html
@@ -183,5 +183,6 @@ sessionInfo()
 ```
 
 ---
+
 
 These materials have been adapted and extended from materials listed above. These are open access materials distributed under the terms of the [Creative Commons Attribution license (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.
