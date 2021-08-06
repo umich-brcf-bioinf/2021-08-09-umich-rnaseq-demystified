@@ -192,7 +192,7 @@ A new window should pop up in your console. We'll then use the blue floppy disc 
 
 **TODO: Add screen shot highlighting 'save' button**
 
-This new "RNASeqAnalysis.R" will serve as a record of our analysis and should be saved in a separate location from our raw data, such as our current working directory of `RNASeqDemystified`. 
+This new "RNASeqAnalysis.R" will serve as a record of our analysis and should be saved in a separate location from our raw data, such as our current working directory of `2021-08-09-umich-rnaseq-demystified`. 
 
 
 *Note: This code file can also serve as a starting point for working through differential expression comparisons with other example datasets or your own data in the future.*
