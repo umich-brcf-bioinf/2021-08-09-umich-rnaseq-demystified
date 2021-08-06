@@ -1,10 +1,25 @@
+---
+title: "Day 1 - Module 02: QC"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
 # QC
 
 In this Quality Control (QC) module, we will learn:
+
 * what a FASTQ file is
 * how to use FastQC to assess the quality of sequencing reads
 * how to interpret FastQC reports
-* how to transfer files on a remote server to a personal computer
 
 # Differential Expression Workflow
 
@@ -18,17 +33,13 @@ An overview of the steps of entire differential expression experiment and analys
 | **4** | **Assess Quality of Reads** |
 | 5 | Splice-aware Mapping to Genome |
 | 6 | Count Reads Associated with Genes |
-| :--: | ---- |
-| 7 | Organize project files locally |
-| 8 | Initialize DESeq2 and fit DESeq2 model |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+| 7 | Test for DE Genes |
 
-# Data Types
+[](images/wayfinder_04.png)
 
-Analysis of RNA-seq data requires the use of many types of data. The three most common that we will encounter are:
+# RNA-seq Data
+
+Analysis of RNA-seq requires the use of many types of data. The three most common that we will encounter are:
 
 - Sequence data
 - Genome feature data
@@ -98,92 +109,19 @@ The first step in many high-throughput sequencing analyses is to examine the qua
 - Adapter content
 - Overrepresented sequences
 
-<br>
-<br>
-<br>
-<br>
+Toward the end of this module, we'll run FastQC. For now, we'll discuss the output files it produces and view some examples.
 
-## FastQC Exercise
+## FastQC output files
 
-Let's try running FastQC on our FASTQ input files.
+FastQC outputs an HTML report and a zipped archive of intermediate files. These will appear like this:
 
-1. Make sure logged in to remote aws instance
-2. View FastQC help file
-3. Prepare to run FastQC
-4. Watch FastQC process the files / gather quality metrics
-5. View output of FastQC (the filenames)
+    sample_01_R1.trimmed_fastqc.html
+    sample_01_R1.trimmed_fastqc.zip
 
-We can see some HTML reports, but there isn't a way to open them on the remote machine in the command-line interface (CLI). This is a good opportunity to learn how to pull files from a remote server onto our local computer that we're using.
+For most situations, opening the HTML report and inspecting the results will provide the information necessary to make decisions about your data.
 
-<details>
-<summary>Click here for solution - FastQC exercise</summary>
+First we'll take a look at some of the figures found in a typical FastQC report, then we'll view an example of an HTML report and try to make interpretations from this. Finally, we'll run FastQC to produce some of these files from our example dataset.
 
-1. Ensure you're on the remote aws instance
-2. View FastQC help file
-
-        fastqc --help | less
-        # Will need to type `q` to exit from `less`
-
-3. Prepare to run FastQC
-
-        # Make the output directory before running
-        mkdir ~/analysis/fastqc
-        fastqc -o ~/analysis/fastqc ~/data/reads/*.fastq.gz
-
-4. Watch FastqQC output during processing
-5. View output of FastQC
-
-        ls -l analysis/fastqc/
-
-</details>
-
-<br>
-<br>
-<br>
-<br>
-
-## Remote File Transfer Exercise
-
-Transferring Files Exercise:
-
-1. View the manual page of the scp tool
-2. Create / execute an scp command on personal computer, to transfer one (or more) of the FastQC reports from the remote system.
-    remote ---transfer---> local
-3. Ensure that file(s) transferred to personal computer
-4. View the FastQC report and interpret
-
-<details>
-<summary>Click here for solution - Remote file transfer exercise</summary>
-
-0. Ensure you're on your **local** computer
-
-        # If currently on remote:
-        exit
-
-1. View scp manual page
-
-        man scp
-        # Will need to type `q` to exit the manual
-
-2. Use scp to transfer a FastQC report to local computer
-
-        scp <username>@50.17.210.255:~/analysis/fastqc/sample_01_R1_fastqc.html ~/workshop_rsd
-        # you will need to enter your password to transfer the file
-
-3. Ensure file is on local computer
-
-        ls ~/workshop_rsd/
-
-4. View the FastQC report
-Use GUI file manager to find your ~/workshop_rsd folder
-Double-click sample_01_R1_fastqc.html (open it with an internet browser)
-
-</details>
-
-<br>
-<br>
-<br>
-<br>
 
 ## Interpreting FastQC
 
@@ -248,22 +186,39 @@ We see that there is a high number of reads with polyA tails. This could be a re
 
 </center>
 
-#### Adapter Content
+### Adapter Content
 
 Adapter sequence typically is not present in standard RNA-seq libraries. However, if the fragment sizes resulting from library prep are smaller than the read length on the sequencer, then it is possible to get "read-through" of the adapter.
 
 This can be dealt with by adding a step to the workflow that trims the reads of adapter content with a tool such as [cutadapt](https://cutadapt.readthedocs.io/en/stable/). We will see this in a later module.
 
+## Examining a FastQC report
 
-# Acting on QC
+There is a report located at ~/data/fastqc_trimmed/sample_01_R1.trimmed_fastqc.html.
 
-## What does good QC mean?
+We'll view this report and try to interpret some of the figures
+
+## Acting on QC - Good or Bad Results?
 
 Good QC on raw reads means that RNA quality, library preparation, and sequencing seem fine to proceed with the next steps of analysis. It **does not** mean that you will find differentially expressed genes downstream.
 
-## What does bad QC mean?
-
 The source of bad QC measures are not always easy to determine, and doesn't necessarily mean the data cannot be used downstream. However, bad QC measures may indicate that hazards lie ahead, and that certain steps upstream of sequencing (sample handling, RNA extraction, library preparation) might need to be altered.
+
+## FastQC Exercise
+
+Let's try running FastQC on our FASTQ input files.
+
+1. View FastQC help file
+2. Construct the call to FastQC
+3. Watch FastQC process the files / gather quality metrics
+4. View the output of FastQC (the filenames)
+
+    # View the FastQC help file
+    fastqc -h
+    # Contstruct the call to FastQC
+    fastqc -o out_fastqc/ input_reads/*.fastq.gz
+    # Watch the output of FastQC
+    # View the output of FastQC (the filenames)
 
 ---
 

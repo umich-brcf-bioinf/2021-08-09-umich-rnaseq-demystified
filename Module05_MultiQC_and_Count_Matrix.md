@@ -1,6 +1,22 @@
+---
+title: "Day 1 - Module 05: MultQC and Counts"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
 # MultiQC, Count Matrix, Wrap-Up
 
 In this module, we will learn:
+
 * how MultiQC gathers STAR alignment information, for QC purposes
 * how MultiQC presents the results of STAR alignment
 * how to combine gene-level results into a count matrix
@@ -17,15 +33,12 @@ Here we will take the results from the previous module and operate on them a bit
 | 4 | Assess Quality of Raw Reads |
 | **5** | **Splice-aware Mapping to Genome** |
 | **6** | **Count Reads Associated with Genes** |
-| :--: | ---- |
-| 7 | Organize project files locally |
-| 8 | Initialize DESeq2 and fit DESeq2 model |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+| 7 | Test for DE Genes |
 
-# Running MultiQC
+
+[](images/wayfinder_06.png)
+
+## Alignment Statistics with MultiQC
 
 After aligning reads it is often helpful to know how many reads were uniquely aligned, mapped to multiple loci, or not mapped at all. The `sample_NLog.final.out` file which is output alongside the alignments in `sample_N.temp/` folder (we used the `--keep-intermediate-files` flag), reports this information:
 
@@ -69,37 +82,20 @@ After aligning reads it is often helpful to know how many reads were uniquely al
                             % of chimeric reads |	0.00%
 ```
 
-We will run `multiqc`, and it will detect these reports from STAR and include them in the report.
+In a moment we will run `multiqc`, and it will detect these reports from STAR and include them in the report. When we run MultiQC, its main output is the report file in HTML format. This can be viewed in a web browser. Additionally, it creates a `data` directory with text files containing the data that MultiQC gathered during its execution - this same data is what is shown in the report.
 
-MultiQC With STAR Exercise:
+    # Given an output directory out_multiqc, we should see the following
+    # directory of multiqc data files
+    out_multiqc/multiqc_data/multiqc.log
+    out_multiqc/multiqc_data/multiqc_data.json
+    out_multiqc/multiqc_data/multiqc_general_stats.txt
+    out_multiqc/multiqc_data/multiqc_rsem.txt
+    out_multiqc/multiqc_data/multiqc_sources.txt
+    # multiqc report
+    out_multiqc/multiqc_report.html
 
-1. Note the contents of our analysis directory, including the RSEM / STAR contents
-2. Run MultiQC on this directory
-3. Transfer the report back to local computer and view it
 
-<details>
-<summary>Click here for solution - MultiQC with STAR exercise</summary>
-
-1. Note contents of our analysis directory, including RSEM / STAR contents
-
-        ls -l ~/analysis/rsem_star/
-
-2. Run MultiQC on this directory
-
-        multiqc --outdir ~/analysis/multiqc_star ~/analysis/rsem_star
-
-3. Transfer the report back to local computer and view it
-
-        exit # log out from remote
-
-        # Now on local
-        scp <username>@50.17.210.255:~/analysis/multiqc_star/multiqc_report.html ~/workshop_rsd/multiqc_report_star.html
-
-Use GUI file manager to find your ~/workshop_rsd folder. Double-click multiqc_report.html (open it with an internet browser).
-
-</details>
-
-The newly included STAR section will look something like the following:
+If we open the MultiQC report, the newly included STAR section will look something like the following:
 
 <center>
 
@@ -110,140 +106,68 @@ Source: [MultiQC example report](https://multiqc.info/examples/rna-seq/multiqc_r
 
 </center>
 
+## MultiQC With STAR Exercise:
 
-# Creating the count matrix
+1. Note the contents of our analysis directory, including the STAR contents
+2. Construct a MultiQC command and execute it on this directory
+3. View the MultiQC report
+
+    # View MultiQC help page
+    multiqc --help
+    # Construct a MultiQC command and execute it
+    multiqc --outdir out_multiqc_rsem out_rsem_star/
+    # Verify that the output files are present
+
+
+<details>
+<summary>Optional exercise - Transfer the MultiQC report to personal computer</summary>
+
+Make sure you're running scp on your **local** computer, requesting a file from the **remote** computer we were just using.
+
+scp command format, with the address for AWS remote
+
+```
+# Usage: scp [source] [destination]
+scp <username>@bfx-workshop01.med.umich.edu:~/example_data/out_multiqc_rsem/multiqc_report.html ~/rsd-workshop/multiqc_report_rsem.html
+```
+
+</details>
+
+
+## Creating the count matrix
 
 We have viewed some of the gene expression quantification results individually. It can be useful to combine these expression values into a count matrix. This is helpful when gathering expression-level QC metrics, as well as for input into a differential gene expression program such as DESeq2.
 
-Count Matrix Exercise:
+There are many ways to combine these results into a count matrix. For this workshop, we'll use a small python script to `combine.py` that we've made for this purpose. To understand the process a bit more, let's review the `.genes.results` files that we want to combine and discuss some details of the script. Finally, we'll end with an exercise creating a count matrix.
 
-1. View the `.genes.results` files that we want to combine
-2. Understand the process of creating a count matrix
-3. View the help file of `combine.py`
-4. Construct / execute a command to combine our results into a count matrix
-5. View the resulting count matrix
 
-<details>
-<summary>Click here for solution - Creating count matrix exercise</summary>
+If we review the *.genes.results files, we can see various columns of data output from RSEM that we discussed in the last module.
 
-1. Log back in to aws instance with `ssh <username>@50.17.210.255`
-2. View the `.genes.results` files that we want to combine
+    # Review of *.genes.results file contents
+    gene_id                 transcript_id(s)                        length  effective_length        expected_count  TPM     FPKM
+    ENSMUSG00000000001      ENSMUST00000000001                      3262.00 3116.28                 601.00          45.50   36.70
+    ENSMUSG00000000003      ENSMUST00000000003,ENSMUST00000114041   799.50  653.78                  0.00            0.00    0.00
 
-        head -n 1 ~/analysis/rsem_star/sample_01.genes.results
-        # It's easiest to look at the first line (header)
+We'll take the `expected_count` column from each sample's data, and combine these so that we have an aggregated data matrix with a row for each gene and a column for each sample.
 
-3. Understand the process of creating a count matrix
-4. View the help file of `combine.py`
-
-        combine.py --help
-
-5. Construct / execute a command to combine our results into a count matrix
-
-        combine.py --output_file ~/analysis/count_matrix.tsv --input_path 'analysis/rsem_star/*.genes.results' --column expected_count --id_columns gene_id
-
-6. View the resulting count matrix
-
-        head ~/analysis/count_matrix.tsv
-
-</details>
-
+The input for this step will be the directory of *.genes.results files from RSEM, and the output will be a tab-separated count matrix file which we can use for count-level QC and differential expression analysis.
 
 
 <details>
-    <summary>Contents of combine.py script</summary>
+<summary>Contents of combine.py script</summary>
 
-    There are many ways to combine these results into a count matrix. Here is how this python script we've used, `combine.py`, works:
-```
-'''Combines the count/FPKM/TPM from individual sample outputs into one matrix'''
-import argparse
-from glob import glob
-from os.path import commonprefix, basename
-import re
-import sys
-
-import numpy as np
-import pandas as pd
-
-__version__ = '0.0.1'
-_DESCRIPTION = \
-'''Accepts tab-separated sample isoform files and combines into single tab-separated matrix.'''
-
-def _commonsuffix(strings):
-    return commonprefix(list(map(lambda s:s[::-1], strings)))[::-1]
-
-def _build_sample_files(file_glob):
-    sample_files = []
-    file_names = glob(file_glob)
-    suffix = _commonsuffix(file_names)
-    for file_name in sorted(file_names):
-        sample_name = basename(file_name).replace(suffix, '')
-        sample_files.append((sample_name, file_name))
-    return sample_files
-
-def _parse_command_line_args(sys_argv):
-    parser = argparse.ArgumentParser(
-        description=_DESCRIPTION)
-    parser.add_argument(
-        '-o', '--output_file',
-        type=str,
-        help='path to combined output file',
-        required=True)
-    parser.add_argument(
-        '-i', '--input_path',
-        type=str,
-        help='path (including linux wildcards) to sample input files; surround with single quotes when usimg wildcards',
-        required=True)
-    parser.add_argument(
-        '-c', '--column',
-        type=str,
-        help='full name of column to extract from inputs (e.g. FPKM)',
-        required=True)
-    parser.add_argument(
-        '--id_columns',
-        type=str,
-        help='gene_id or gene_id,transcript_id',
-        required=True)
-
-    parser.add_argument('--version',
-                    '-V',
-                    action='version',
-                    version=__version__)
-    args = parser.parse_args(sys_argv)
-    args.id_columns=args.id_columns.split(',')
-    return args
-
-
-def main(argv):
-    print('combine v{}'.format(__version__))
-    print('command line args: {}'.format(' '.join(argv)))
-    args = _parse_command_line_args(argv[1:])
-
-    sample_files = _build_sample_files(args.input_path)
-    output_filename = args.output_file
-    merge_column = args.column
-
-    name, file = sample_files.pop(0)
-    df=pd.read_csv(file, sep='\t', low_memory=False)
-    # Round expected counts and convert to integers
-    df['expected_count'] = np.rint(df['expected_count']).astype(int)
-
-    new=pd.DataFrame(df[args.id_columns+[merge_column]])
-    new.rename(columns={merge_column:name},inplace=True)
-    for (name, file) in sample_files:
-        df=pd.read_csv(file, sep='\t')
-        df['expected_count'] = np.rint(df['expected_count']).astype(int)
-        new[name]=df[merge_column]
-
-    print('saving {} ({} x {})'.format(output_filename, *new.shape))
-    new.to_csv(output_filename,sep='\t',index=False)
-    print('done')
-
-if __name__ == '__main__':
-    main(sys.argv)
-```
+[Here](https://gist.github.com/twsaari/12c5aa2773292c09c1809d5a3db66903) are the contents of the python script we'll use, `combine.py`:
 </details>
 
+## Count Matrix Exercise:
 
----
+1. View the help file of `combine.py`
+2. Construct / execute a command to combine our results into a count matrix
+3. View the resulting count matrix
 
-These materials have been adapted and extended from materials created by the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.
+    # View the help file of combine.py
+    combine.py --help
+    # Construct and execute the command to combine.py
+    combine.py --input_path out_rsem_star --output_file combined_counts.txt -c expected_count --id_columns gene_id
+    # View the resulting count matrix
+    less combined_counts.txt

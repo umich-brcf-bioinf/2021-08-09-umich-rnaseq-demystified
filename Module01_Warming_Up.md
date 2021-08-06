@@ -1,6 +1,22 @@
-## Warming Up
+---
+title: "Day 1 - Module 01: Warming up"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
+# Warming Up
 
 In this module, we will:
+
 * cover basic materials needed
 * familiarize ourselves with remote computing
 * prepare for later modules

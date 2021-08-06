@@ -1,6 +1,22 @@
+---
+title: "Day 1 - Module 04: Alignment"
+author: "UM Bioinformatics Core"
+output:
+        html_document:
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true
+            number_sections: true
+            fig_caption: true
+            markdown: GFM
+            code_download: true
+---
+
 # Alignment
 
 In this module, we will learn:
+
 * the concept of splice-aware alignments
 * the two steps needed to run RSEM+STAR
 * details of SAM and BAM files, and RSEM outputs
@@ -17,13 +33,11 @@ We'll discuss the alignment and gene quantification steps which gather the neces
 | 4 | Assess Quality of Raw Reads |
 | **5** | **Splice-aware Mapping to Genome** |
 | **6** | **Count Reads Associated with Genes** |
-| :--: | ---- |
-| 7 | Organize project files locally |
-| 8 | Initialize DESeq2 and fit DESeq2 model |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+| 7 | Test for DE Genes |
+
+
+[](images/wayfinder_05.png)
+
 
 # Alignment and Gene Quantification
 
@@ -44,7 +58,7 @@ We should note that the default parameters for STAR are optimized for **mammalia
 
 <center>
 
-![Splice-aware alignmnet](images/splice_aware.png)
+![Splice-aware alignmentt](images/splice_aware.png)
 
 Credit: https://raw.githubusercontent.com/hbctraining/Intro-to-rnaseq-hpc-O2/master/lectures/Sequence_alignment.pdf
 
@@ -66,96 +80,43 @@ The primary issue that RSEM attempts to solve is that reads can align to multipl
 
 RSEM can be run with just two commands: the first `rsem-prepare-reference` ([manual](https://deweylab.github.io/RSEM/rsem-prepare-reference.html)) builds an index for STAR and RSEM to use, and the second `rsem-calculate-expression` ([manual](https://deweylab.github.io/RSEM/rsem-calculate-expression.html)) does the alignment and gene quantification.
 
-## `rsem-prepare-reference`
+We'll explore the expected outputs from these commands and discuss their contents, before creating our own reference and aligning reads with our example data.
 
- A reference index is essentially a lookup table that speeds up the finding of sequence matches for alignment. In the case of a splice-aware aligner, the reference index is also aware of the various splice junctions at locations in the gene model, and a subset of reads will map across these. This allows us to infer isoform usage later on.
+## `rsem-prepare-reference` Details
 
- <br>
- <br>
- <br>
- <br>
+ The purpose of `rsem-prepare-reference` is to create a reference index for alignment. A reference index is essentially a lookup table that speeds up the finding of sequence matches for alignment. In the case of a splice-aware aligner, the reference index is also aware of the various splice junctions at locations in the gene model, and a subset of reads will map across these. This allows us to infer isoform usage later on.
 
- RSEM Prepare Reference Exercise:
+`rsem-prepare-reference` will use a FASTA file and a GTF as inputs, and it will produce a number of large files which make up the index. RSEM has the flexible capability of supporting multiple different aligners. We'll be using STAR. The output files therefore contain items from the indexing process of STAR and RSEM. These files allow for the fast and efficient search and retrieval of sequence and gene-model information during alignment and quantification. The outputs will look like the following:
 
- 1. View the help page for rsem-prepare-reference
- 2. Create and execute a command that will index our example genome
- 3. Examine the output of the rsem
+    GRCh38.98.chr22reduced.chrlist
+    GRCh38.98.chr22reduced.grp
+    GRCh38.98.chr22reduced.idx.fa
+    GRCh38.98.chr22reduced.n2g.idx.fa
+    GRCh38.98.chr22reduced.seq
+    GRCh38.98.chr22reduced.ti
+    GRCh38.98.chr22reduced.transcripts.fa
+    Genome
+    Log.out
+    SA
+    SAindex
+    chrLength.txt
+    chrName.txt
+    chrNameLength.txt
+    chrStart.txt
+    exonGeTrInfo.tab
+    exonInfo.tab
+    geneInfo.tab
+    genomeParameters.txt
+    sjdbInfo.txt
+    sjdbList.fromGTF.out.tab
+    sjdbList.out.tab
+    transcriptInfo.tab
 
-The result of `rsem-prepare-reference` is a folder containing files for RSEM and STAR to be able to look up genomic location and gene model information as quickly and efficiently as possible.
+## `rsem-calculate-expression` Details
 
-<details>
-<summary>Click here for solution - RSEM prepare reference exercise</summary>
+After preparing the reference index, we can do alignment and quantification with the `rsem-calculate-expression` command ([here](https://deweylab.github.io/RSEM/rsem-calculate-expression.html) is a link to the manual). For our inputs, we will be using our FASTQ reads and the path to the reference index that we create.
 
-0. Ensure you're on the remote aws instance
-1. View rsem-prepare-reference help page
-
-        rsem-prepare-reference --help
-        # Will need to type `q` to exit from help page
-
-2. Command to index our example genome
-
-        rsem-prepare-reference --gtf ~/data/refs/GRCh38.98.chr22reduced.gtf --star --num-threads 1 ~/data/refs/GRCh38.98.chr22reduced.fa ~/data/refs/GRCh38.98.chr22reduced
-
-3. Examine the output of rsem-prepare-reference
-
-        ls -l ~/data/refs
-
-</details>
-
-<br>
-<br>
-<br>
-<br>
-
-## `rsem-calculate-expression`
-
-After preparing the reference index, we can do alignment and quantification with the `rsem-calculate-expression` ([manual](https://deweylab.github.io/RSEM/rsem-calculate-expression.html)) command. For our inputs, we will be using our FASTQ reads and the path to the reference index we just created.
-
-<br>
-<br>
-<br>
-<br>
-
-RSEM Calculate Expression Exercise:
-
-1. View the help page for rsem-calculate-expression
-2. Create a command to execute RSEM / STAR alignment and quantification for one of our samples
-3. Iterate through our samples and align them all
-
-<details>
-<summary>Click here for solution - RSEM calculate expression exercise</summary>
-
-1. View `rsem-calculate-expression` help page
-
-2. Command to align and quantify sample_01
-
-        # Need to create directory for rsem + STAR outputs
-        mkdir ~/analysis/rsem_star
-
-        SAMPLE=sample_01
-        rsem-calculate-expression --star --num-threads 1 --star-gzipped-read-file --star-output-genome-bam --keep-intermediate-files --keep-intermediate-files --paired-end ~/analysis/trimmed/${SAMPLE}_R1.trimmed.fastq.gz ~/analysis/trimmed/${SAMPLE}_R2.trimmed.fastq.gz ~/data/refs/GRCh38.98.chr22reduced ~/analysis/rsem_star/${SAMPLE}
-
-3. Iterate through our samples to align them all
-
-Note: We're re-using the same command. We can update `$SAMPLE`, then press 'up' to re-run cutadapt command with newly defined variable.
-
-        SAMPLE=sample_02
-        rsem-calculate-expression --star --num-threads 1 --star-gzipped-read-file --star-output-genome-bam --keep-intermediate-files --paired-end ~/analysis/trimmed/${SAMPLE}_R1.trimmed.fastq.gz ~/analysis/trimmed/${SAMPLE}_R2.trimmed.fastq.gz ~/data/refs/GRCh38.98.chr22reduced ~/analysis/rsem_star/${SAMPLE}
-
-        SAMPLE=sample_03
-        rsem-calculate-expression --star --num-threads 1 --star-gzipped-read-file --star-output-genome-bam --keep-intermediate-files --paired-end ~/analysis/trimmed/${SAMPLE}_R1.trimmed.fastq.gz ~/analysis/trimmed/${SAMPLE}_R2.trimmed.fastq.gz ~/data/refs/GRCh38.98.chr22reduced ~/analysis/rsem_star/${SAMPLE}
-
-        SAMPLE=sample_04
-        rsem-calculate-expression --star --num-threads 1 --star-gzipped-read-file --star-output-genome-bam --keep-intermediate-files --paired-end ~/analysis/trimmed/${SAMPLE}_R1.trimmed.fastq.gz ~/analysis/trimmed/${SAMPLE}_R2.trimmed.fastq.gz ~/data/refs/GRCh38.98.chr22reduced ~/analysis/rsem_star/${SAMPLE}
-
-</details>
-
-<br>
-<br>
-<br>
-<br>
-
-RSEM+STAR, after completing above, outputs the following files for our sample:
+There are numerous outputs, which are laid out in the following table:
 
 | File | Description |
 | ---- | ----------- |
@@ -164,11 +125,10 @@ RSEM+STAR, after completing above, outputs the following files for our sample:
 | `sample_N.genes.results` | Gene-level results to be used in downstream DE analysis. |
 | `sample_N.isoforms.results` | Isoform-level results. Not used for this workshop. |
 
-# Output of RSEM+STAR
 
 The two results we will use most often from RSEM+STAR are the gene-level quantifications (`sample_N.genes.results`) and the alignments in genome-coordinates (`sample_N.genome.bam`). Each sample for which we run RSEM+STAR will have these output files named after the sample.
 
-## Genome Alignments
+### Genome Alignments
 
 The `sample_N.genome.bam` alignments file is a special, compressed, version of a SAM file (sequence alignment/map). In order to view it, we have to use a special program called [`samtools`](https://www.htslib.org/doc/samtools.html).
 
@@ -181,15 +141,12 @@ If we were too peek inside of `sample_N.genome.bam`, we would see:
 
 The [SAM format](https://en.wikipedia.org/wiki/SAM_(file_format)) gives information about where each read maps to in the genome (one read per line), and has information about that mapping.
 
-## Gene-level Quantification
+### Gene-level Quantification
 
 If we were to look at the top 3 lines of `sample_N.genes.results`, we see it is a plain-text file separated by tabs where each row is a gene, and the columns are described the first row.
 
 
     $ head -3 ~/workshop_data/rsem_star/sample_N.genes.results
-    gene_id                 transcript_id(s)                        length  effective_length        expected_count  TPM     FPKM
-    ENSMUSG00000000001      ENSMUST00000000001                      3262.00 3116.28                 601.00          45.50   36.70
-    ENSMUSG00000000003      ENSMUST00000000003,ENSMUST00000114041   799.50  653.78                  0.00            0.00    0.00
 
 
 | Column | Description |
@@ -206,6 +163,34 @@ If we were to look at the top 3 lines of `sample_N.genes.results`, we see it is 
 The `genes.results` files for each sample can be directly imported into DESeq2 using the [`tximport`](https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc/tximport.html#rsem) R Bioconductor package.
 
 Alternatively, we can combine these results into a count matrix. The count matrix can be very useful, since it contains summary-level data in a widely supported format, this makes it great for sharing and as input into different analyses.
+
+
+## RSEM Prepare Reference Exercise:
+
+1. View the help page for rsem-prepare-reference
+2. Create and execute a command that will index our example genome
+3. Examine the output of the rsem
+
+    # View the help file
+    rsem-prepare-reference -h
+    # Create/execute the prepare-reference command
+    rsem-prepare-reference --gtf refs/Homo_sapiens.GRCh38.98.chr22.15-25Mbp.gtf --star --num-threads 1 refs/Homo_sapiens.GRCh38.dna_sm.chr22.15-25Mbp.fa refs/Homo_sapiens.GRCh38.index.chr22.15-25Mbp
+
+
+## RSEM Calculate Expression Exercise:
+
+1. View the help page for rsem-calculate-expression
+2. Create a command to execute RSEM / STAR alignment and quantification for one of our samples
+
+
+    rsem-calculate-expression --star --num-threads 1 --star-gzipped-read-file --star-output-genome-bam --keep-intermediate-files --paired-end out_cutadapt/sample_01_R1.fastq.gz out_cutadapt/sample_01_R2.fastq.gz refs/Homo_sapiens.GRCh38.index.chr22 out_rsem/sample_01
+
+
+## Aligning All Samples Exercise:
+
+1. Use RSEM+STAR command above, to construct the appropriate commands to run `rsem-calculate-expression` on each of our samples.
+2. View the output, and verify that we have the files we need.
+
 
 ---
 
