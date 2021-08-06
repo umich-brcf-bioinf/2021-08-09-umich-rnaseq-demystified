@@ -5,37 +5,25 @@ to participate in the workshop. To complete
 this setup, you will need:
 
 -   A Macintosh or Windows workstation connected to the internet.
--   Administrative privileges on this workstation.
--   About 30 minutes (\~20 minutes unattended).
+-   Two emails from the hosts
+    1. An email invitation you to the workshop Slack workspace.
+    2. An email containing your individual login and password for the shared workshop server
+-   About 10 minutes.
 
-#### Table of Contents
--   [Introduction](#introduction)
-    -   How to get help
--   [Windows setup](#windows-setup)
-    -   Zoom
-    -   Git-Bash
-    -   Installing R/RStudio
-    -   Notes
--   [Macintosh setup](#macintosh-setup)
-    -   Zoom
-    -   Terminal
-    -   Installing R/RStudio
-    -   Notes
 
 ## Introduction
 
--   The workshop will be conducted over Zoom, Linux (first day), and R
+-   The workshop will be conducted over Zoom, Slack, Linux (first day), and R
     with RStudio (second day).
-
-    -   The workshop exercises are designed to work well for Windows or
-        Mac users and the installation instructions are detailed in
-        separate sections below.
-
-    -   *If you do not have Administrative privileges it will be tricky
-        to install R/RStudio; you may need to coordinate with your
-        System Admin/IT Support team to get these installed.* See
-       [**How to get help**](#how-to-get-help) below if you need more
-        guidance on this.
+-   Attendees will use their own workstation/laptop to participate in the workshop
+    and access the server environment;  the workstation/laptop should have a
+    microphone, camera, and reliable internet access.
+-   The workshop will use Slack for group messaging. Messages posted to the
+    general channel will be visible to all participants in the workshop.
+-   For simplicity, participants will log in to a pre-built server which
+    has the necessary data, software, and configuration already installed.
+-   While not required, advanced users may elect to install some software
+    locally; see [advanced setup instructions](setup_instructions_advanced).
 
 ### How to get help
 
@@ -53,300 +41,138 @@ be happy to lend a hand to get things working.
     -   Whether you have Administrative privileges on your workstation.
     -   The specific text of any error messages, if applicable.
 
-## Windows setup
+## Steps to Setup for the Workshop
 
-### Zoom
+1. **Zoom**
 
-If you have not used Zoom before, please use the following link to
-install "Zoom client for Meetings"\
-<https://zoom.us/download>
+   If you have not used Zoom before, please use the following link to
+   install "Zoom client for Meetings"\
+   https://zoom.us/download
 
-### Windows PowerShell / git-bash
+   - Additional Zoom settings for Macintosh:
 
-Git-bash and Windows Subsystem for Linux (WSL) are programs that enable
-you to connect to our workshop Linux environment. WSL is a powerful
-option, but can be difficult to install/configure. If you have WSL
-installed and you are comfortable using it, you can use that and skip to
-the next section.
+     1.1  To enable screen sharing (useful for breakout rooms and tech support)
 
-1.  To download git-bash, in a web browser, go to:
-    <https://git-scm.com/downloads>
-    and click on **Windows**. Save and open the executable file to launch
-    the installer.
+        - System Preferences \>\> Security & Privacy: click on the Privacy tab
+        - Select **Screen Recording** on left tab
+        - Scroll to the bottom of the right tab and verify **Zoom** is checked.
 
-2.  The git-bash installer presents *many* options; repeatedly click
-    **Next** to simply accept all the default options. At the end of
-    this series of questions, you can click **Install**.
+     1.2.  To enable remote control (useful for breakout rooms and tech support)
 
-3.  The installer will show a progress bar; this should take less than a
-    minute. *Note: you may see a warning towards the end "Unable to run
-    post-install scripts; no output?"; this will not impact your
-    installation and you can ignore it by clicking **Ok**.*
+        - System Preferences \>\> Security & Privacy: click on the Privacy tab
+        - Select **Accessibility** on left tab
+        - Scroll to the bottom on the right tab and verify **Zoom** is checked.
+        - If it's not checked, click the lower left lock icon and enter
+            user password when prompted. You can now check Zoom in the
+            right tab.
+        - Click the lock again.
 
-4.  On the final screen (Completing the Git Setup Wizard) you can
-    uncheck **View Release Notes** option and click **Finish**. The
-    installer will close.
+    1.3.  Close and relaunch Zoom client.
 
-5.  To launch git-bash, from Start Menu, select "Git Bash"; this will
-    create a new window with a command prompt that looks something like
-    this:
+2. **Slack**
 
--   your_username\@WSRTS001 MINGW64 \~ \$
+   2.1. In the invitation from the hosts on the link to join the Slack workspace.
 
+   2.2. Follow the Slack instructions to login or create an account. You may
+      edit your profile to add a photo if you choose.
 
-If you can't install or launch git-bash, or if it returns an
-    unexpected result, please see [**How to get
-    help**](#how-to-get-help) for more assistance.
+   2.3. Note that once your Slack account is established and you have accepted the
+      Slack invite you can access the Slack channel by pointing your web browser
+      here: https://umcoderspaces.slack.com
 
-#### Installing R/RStudio (Windows)
+3. **Launch a command window:**
 
-1.  RStudio depends on the R programming environment, so we have to
-    install that first. In a web browser, open:
-    <https://cran.rstudio.com/bin/windows/base/>
-    and click "Download R 4.0.3 for Windows" (the version may be
-    slightly different). Open the downloaded executable to launch the R
-    installer.
+   - If you are using Windows:
 
-2.  The installer will walk through several options; accept all the
-    defaults (by repeatedly clicking **Next**) and when prompted, click
-    **Install**. The installer will show a progress bar; the process
-    takes about 2 minutes; click **Finish** when prompted to close the
-    installer.
+     - Press **Windows Key + R** to launch a command window.
 
-3.  To install RStudio, in a web-browser, open:
-    <https://rstudio.com/products/rstudio/download/#download>
-    and click on **Download RStudio Desktop for Windows**. Open the
-    downloaded executable to launch the installer.
+     - You will see a new command window containing something like this
+     (your may have more text and the last line may look a bit different;
+     that's ok)
 
-4.  The installer will either prompt you to login as an Admin user or
-    (if your current account has Admin privileges) simply ask you to
-    allow it to make changes. Click **Yes**
+      ~~~
+      Microsoft Windows [Version 10.0.17763.1935]
+     (c) 2018 Microsoft Corporation. All rights reserved.
 
-5.  The installer will walk through several options; accept all the
-    defaults (by repeatedly clicking **Next**) and when prompted, click
-    **Install**. The installer will show a progress bar; the process
-    takes less than one minute; click **Finish** when prompted to close
-    the installer.
+      H:\>
 
-6.  Press Windows+R keys to open the **Run** dialog; type **"RStudio"**
-    in the text box and hit enter. This will launch a new RStudio
-    window. The RStudio window is divided into several panes. The lower
-    left pane shows the **Console** tab and will show some text followed
-    by a command prompt (\>):
+   - If you are using a Mac:
 
-> R version 4.0.3 (2020-10-10) \-- \"Bunny-Wunnies Freak Out\"\
-    Copyright (C) 2020 The R Foundation for Statistical Computing\
-    Platform: x86_64-w64-mingw32/x64 (64-bit)\
-    \
-    R is free software and comes with ABSOLUTELY NO WARRANTY.\
-    You are welcome to redistribute it under certain conditions.\
-    Type \'license()\' or \'licence()\' for distribution details.\
-    \
-    Natural language support but running in an English locale\
-    \
-    R is a collaborative project with many contributors.\
-    Type \'contributors()\' for more information and\
-    \'citation()\' on how to cite R or R packages in publications.\
-    \
-    Type \'demo()\' for some demos, \'help()\' for on-line help, or\
-    \'help.start()\' for an HTML browser interface to help.\
-    Type \'q()\' to quit R.\
-    \
-    \>
+     - Macintosh OSX has a built in command window called **Terminal**. Press
+       **Command + Space** to launch Spotlight. In the search field, type
+       "Terminal" and double-click on the top result.
 
-7.  The workshop exercises requires the installation of special R
-    libraries. To install them into RStudio, copy the block of text
-    below, paste into the RStudio **Console** tab, and press **Enter**
-    to execute. *(Note: These installations automatically trigger the
-    installation of a litany of dependent libraries so you will see
-    repeated progress bars and code flying by in the Console window.
-    This step takes about 15 minutes, so now is a good time to get
-    coffee/tea while RStudio cooks.)*
+     - You will see a new Terminal window containing something like this
+       (your may have more text and the last line may look a bit different;
+       that's ok)
 
->  install.packages(\"tidyr\")\
-    install.packages(\"ggplot2\")\
-    install.packages(\"pheatmap\")\
-    install.packages(\"ggrepel\")\
-    install.packages(\"formattable\")\
-    install.packages(\"RColorBrewer\")\
-    install.packages(\"matrixStats\")\
-    install.packages(\"dplyr\")\
-    if (!requireNamespace(\"BiocManager\", quietly = TRUE))\
-    install.packages(\"BiocManager\")\
-    BiocManager::install(\"biomaRt\", ask=FALSE)\
-    BiocManager::install(\"DESeq2\", ask=FALSE)\
-    missing \<- setdiff(c(\"tidyr\", \"ggplot2\", \"pheatmap\",
-    \"ggrepel\", \"formattable\", \"RColorBrewer\", \"matrixStats\",
-    \"dplyr\", \"biomaRt\", \"DESeq2\"),
-    rownames(installed.packages()))\
-    if (!length(missing)) { cat(\"Ready for Computational Foundations workshop\\n\")}
-    else {cat(\"PROBLEM: could not install:\", missing, \"\\n\")}
+       ~~~
+       Last login: Thu Dec 10 12:44:03 on ttys003\
+       MacBook: \~ your_username\$
 
-8.  The Console output should conclude with the text:\
-    **Ready for Computational Foundations workshop**.
+4. **Login to the shared server**
 
-9.  Press **Control-Q** close RStudio; when prompted to *Save workspace
-    image...*, click **Don't Save**.
+   4.1. In the command window, type the following
+      command, replacing the **YOUR_USERNAME** with the username supplied to you by
+      the workshop hosts; hit **Enter or Return** to execute the command.
 
-If you had problems installing R/RStudio or installing the R
-libraries above, please see the **[How to get help](#how-to-get-help)** section
-above for more assistance.
+      _Note: you can copy the command below to the clipboard and then
+      right-click in the command window to paste._
 
-#### Your Windows workstation is ready for the workshop. Thank you for your patience and fortitude.
+          ssh YOUR_USERNAME@bfx-workshop01.med.umich.edu
 
-### Notes (Windows)
+   4.2. The first time you run this command, you may see a prompt like the
+   following; hit **Enter/Return** to continue.
 
--   Following the workshop, you can remove any of Git-bash, R and
-    RStudio. As an Admin user, go Start \> Settings \> Apps & Features.
-    Click on the program to remove and click Uninstall.
+       The authenticity of host '...' can't be established.
+       ECDSA key fingerprint is SHA256:nz9lJaGEI5QFy7....
+       Are you sure you want to continue connecting (yes/no)? yes
 
-## Macintosh setup
+     The command will print a warning (e.g. Warning: Permanently added
+     ‘SERVER_ADDRESS’ (ECDSA) to the list of known hosts). This is fine.
 
-### Zoom
+   4.3. When prompted,  type the password supplied by the workshop hosts followed
+   by **Enter/Return**. (Note that the password is case sensitive. Also note that the server will not echo any characters when you are typing your password; this is ok.)
 
-1.  If you have not used Zoom before, please use the following link to
-    install "Zoom client for Meetings"
-    <https://zoom.us/download>
+   After successfully logging in, your command window should end looking something like this:
 
-2.  To enable screen sharing (useful for breakout rooms and tech
-    support)
+       Welcome to RNA-Seq Demystified
+       ------------------------------
+       (/rsd/conda/workshop) YOUR_USERNAME@ip:~$
 
-    1.  System Preferences \>\> Security & Privacy: click on the Privacy tab
-    2.  Select **Screen Recording** on left tab
-    3.  Scroll to the bottom of the right tab and verify **Zoom** is checked.
+5. **Launch R/RStudio in a web browser**
 
-3.  To enable remote control (useful for breakout rooms and tech
-    support)
+  5.1 Open the following web address: <https://bfx-workshop01.med.umich.edu/>
 
-    1.  System Preferences \>\> Security & Privacy: click on the Privacy tab
-    2.  Select **Accessibility** on left tab
-    3.  Scroll to the bottom on the right tab and verify **Zoom** is checked.
-    4.  If it's not checked, click the lower left lock icon and enter
-        user password when prompted. You can now check Zoom in the
-        right tab.
-    5.  Click the lock again.
-    6.  Close and relaunch Zoom client.
+  5.2 When prompted, enter the  username and password supplied by your hosts and
+   click **Sign In**. (Same username and password as the step above.)
 
-### Terminal
+   You should see a new webpage that looks like something like this:
 
-1.  Macintosh has a built in command window called Terminal. Press
-    Command + Space to launch Spotlight. In the search field, type
-    "Terminal" and double-click on the top result.
+   ![RStudio initial screen](images/setup_instructions_rstudio.png)
 
-    You will see a new Terminal window containing something like this
-    (your may have more text and the last line may look a bit different;
-    that's ok)
+   If you see a screen like that above, you have successfully logged into RStudio.
 
-> Last login: Thu Dec 10 12:44:03 on ttys003\
-   MacBook: \~ your_username\$
+## Congratulations
+Your workstation and logins are ready for the workshop; thank you for
+   taking time to set this up in advance.
 
-2.  At the command prompt, type **date** and press **Return**.
-     The Terminal should print the current date and time.
+   - You can close the command window by typing **exit** <Return/Enter> or simply closing the window.
+   - You can close your RStudio session by clicking the small orange "power"
+     button in the top-right corner (highlighted in the picture above by a red
+     arrow).  The webpage will announce **R Session Ended**; you may now close
+     the web page.
 
-### Installing R/RStudio (Macintosh)
+#### A note on the shared compute environment
 
-1.  RStudio depends on the R programming environment, so we have to
-    install that first. In a web browser, open:
+Please note that this environment is optimized for the exercises in this
+particular workshop but is likely unsuitable for analyzing your own
+datasets. In particular:
+- It is not sized for compute intensive operations or large storage.
+- It is not secured for sensitive data of any kind.
+- This environment is temporary and will be removed shortly after the
+  conclusion of the workshop.
 
--   <https://cran.rstudio.com/bin/macosx/>
-
-    and click the link "R-4.0.3.pkg" (the version may be slightly
-    different). Open the downloaded executable to launch the R
-    installer.
-
-2.  The installer will walk through several options; accept all the
-    defaults (by repeatedly clicking **Continue**) and when prompted,
-    click **Install**. The installer will prompt you to confirm your
-    username/password. The installer will show a progress bar; the
-    process takes about 1 minutes; click **Finish** when prompted to
-    close the installer.
-
-3.  To install RStudio, in a web-browser, open:
--   <https://rstudio.com/products/rstudio/download/#download>
-    and click on **Download RStudio Desktop for Mac**.
-
-4.  Opening the downloaded executable opens a window with "RStudio" and
-    your Applications folder icons. Drag the RStudio into the
-    Applications folder. (If you see a dialog that claims RStudio
-    already exists, click **Keep Both**.) The installer will prompt you
-    to confirm your username/password.
-
-5.  The installer will walk through several options; accept all the
-    defaults (by repeatedly clicking **Next**) and when prompted, click
-    **Install**. The installer will show a progress bar; the process
-    takes less than one minute.
-
-6.  When completed, open the Applications folder and double-click on the
-    RStudio application. You will see a dialog
-    "*RStudio.app is an app downloaded from Internet. Are you sure you
-     want to open it?*"
-    Click **Open**.
-    This will launch a new RStudio window. The RStudio window is divided
-    into several panes. The lower left pane shows the **Console** tab and
-    will show some text followed by a command prompt (\>):
-
->  R version 4.0.3 (2020-10-10) \-- \"Bunny-Wunnies Freak Out\"\
-    Copyright (C) 2020 The R Foundation for Statistical Computing\
-    Platform: x86_64-apple-darwin17.0 (64-bit)\
-    \
-    R is free software and comes with ABSOLUTELY NO WARRANTY.\
-    You are welcome to redistribute it under certain conditions.\
-    Type \'license()\' or \'licence()\' for distribution details.\
-    \
-    Natural language support but running in an English locale\
-    \
-    R is a collaborative project with many contributors.\
-    Type \'contributors()\' for more information and\
-    \'citation()\' on how to cite R or R packages in publications.\
-    \
-    Type \'demo()\' for some demos, \'help()\' for on-line help, or\
-    \'help.start()\' for an HTML browser interface to help.\
-    Type \'q()\' to quit R.\
-    \
-    \>
-
-7.  The workshop exercises require the installation of special R
-    libraries. To install them into RStudio, copy the block of text
-    below, paste into the RStudio **Console** tab, and press **Enter**
-    to execute. *(Note: These installations automatically trigger the
-    installation of a litany of dependent libraries so you may see
-    repeated progress bars and lots of code flying by in the Console
-    window. This step takes about 15 minutes, so now is a good time to
-    get coffee/tea while RStudio cooks.)*
-
->   install.packages(\"tidyr\")\
-    install.packages(\"ggplot2\")\
-    install.packages(\"pheatmap\")\
-    install.packages(\"ggrepel\")\
-    install.packages(\"formattable\")\
-    install.packages(\"RColorBrewer\")\
-    install.packages(\"matrixStats\")\
-    install.packages(\"dplyr\")\
-    if (!requireNamespace(\"BiocManager\", quietly = TRUE))\
-    install.packages(\"BiocManager\")\
-    BiocManager::install(c(\"biomaRt\",\"DESeq2\"), update=FALSE,
-    ask=FALSE)\
-    missing \<- setdiff(c(\"tidyr\", \"ggplot2\", \"pheatmap\",
-    \"ggrepel\", \"formattable\", \"RColorBrewer\", \"matrixStats\",
-    \"dplyr\", \"biomaRt\", \"DESeq2\"),
-    rownames(installed.packages()))\
-    if (!length(missing)) { cat(\"Ready for Computational Foundations workshop\\n\")}
-    else {cat(\"PROBLEM: could not install:\", missing, \"\\n\")}
-
-8.  The Console output should conclude with the text
-  **Ready for Computational Foundations workshop**
-
-9.  Press **Command-Q** close RStudio; when prompted to *Save workspace
-    image...*, click **Don't Save**.
-
-If you had problems installing R/RStudio or installing the R
-libraries above, please see the **[How to get help](#how-to-get-help)** section
-above for more assistance.
-
-####  Your Macintosh workstation is ready for the workshop. Thank you for your patience and fortitude.
-
-### Notes (Macintosh)
-
--   Following the workshop, you can remove any of R and RStudio. Open
-    your Applications directory, and drag the R or RStudio application
-    into the Trash.
+If you had problems and problems or questions about the installation steps
+please see the **[How to get help](#how-to-get-help)** section above for
+more assistance.

@@ -15,36 +15,18 @@ output:
 
 # Welcome to RNA-Seq Demystified
 
-## About this workshop
+## About us
 
-- By the end of the workshop, attendees will be able to
-  - Transform raw sequencing data into annotated differential expression values using a suite of
-    open-source tools.
-  - Identify common data quality problems and understand their impact and possible mitigations
-  - Visualize differential expression data in RStudio plots.
-
-- This workshop is targeted toward researchers who would like to be able to run RNA-Seq analysis on their
-  own. It assumes a very basic familiarity with genetics, the command line, and R or R-Studio.
-
-- Our purpose is not to be exhaustive, and we don't expect anyone to be an expert at the end of
-  the workshop. But we hope you will have a familiarity with key concepts, data types,
-  tools, and how they all connect to one another in the service of a biological question.
-- The first day will be a mix of hands-on content and lecture-style components, while the second
-  day will primarily be a hands-on experience.
-
-- Please let us know if there is anything we can do to improve the workshop experience.
+- Chris Gates cgates@umich.edu
+- Marci Brandenburg mbradenb@umich.edu
+- Dana King damki@umich.edu
+- Travis Saari trsaari@umich.edu
+- Helpers
 
 
-## Thanks to our sponsors
+## A brief word from our sponsors
 
 ![Sponsors](images/Module00_sponsor_logos.png)
-
-
-- [Biomedical Research Core Facilities](https://brcf.medicine.umich.edu/)
-
-  Biomedical Research Core Facilities (BRCF) helps researchers economically take advantage of
-  the latest technology and collaborate with top experts in the field. Established in 1986, the
-  BRCF was formed to offer centralized access to research services and equipment.
 
 - [University of Michigan Library](https://www.lib.umich.edu/)
 
@@ -53,13 +35,14 @@ output:
   collecting, organizing, preserving, communicating, sharing, and creating the record of human
   knowledge.
 
-- [Michigan Institute for Data Science (MIDAS)](https://midas.umich.edu/)
+- [Biomedical Research Core Facilities](https://brcf.medicine.umich.edu/)
 
-  To strengthen University of Michigan’s preeminence in Data Science and to catalyze the
-  transformative use of Data Science in a wide range of disciplines to achieve lasting societal
-  impact.
+  Biomedical Research Core Facilities (BRCF) helps researchers economically take advantage of
+  the latest technology and collaborate with top experts in the field. Established in 1986, the
+  BRCF was formed to offer centralized access to research services and equipment.
 
-## What is the Bioinformatics Core?
+
+## About the BRCF Bioinformatics Core
 
 - The UM Bioinformatics Core is a team seven analysts; we help researchers **design, analyze,
   and interpret** high-throughput genomics experiments.
@@ -74,13 +57,28 @@ output:
 - We are also creating a series of bioinformatics-focused workshops
 
 
-## Who are your hosts/instructors?
+## About this workshop
 
-- Chris Gates cgates@umich.edu
-- Marci Brandenburg mbradenb@umich.edu
-- Dana King damki@umich.edu
-- Travis Saari trsaari@umich.edu
-- Helpers
+- By the end of the workshop, attendees will be able to
+  - Transform raw sequencing data into annotated differential expression values using a suite of
+    open-source tools.
+  - Identify common data quality problems and understand their impact and possible mitigations
+  - Visualize differential expression data in RStudio plots.
+
+- This workshop is targeted toward researchers who would like to be able to run RNA-Seq analysis on their
+  own. It assumes a very basic familiarity with genetics, the command line, and R or R-Studio.
+
+- The first day will be a mix of hands-on content and lecture-style components, while the second
+  day will primarily be a hands-on experience.
+
+- Please let us know if there is anything we can do to improve the workshop experience.
+
+- Our purpose is not to be exhaustive, there is a lot that we cannot cover in
+  the allotted time, and we don't expect anyone to be an expert at the end of
+  the workshop. But we hope you will have a familiarity with key concepts, data types,
+  tools, and how they all connect to one another in the service of a biological question.
+
+![Diagram of bike parts](images/Module00_bicycle.svg)
 
 
 # Housekeeping
@@ -108,10 +106,13 @@ output:
   Equity at institutional.equity@umich.edu.
 
 
-## Workshop patterns and Zoom controls
+
+## Workshop patterns, Zoom controls, and using Slack
 
 - We will be recording this session. Recordings will be available to participants following
   the workshop.
+
+#### Using <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/>
 
 - Zoom controls are at the bottom of the Zoom window:
 ![Zoom controls](images/Module00_zoom_controls.png)
@@ -119,7 +120,6 @@ output:
 - To minimize distractions, we encourage participants to keep their audio muted (1) (unless
   actively asking a question).
 - To maximize engagement, we encourage participants to keep their video on.
-- **Chat** can be used to communicate to the group or to individuals.
 - Zoom's "non-verbal controls" are a useful way to interact
   - Depending on your version of Zoom you can access these either
     - in the **Reactions** button on you main Zoom window
@@ -128,18 +128,46 @@ output:
 ![Zoom non verbals](images/Module00_zoom_nonverbals.png)
 
   - **Raise Hand** to request clarification or ask a question. (Same an in-person workshop.)
-  - **Yes** when you complete an assigned task or other instructor feedback
-  - **No** to request assistance from helper
-    - Hosts will connect you with a helper in a breakout room.
+  - **Green check [Ok!]** when you complete an assigned task or for other
+    feedback specified by instructor
+  - **Gray chevron [Give me a sec]** when you need more time to complete
+    an exercise or you would like the instructor to repeat an idea
+    - **Red "X" [I need help]** to request assistance from helper
+      - Hosts will connect you with a helper in a breakout room.
 
 
-### Schedule
+#### Using <img src="images/Module00_slack_logo.png" alt="Slack" width=120/>
 
-TBD
+- **Slack** can be used to communicate to the group or to individuals.
 
-### Any questions?
- -
- -
+![Posting messages to Slack](images/Module00_slack.png)
+
+  - Slack messages will be posted to the **rsd-workshop-general** channel.  
+    Click on the channel in the left pane (1) to select this channel.
+  - You can type in the **message field** (2); click **send** (3) to
+    post your message to everyone.
+  - You can respond in a message thread by hovering over a message to trigger
+    the message menu and clicking the speech bubble (4).
+
+
+#### Arranging you screens
+It is vital that you can see:
+ - Zoom (instructor's shared screen + reactions)
+ - Slack
+ - Your terminal/command window (day 1) or R/Studio (day 2)
+
+![arranged screens](images/Module00_arranged_screens.png)
+
+
+#### Communication patterns
+| | <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/> | <img src="images/Module00_Slack_logo.png" alt="Slack" width=120/> |
+|-|:-:|-|
+| "Yep - I got it" | <img src="images/Module00_zoom_green_check.png" width=50/> | |
+| "I need to you repeat that last part" | <img src="images/Module00_zoom_slow_down.png" width=50/> | |
+| "I have an urgent question" | <img src="images/Module00_zoom_raise_hand.png" width=50/> -or- <img src="images/Module00_zoom_mute_icon.png" width=50/> | **post a question** |
+| "I have a general question" | | **post a question** |
+| "I'm stuck / I need a hand" | <img src="images/Module00_zoom_red_x.png" width=50/> | **request a breakout** |
+
 
 ### Breakout Rooms
 
@@ -148,10 +176,21 @@ TBD
  - When you have completed introductions, you can leave the breakout room to rejoin the main room.
 
 
+### Schedule
+
+![Workshop topics](images/wayfinder_00.png)
+
+### Any questions?
+ -
+ -
+
+
 ---
 
-*The workshop Code of Conduct has been adapted the NumFocus Code of Conduct (https://numfocus.org/code-of-conduct) which itself draws frin from numerous sources, including the Geek Feminism wiki, created by the Ada Initiative and other volunteers, which is under a Creative Commons Zero license, the Contributor Covenant version 1.2.0, the Bokeh Code of Conduct, the SciPy Code of Conduct, the Carpentries Code of Conduct, and the NeurIPS Code of Conduct.
+* This workshop content is licensed under a [Creative Commons Attribution 4 License](https://creativecommons.org/licenses/by/4.0/).
 
-This workshop content is licensed under a [Creative Commons Attribution 4 License](https://creativecommons.org/licenses/by/4.0/).
+* The workshop Code of Conduct has been adapted the NumFocus Code of Conduct (https://numfocus.org/code-of-conduct) which itself draws frin from numerous sources, including the Geek Feminism wiki, created by the Ada Initiative and other volunteers, which is under a Creative Commons Zero license, the Contributor Covenant version 1.2.0, the Bokeh Code of Conduct, the SciPy Code of Conduct, the Carpentries Code of Conduct, and the NeurIPS Code of Conduct.
 
-Sections of the workshop content have been adapted and extended from materials created by the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.
+* Sections of the workshop content have been adapted and extended from materials created by the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.
+
+* "File:Bicycle diagram-en.svg" by Al2 is licensed under CC BY 3.0
