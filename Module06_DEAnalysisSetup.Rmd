@@ -21,7 +21,7 @@ output:
     }
 </style>
 
-![](./images/CombinedWorkflow.png){width=95%}
+![](./images/wayfinder_00-0.png){width=95%}
 
 
 > # Objectives:    
@@ -227,6 +227,7 @@ library(matrixStats)
 library(ggrepel)
 library(pheatmap)
 library(RColorBrewer)
+library(data.table)
 ```
 
 
