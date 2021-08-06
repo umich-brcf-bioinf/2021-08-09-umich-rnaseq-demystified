@@ -1,6 +1,6 @@
 ---
 title: "Welcome to RNA-seq Demystified"
-author: "UM Bioinformatics Core"
+author: "UM Bioinformatics Core Workshop Team"
 output:
         html_document:
             theme: paper
@@ -13,28 +13,42 @@ output:
             code_download: true
 ---
 
-# Welcome to RNA-Seq Demystified
+<style type="text/css">
 
-## About the workshop team:
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+</style>
+
+# Welcome
+
+## About the Bioinformatics Core
+
+- The University of Michigan Bioinformatics Core is a team of analysts that help
+  researchers **design, analyze, and interpret** high-throughput genomics experiments.
+- Last year we helped about 60 researchers design and execute about 100 projects
+  including gene expression, epigenetic, variant identification, functional
+  enrichment and many other kinds of analyses.
+- We provide letters of support for grant proposals.
+- We are creating a series of bioinformatics-focused workshops.
+- https://brcf.medicine.umich.edu/bioinformatics
+
+## About the workshop team
 | ![](images/Module00_headshots/headshot_cgates.jpg) | ![](images/Module00_headshots/headshot_mbradenb.jpg)| ![](images/Module00_headshots/headshot_trsaari.jpg)| ![](images/Module00_headshots/headshot_damki.jpg)|
 |:-:|:-:|:-:|:-:|
 | **Chris** | **Marci** | **Travis** | **Dana** |
 | | | | |
 | ![](images/Module00_headshots/headshot_rtagett.jpg) | ![](images/Module00_headshots/headshot_ncarruth.jpg)| ![](images/Module00_headshots/headshot_rcavalca.jpg)| ![](images/Module00_headshots/headshot_weishwu.jpg)|
 | **Becky** | **Nick** | **Raymond** | **Weisheng** |
+<br/>
 
-
-### About the BRCF Bioinformatics Core and workshop sponsors
-
-- The UM Bioinformatics Core is a team seven analysts; we help researchers
-  **design, analyze, and interpret** high-throughput genomics experiments.
-- Last year we helped about 60 researchers design and execute about 100 projects
-  including gene expression, epigenetic, variant identification, functional
-  analysis and many other kinds of analyses.
-- We provide letters of support for grant proposals.
-- We are creating a series of bioinformatics-focused workshops
-
-#### Workshop sponsors
+## Workshop sponsors
 ![Sponsors](images/Module00_sponsor_logos.png)
 
 - [University of Michigan Library](https://www.lib.umich.edu/)
@@ -49,11 +63,10 @@ output:
   Biomedical Research Core Facilities (BRCF) helps researchers economically take advantage of
   the latest technology and collaborate with top experts in the field. Established in 1986, the
   BRCF was formed to offer centralized access to research services and equipment.
+<br/>
+<br/>
 
-
-# Housekeeping
-
-## Code of Conduct (CoC)
+# Code of Conduct (CoC)
 
 - Be kind to others. Do not insult or put down others. Behave professionally. Remember that
   harassment and sexist, racist, or exclusionary jokes are not appropriate for the workshop.
@@ -74,15 +87,15 @@ output:
 - To report a CoC incident/concern, please email Chris Gates (Bioinformatics Core, Managing
   Director) at cgates@umich.edu or contact the University of Michigan Office of Institutional
   Equity at institutional.equity@umich.edu.
+<br/>
+<br/>
 
-
-
-## Workshop patterns, Zoom controls, and using Slack
+# Using Zoom and Slack
 
 - We will be recording this session. Recordings will be available to participants  
   following the workshop.
 
-#### <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/>
+## <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/>
 
 - Zoom controls are at the bottom of the Zoom window:
 ![Zoom controls](images/Module00_zoom_controls.png?s)
@@ -102,13 +115,13 @@ output:
 ![Zoom non verbals](images/Module00_zoom_nonverbals.png)
 
   - **Raise Hand** to request clarification or ask a question. (Same an in-person workshop.)
-  - **Gray chevron [Slow down / Give me a sec]** when you need more time to complete
+  - **Gray chevron [Slow down / Give me a moment]** when you need more time to complete
     an exercise or you would like the instructor to repeat an idea
-  - Instructors will use **Green check** and **Red "X"** to poll the group
+  - Instructors will use **Green check** and **Red X** to poll the group
     at checkpoints along the way.
 
 
-#### <img src="images/Module00_slack_logo.png" alt="Slack" width=120/>
+## <img src="images/Module00_slack_logo.png" alt="Slack" width=120/>
 
 - **Slack** can be used to communicate to the group or to individuals and has a
   few features/behaviors that we prefer over Zoom's Chat functionality.
@@ -119,50 +132,61 @@ output:
     Click on the channel in the left pane (1) to select this channel.
   - You can type in the **message field** (2); click **send** (3) to
     post your message to everyone.
+  - Helpers will respond in a Slack thread (or pose the question to the instructor)
   - You can respond in a message thread by hovering over a message to trigger
     the message menu and clicking the **speech bubble** (4).
 
 
-#### Arranging you screens
+## Arranging you screens
 It is important that you can see:
+
  - Zoom (instructor's shared screen + reactions)
  - Slack
  - Lesson plan web page
  - Your terminal/command window (day 1) or R/Studio (day 2)
 
 ![arranged screens](images/Module00_arranged_screens.png?)
+<br/>
+<br/>
 
-
-#### Key communication patterns
+## Review of Key communication patterns
 | | <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/> | <img src="images/Module00_Slack_logo.png" alt="Slack" width=120/> |
 |-|:-:|-|
-| "I have an urgent question" | <img src="images/Module00_zoom_raise_hand.png" width=50/> | **post a question** |
-| "I have a general question" | | **post a question** |
-| "I'm stuck / I need a hand" | | **post a note** |
+| "I have an urgent question" | <img src="images/Module00_zoom_raise_hand.png" width=50/> | **Post a question** |
+| "I have a general question" | | **Post a question** |
+| "I'm stuck / I need a hand" | | **Post a note** |
 | Instructor check-in | <img src="images/Module00_zoom_green_check.png" width=50/> -or- <img src="images/Module00_zoom_red_x.png" width=50/> | |
-| Instructor Slack question | | Respond in Slack thread |
+| Instructor Slack question | | **Respond in Slack thread** |
+<br/>
+<br/>
 
+# Warm-up Exercises
 
-## Warm-up Exercises
-
-1. Use Zoom non-verbals
+## Use Zoom non-verbals
   - Everyone use Zoom to raise your hand. <img src="images/Module00_zoom_raise_hand.png" width=50/>
-  - Using Zoom, give me a green-check if you feel like you understand communication patterns or red-X if you need clarification.
+  - Using Zoom, give me a **green-check** if you feel like you understand
+    communication patterns or **red-X** if you need clarification.
+<br/>
+<br/>
 
-2. Introduce yourself in a Zoom Breakout Room
+## Using Zoom Breakout Rooms
 
 
   - Zoom: Click Breakout Rooms
   - Find the room corresponding to the first letter of your first name
   - Hover over the number to the right and click **Join**.
   - When you have completed introductions, you can leave the breakout room to rejoin the main room.
+
   ![Breakout rooms](images/Module00_zoom_breakout_room.png)
+<br/>
+<br/>
 
-
-3. In Slack, respond to this prompt in a thread:
+## Responding in Slack thread
 What is one thing you hope to learn today or tomorrow?
+<br/>
+<br/>
 
-## About this workshop
+# Workshop goals and topics
 
  - By the end of the workshop, attendees will be able to
    - Transform raw sequencing data into annotated differential expression values using a suite of
@@ -185,11 +209,10 @@ What is one thing you hope to learn today or tomorrow?
    tools, and how they all connect to one another in the service of a biological question.
 
 
-### Workshop topics at a glance
+## Workshop topics at a glance
+![](images/wayfinder_00-0.png)
 
-![Workshop topics](images/wayfinder_00-0.png)
-
-### Any questions?
+# Any questions?
  -
  -
 
