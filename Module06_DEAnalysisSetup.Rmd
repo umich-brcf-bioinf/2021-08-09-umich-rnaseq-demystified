@@ -21,8 +21,6 @@ output:
     }
 </style>
 
-![](./images/wayfinder_00-0.png){width=95%}
-
 
 > # Objectives:    
 > * Overview of reproducible research & analysis setup
@@ -34,27 +32,16 @@ output:
 
 Today we will proceed through key steps in a differential expression analysis, starting from a count table that's similar to what would have been generated on Day 1.
 
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| 4 | Assess Quality of Raw Reads |
-| 5 | Splice-aware Mapping to Genome |
-| 6 | Count Reads Associated with Genes |
-| --- | --- |
-| **7** | **Organize project files locally** |
-| **8** | **Initialize DESeq2 and fit DESeq2 model** |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+![](./images/wayfinder_00-0.png){width=95%}
 
----
+#### [Warm-Up]
 
-**TODO: Update summary/orientation figure**
+To get started, let's get a sense of what approaches you already use to compare gene expression:    
 
-**TODO: Add back in per module summaries (might be in markdown files from last workshop)**
+* If you've run a qPCR assay and enjoyed all the pippeting, put up a green check. If you've run a qPCR assay and needed some time away from the multichannels, put up a grey slow down button. 
+* If cloning a gene reporter (ie: promoter + GFP), worked for you the first time, put up a green check. If you have a freezer box full of cloning attempts, put up a grey slow down button.  
+* If you are ready to learn about bioinformatic tools for comparing gene expression, put up a green check. If you have some questions about the materials covered yesterday or covered in the webinar, put a grey slow down button.  
+
 
 # Tools for Differential Gene Expression analysis
 
@@ -83,7 +70,7 @@ Since variance is key to the statistical approach used for DESeq2, if you try to
 
 ### Replicates in RNA-seq experiments
 
-A question we are frequently asked is "How many replicates do I need?" As mentioned in the seminar, there is often more contributing to the observed gene expression in each sample than the experimental treatment or condition.
+A question we are frequently asked is "How many replicates do I need?" As mentioned in the seminar, there is often more contributing to the observed gene expression in each sample than the experimental treatment or condition of interest.
 
 
 ![Image of technical, biological, and experimental contributors to gene expression, from HBC training materials](./images/de_variation.png)
@@ -111,13 +98,12 @@ Generally, for the human and mouse genomes, the general recommendation is 30-40 
 
 ----
 
-**TODO: Orienting around button use/getting help - red x vs slow down vs green check usages **
-**TODO: Explain can ask for a breakout at any time but will have points in lesson plan to catch up**
-**TODO: Re-orient around breakout rooms**
 
 # Reproducible Research
 
 Today we'll be exploring some RNA-seq data that is fairly representative of what we see in the core and start with input files similar to the count tables currently being delivered by the Advanced Sequencing Core.
+
+**TO DO: UPDATE THUMBNAIL**
 
 To get started, we'll open up our RStudio console and set up for our analysis.
 ![](./images/Rstudio_example.png){width=75%}
@@ -160,19 +146,23 @@ download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/rnaseq_demyst
 ## Best practices for file organization
 
 
-While your data downloads, file organization is an important part of reproducible research. To follow best practices for file organization for bioinformatics/computational projects, we will need to make sure there are separate locations for:
+While your data downloads, as discussed in [Software Carpentry](https://umcarpentries.org/intro-curriculum-r/) and other forums, including a review by [Nobel, 2009](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424), file organization is an important part of reproducible research. 
+
+To follow best practices for file organization for bioinformatics/computational projects, we will need to make sure there are separate locations for:
 * Raw data
 * Code
 * Output files
 
-![](./images/Noble2009_dataprojects.png){width=75%}
+Such as illustrated in this figure from the Noble review:
 
-This figure from [Nobel, 2009](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424) shows an example of more complex organization structure that also includes documention and the paper presenting the results from the analysis.
+![](./images/Noble2009_dataprojects.png){width=75%}
 
 If we look within our 'data' folder, we should now see two files:
 
+**TODO Fix this screenshot.**
+
 ![](./images/DirectoryWithData.png){width=50%}
-REPLACE: Fix this screenshot.
+
 
 **Checkpoint**: *Please use the 'grey slow down' button button if you don't see the files after clicking on the "data" directory so I can repeat the steps. If you have successfully downloaded the data then used the 'green check' button.*
 
@@ -282,6 +272,35 @@ tail(CountTable) # now whole numbers
 
 
 Once we have our count data processed, we can move on to "unblinding" our data, as the sample names are unique identifiers generated by a sequencing center and not very informative as far as our experimental conditions.
+
+## Getting help
+
+R/Rstudio has a strong community component so if you are getting an error or wondering how to make a command work or how to perform a specific task, there is likely already a solution out there. Remember that Google is your friend, although sometimes it can be a challenge to figure out *what to search for*. Key parts of a successful search:
+
+* Package or command name 
+* `R` or `Bioconductor`
+* The error message if there is one
+* Version information
+
+How to get session information to aid in a search:
+```{r Session info, eval = FALSE, message = FALSE}
+sessionInfo()
+```
+
+
+Highly recommend using resources like [Bioconductor Support](https://support.bioconductor.org/), [Biostars](https://www.biostars.org/), and [Stack Overflow](https://stackoverflow.com/questions/tagged/r), including threads on specific packages or common bioinformatic tasks. 
+
+I personally use one or more of these resources **every day**.
+
+---
+# Summary
+
+In this section, we:
+* Set up our compute environment
+* Learned about DESeq2
+* Loaded our raw count tables (input file 1)
+
+Now that we have our count data processed, we can move on to "unblinding" our data, as the sample names are unique identifiers generated by a sequencing center and not very informative as far as our experimental conditions.
 
 
 ---

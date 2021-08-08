@@ -32,27 +32,12 @@ library(DESeq2)
 load("rdata/RunningData.RData")
 ```
 
-![](./images/Day2Workflow.png){width=75%}
 
 # Differential Expression Workflow
 
 Here we will proceed with continuing to set up the inputs we need to initialize DESeq2 before testing for differential expression.
 
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| 4 | Assess Quality of Raw Reads |
-| 5 | Splice-aware Mapping to Genome |
-| 6 | Count Reads Associated with Genes |
-| --- | --- |
-| 7 | Organize project files locally |
-| **8** | **Initialize DESeq2 and fit DESeq2 model** |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+![](./images/wayfinder_07.png){width=75%}
 
 ---
 
@@ -219,7 +204,18 @@ Now we have specified for DESeq2 that we want to test for the effect of the cond
 ---
 
 
-Together we've created our DESeq2 object(s), including specifying what model is appropriate for our data, and filtered our data, we can proceed with assessing the impact of the experimental conditions on gene expression across our samples. 
+# Summary 
+
+In this section, we:    
+* Loaded the necessary input files into our R session    
+* Discussed model design for DESeq2    
+* Initialized a DESeq2 data set     
+* Filtered our count data     
+
+
+Now that we've created our DESeq2 objects, including specifying what model is appropriate for our data, and filtered our data, we can proceed with assessing the impact of the experimental conditions on gene expression across our samples. 
+
+**Before moving on with our group comparisons, we'll take a short (10 minute) break.**
 
 
 ---
