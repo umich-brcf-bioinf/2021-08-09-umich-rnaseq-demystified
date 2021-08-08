@@ -66,7 +66,7 @@ pre {
 <br/>
 <br/>
 
-# Code of Conduct (CoC)
+# Code of Conduct
 
 - Be kind to others. Do not insult or put down others. Behave professionally. Remember that
   harassment and sexist, racist, or exclusionary jokes are not appropriate for the workshop.
@@ -137,7 +137,7 @@ pre {
     the message menu and clicking the **speech bubble** (4).
 
 
-## Arranging you screens
+## Arranging your screens
 It is important that you can see:
 
  - Zoom (instructor's shared screen + reactions)
