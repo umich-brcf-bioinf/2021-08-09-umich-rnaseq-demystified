@@ -3,3 +3,8 @@
 **/~$*.pptx
 figures/*
 tables/*
+html/data/
+html/figures/
+html/rdata/
+html/server_setup/
+rdata/RunningData.RData

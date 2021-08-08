@@ -20,3 +20,5 @@ render_site('Module10_DEComparisons.Rmd')
 #render_site('Module11X_BonusContent.Rmd')
 
 render_site('Module99_Wrap_up.md')
+
+#clean_site(preview=TRUE)

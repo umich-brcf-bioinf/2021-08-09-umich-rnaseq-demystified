@@ -14,15 +14,15 @@ navbar:
         - text: "Quality Control"
           href: Module02_QC.html
         - text: "Optional: Cutadapt/MultiQC"
-          href: Module02optional_Cutadapt_MultiQC.md
+          href: Module02optional_Cutadapt_MultiQC.html
     - text: "Alignment"
       menu:
         - text: "Reference Genomes"
           href: Module03_Reference_Genomes.html
-    - text: "Quantification"
-      menu:
         - text: "Alignment/Quantification (STAR/RSEM)"
           href: Module04_Alignment.html
+    - text: "Quantification"
+      menu:
         - text: "Count matrix / Alignment QC"
           href: Module05_MultiQC_and_Count_Matrix.html
         - text: "Optional: Additional details"
@@ -44,7 +44,7 @@ navbar:
       menu:
         - text: "DE Comparisons and Gene Annotations"
           href: Module10_DEComparisons.html
-        - text: "DE Visualizations and output files"
-          href: Module11_DEVisualizations.html
+        # - text: "DE Visualizations and output files"
+        #   href: Module11_DEVisualizations.html
     - text: "Wrap up"
       href: Module99_Wrap_up.html

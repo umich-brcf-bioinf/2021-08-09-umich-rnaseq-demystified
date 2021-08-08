@@ -346,7 +346,7 @@ div.tocify {
       <a href="Module02_QC.html">Quality Control</a>
     </li>
     <li>
-      <a href="Module02optional_Cutadapt_MultiQC.md">Optional: Cutadapt/MultiQC</a>
+      <a href="Module02optional_Cutadapt_MultiQC.html">Optional: Cutadapt/MultiQC</a>
     </li>
   </ul>
 </li>
@@ -360,6 +360,9 @@ div.tocify {
     <li>
       <a href="Module03_Reference_Genomes.html">Reference Genomes</a>
     </li>
+    <li>
+      <a href="Module04_Alignment.html">Alignment/Quantification (STAR/RSEM)</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -369,9 +372,6 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Module04_Alignment.html">Alignment/Quantification (STAR/RSEM)</a>
-    </li>
     <li>
       <a href="Module05_MultiQC_and_Count_Matrix.html">Count matrix / Alignment QC</a>
     </li>
@@ -421,9 +421,6 @@ div.tocify {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="Module10_DEComparisons.html">DE Comparisons and Gene Annotations</a>
-    </li>
-    <li>
-      <a href="Module11_DEVisualizations.html">DE Visualizations and output files</a>
     </li>
   </ul>
 </li>
@@ -571,14 +568,14 @@ div.tocify {
 ##    specify fitType=&#39;local&#39; or &#39;mean&#39; to avoid this message next time.</code></pre>
 <p>Next, we’ll look at the results of the tranformation.</p>
 <pre class="r"><code>head(assay(rld), 3)</code></pre>
-<pre><code>##                    Sample_116498 Sample_116499 Sample_116500 Sample_116501 Sample_116502 Sample_116503
-## ENSMUSG00000000001     12.639049     12.609976     12.791192     12.619063     12.721280     12.668801
-## ENSMUSG00000000028      7.847671      8.152787      7.949574      8.203993      8.464987      8.506084
-## ENSMUSG00000000031      1.489351      1.601985      1.606559      1.457147      1.619475      1.413016
-##                    Sample_116504 Sample_116505 Sample_116506 Sample_116507 Sample_116508 Sample_116509
-## ENSMUSG00000000001     12.531667     12.507981     12.475655     12.727173     12.513630     12.469952
-## ENSMUSG00000000028     10.825518     10.897101     11.006593     11.159956     11.067216     11.094892
-## ENSMUSG00000000031      2.052145      1.854749      1.621772      1.552014      2.035164      2.322059</code></pre>
+<pre><code>##                    Sample_116498 Sample_116499 Sample_116500 Sample_116501 Sample_116502 Sample_116503 Sample_116504 Sample_116505
+## ENSMUSG00000000001     12.639049     12.609976     12.791192     12.619063     12.721280     12.668801     12.531667     12.507981
+## ENSMUSG00000000028      7.847671      8.152787      7.949574      8.203993      8.464987      8.506084     10.825518     10.897101
+## ENSMUSG00000000031      1.489351      1.601985      1.606559      1.457147      1.619475      1.413016      2.052145      1.854749
+##                    Sample_116506 Sample_116507 Sample_116508 Sample_116509
+## ENSMUSG00000000001     12.475655     12.727173     12.513630     12.469952
+## ENSMUSG00000000028     11.006593     11.159956     11.067216     11.094892
+## ENSMUSG00000000031      1.621772      1.552014      2.035164      2.322059</code></pre>
 <p>Looking at the rld values, we can see that they are now in log scale. Since we set <code>blind=TRUE</code>, the transformation is blind to the sample information we specified in the design formula. The normalized counts are helpful for visualization methods during expresion-level quality assessment but <strong>aren’t used in the model fitting</strong>.</p>
 </div>
 </div>
@@ -588,8 +585,7 @@ div.tocify {
 <pre class="r"><code>dds &lt;- DESeq(dds)</code></pre>
 <p>This command applies the model to our data, using the sample information supplied when generating the <code>dds</code> object so it takes some time to run.</p>
 <pre class="r"><code>resultsNames(dds)</code></pre>
-<pre><code>## [1] &quot;Intercept&quot;                    &quot;Gtype.Tx_ko.Tx_vs_wt.Tx&quot;      &quot;Gtype.Tx_ko.control_vs_wt.Tx&quot;
-## [4] &quot;Gtype.Tx_wt.control_vs_wt.Tx&quot;</code></pre>
+<pre><code>## [1] &quot;Intercept&quot;                    &quot;Gtype.Tx_ko.Tx_vs_wt.Tx&quot;      &quot;Gtype.Tx_ko.control_vs_wt.Tx&quot; &quot;Gtype.Tx_wt.control_vs_wt.Tx&quot;</code></pre>
 <p>The results include three pairwise comparisons to the specified control as default but other information is now stored in the <code>dds</code> object so we can generate additional pairwise comparisons.</p>
 <pre class="r"><code>head(dds)</code></pre>
 <p><strong>Checkpoint</strong>: <em>If you see the same results when you execute <code>resultsNames(dds)</code>, please indicate with the green ‘yes’ button. Otherwise, please use the ‘red x’ button to get help before the break</em></p>
