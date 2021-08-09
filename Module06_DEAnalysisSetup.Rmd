@@ -170,17 +170,14 @@ dir.create("data", showWarnings = FALSE)
 
 Next, we'll download the files we'll need for today by copying and pasting the follow.
 ```{r DownloadData, eval = FALSE}
-### TO DO: ENSURE THESE URLS ARE CORRECT
 
-download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/rnaseq_demystified_workshop_2021/data/SampleInfo_trimmed.csv", "data/SampleInfo_trimmed.csv")
+download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/2021-08-09-umich-rnaseq-demystified/master/data/SampleInfo_trimmed.csv", "data/SampleInfo_trimmed.csv")
 
-download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/rnaseq_demystified_workshop_2021/data/gene_expected_count_trimmed.txt", "data/gene_expected_count_trimmed.txt")
-
+download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/2021-08-09-umich-rnaseq-demystified/master/data/gene_expected_count_trimmed.txt", "data/gene_expected_count_trimmed.txt")
 ```
 
 If we look within our 'data' folder, we should now see two files:
 
-**TODO Fix this screenshot.**
 
 ![](./images/DirectoryWithData.png){width=50%}
 
@@ -189,9 +186,6 @@ If we look within our 'data' folder, we should now see two files:
 
 ---
 
-
-
-An important note is that there are several bonus content sections on the instruction pages, like the two below that we will not be covering in this workshop, but that may have useful context or be helpful when you review this material.
 
 #### Code execution shortcut reminder
 
@@ -245,7 +239,7 @@ To begin our analysis, we'll read in the **raw** count data file, `gene_expected
 
 ```{r DataTable, eval=TRUE}
 CountTable <- read.table("data/gene_expected_count_trimmed.txt", header = TRUE, row.names = 1)
-head(CountTable) # look at the top of the table
+head(CountTable, n=2) # look at the top of the table
 ```
 
 Now that the file is read into R, note that we've created a data frame that includes 'gene ids' in ENSEMBL format as rownames and count data from twelve different samples.
@@ -256,18 +250,18 @@ If we think back to the RSEM outputs, the 'expected_counts' table may include fr
 
 First let's check the count table in a different way, to see if our table includes fractions. 
 ```{r RSEMoutput}
-tail(CountTable)
+tail(CountTable, n=2)
 ```
 
 *Question: To resolve this discrepancy between the RSEM outputs and expected input for DESeq2, what could we do?*
 
 To round down all the columns of our `CountTable` that include count data (all columns since we set the gene names to be our row names), we can use the `floor()` function.
 ```{r RoundRawCounts}
-tail(CountTable) # not all whole numbers
 CountTable <- floor(CountTable)
-tail(CountTable) # now whole numbers
+tail(CountTable, n=2) # now whole numbers
 ```
 
+An important note is that there are several bonus content sections on the instruction pages, like the two below that we will not be covering in this workshop, but that may have useful context or be helpful when you review this material.
 
 <details>
     <summary>*Click for alternative DESeq2 input options for RSEM outputs*</summary>
@@ -303,10 +297,10 @@ Highly recommend using resources like [Bioconductor Support](https://support.bio
 
 I personally use one or more of these resources **every day**.
 
----
 # Summary
 
 In this section, we:
+
 * Set up our compute environment
 * Learned about DESeq2
 * Loaded our raw count tables (input file 1)
