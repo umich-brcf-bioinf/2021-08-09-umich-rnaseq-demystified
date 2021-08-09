@@ -1,5 +1,5 @@
 ---
-title: "Welcome to RNA-seq Demystified"
+title: "RNA-seq Demystified Workshop"
 author: "UM Bioinformatics Core Workshop Team"
 output:
         html_document:
@@ -7,10 +7,10 @@ output:
             toc: true
             toc_depth: 4
             toc_float: true
-            number_sections: true
+            number_sections: false
             fig_caption: true
             markdown: GFM
-            code_download: true
+            code_download: false
 ---
 
 <style type="text/css">
@@ -66,7 +66,7 @@ pre {
 <br/>
 <br/>
 
-# Code of Conduct (CoC)
+# Code of Conduct
 
 - Be kind to others. Do not insult or put down others. Behave professionally. Remember that
   harassment and sexist, racist, or exclusionary jokes are not appropriate for the workshop.
@@ -95,6 +95,19 @@ pre {
 - We will be recording this session. Recordings will be available to participants  
   following the workshop.
 
+## Arranging your screens
+It is important that you can see:
+
+ - Zoom (instructor's shared screen + reactions)
+ - Slack
+ - Lesson plan web page
+ - Your terminal/command window (day 1) or R/Studio (day 2)
+
+![arranged screens](images/Module00_arranged_screens.png?)
+<br/>
+<br/>
+
+
 ## <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/>
 
 - Zoom controls are at the bottom of the Zoom window:
@@ -119,6 +132,27 @@ pre {
     an exercise or you would like the instructor to repeat an idea
   - Instructors will use **Green check** and **Red X** to poll the group
     at checkpoints along the way.
+<br/>
+<br/>
+
+### Exercise: Use Zoom non-verbals
+  - Everyone use Zoom to raise your hand. <img src="images/Module00_zoom_raise_hand.png" width=50/>
+<br/>
+<br/>
+
+
+### Exercise: Using Zoom Breakout Rooms
+Take a moment to briefly introduce yourself (name, dept/lab, area of study) in a
+breakout room.
+
+  - Zoom: Click Breakout Rooms
+  - Find the room corresponding to the first letter of your first name
+  - Hover over the number to the right and click **Join**.
+  - When you have completed introductions, you can leave the breakout room to rejoin the main room.
+
+  ![Breakout rooms](images/Module00_zoom_breakout_room.png)
+<br/>
+<br/>
 
 
 ## <img src="images/Module00_slack_logo.png" alt="Slack" width=120/>
@@ -137,17 +171,11 @@ pre {
     the message menu and clicking the **speech bubble** (4).
 
 
-## Arranging you screens
-It is important that you can see:
-
- - Zoom (instructor's shared screen + reactions)
- - Slack
- - Lesson plan web page
- - Your terminal/command window (day 1) or R/Studio (day 2)
-
-![arranged screens](images/Module00_arranged_screens.png?)
+### Exercise: Responding in Slack thread
+What is one thing you hope to learn today or tomorrow?
 <br/>
 <br/>
+
 
 ## Review of Key communication patterns
 | | <img src="images/Module00_zoom_logo.png" alt="Zoom" width=120/> | <img src="images/Module00_Slack_logo.png" alt="Slack" width=120/> |
@@ -160,29 +188,9 @@ It is important that you can see:
 <br/>
 <br/>
 
-# Warm-up Exercises
-
-## Use Zoom non-verbals
-  - Everyone use Zoom to raise your hand. <img src="images/Module00_zoom_raise_hand.png" width=50/>
+### Exercise: Group checkpoint
   - Using Zoom, give me a **green-check** if you feel like you understand
     communication patterns or **red-X** if you need clarification.
-<br/>
-<br/>
-
-## Using Zoom Breakout Rooms
-
-
-  - Zoom: Click Breakout Rooms
-  - Find the room corresponding to the first letter of your first name
-  - Hover over the number to the right and click **Join**.
-  - When you have completed introductions, you can leave the breakout room to rejoin the main room.
-
-  ![Breakout rooms](images/Module00_zoom_breakout_room.png)
-<br/>
-<br/>
-
-## Responding in Slack thread
-What is one thing you hope to learn today or tomorrow?
 <br/>
 <br/>
 
