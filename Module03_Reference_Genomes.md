@@ -24,23 +24,13 @@ In this module, we will learn:
 
 # Differential Expression Workflow
 
-Here we will set the stage for steps 5 and 6 by discussing reference genomes, which are integral to genome alignments and gene/isoform quantification. Along the way we will touch on some quirks to be aware of.
+Here we will set the stage for the next steps by discussing reference genomes, which are integral to genome alignments and gene/isoform quantification. Along the way we will touch on some things to be aware of.
 
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| 4 | Assess Quality of Raw Reads |
-| **5** | **Splice-aware Mapping to Genome** |
-| **6** | **Count Reads Associated with Genes** |
-| :--: | ---- |
-| 7 | Organize project files locally |
-| 8 | Initialize DESeq2 and fit DESeq2 model |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+![](images/wayfinder_05.png)
+<br>
+<br>
+<br>
+<br>
 
 # Reference Genomes
 
@@ -59,18 +49,18 @@ Reference sequence is stored in [FASTA](https://en.wikipedia.org/wiki/FASTA_form
 1. Records are separated by lines beginning with `>` instead of `@`.
 2. Only the sequence is stored in a FASTA file, there is no notion of quality attached to the nucleotides.
 
-
-    >chrM
-    GATCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGCAT
-    TTGGTATTTTCGTCTGGGGGGTGTGCACGCGATAGCATTGCGAGACGCTG
-    GAGCCGGAGCACCCTATGTCGCAGTATCTGTCTTTGATTCCTGCCTCATT
-    CTATTATTTATCGCACCTACGTTCAATATTACAGGCGAACATACCTACTA
-    AAGTGTGTTAATTAATTAATGCTTGTAGGACATAATAATAACAATTGAAT
-    GTCTGCACAGCCGCTTTCCACACAGACATCATAACAAAAAATTTCCACCA
-    AACCCCCCCCTCCCCCCGCTTCTGGCCACAGCACTTAAACACATCTCTGC
-    CAAACCCCAAAAACAAAGAACCCTAACACCAGCCTAACCAGATTTCAAAT
-    TTTATCTTTAGGCGGTATGCACTTTTAACAGTCACCCCCCAACTAACACA
-
+```
+>chrM
+GATCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGCAT
+TTGGTATTTTCGTCTGGGGGGTGTGCACGCGATAGCATTGCGAGACGCTG
+GAGCCGGAGCACCCTATGTCGCAGTATCTGTCTTTGATTCCTGCCTCATT
+CTATTATTTATCGCACCTACGTTCAATATTACAGGCGAACATACCTACTA
+AAGTGTGTTAATTAATTAATGCTTGTAGGACATAATAATAACAATTGAAT
+GTCTGCACAGCCGCTTTCCACACAGACATCATAACAAAAAATTTCCACCA
+AACCCCCCCCTCCCCCCGCTTCTGGCCACAGCACTTAAACACATCTCTGC
+CAAACCCCAAAAACAAAGAACCCTAACACCAGCCTAACCAGATTTCAAAT
+TTTATCTTTAGGCGGTATGCACTTTTAACAGTCACCCCCCAACTAACACA
+```
 
 ## Gene Models
 

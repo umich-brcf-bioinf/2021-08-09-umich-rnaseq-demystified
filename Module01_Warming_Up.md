@@ -21,6 +21,8 @@ In this module, we will:
 * familiarize ourselves with remote computing
 * prepare for later modules
 
+## Building Blocks
+
 <br>
 <br>
 <br>
@@ -30,30 +32,45 @@ In this module, we will:
 <br>
 
 
+## Example Files Exercise:
+
+1. Download the zipped archive from the slack channel
+2. Locate, move (if desired), and unzip it
+3. Remember how to access these files
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 ## Local vs remote exercise:
 
 1. Become familiar with the different appearance of the local shell
-2. Create local folder `~/workshop_rsd` for results
-3. Log in to the aws instance with `ssh <username>@50.17.210.255`
-5. Become familiar with appearance of the remote shell
+2. Briefly explore your local files
+3. Log in to the aws instance with `ssh <username>@bfx-workshop01.med.umich.edu`
+4. Become familiar with appearance of the remote shell
+5. Briefly explore remote files
+6. Use `exit` to log off, return to local shell
 
-<details>
-<summary >Click here for hints - Local vs remote exercise</summary>
+<br>
+<br>
+<br>
 
+```
+# Familiarize with local shell appearance
+# Briefly explore your local files
+ls -l
+# Log in to the aws instance via ssh
+ssh <username>@bfx-workshop01.med.umich.edu
+# Familiarize yourself with differences between local and remote shell
+# Briefly explore remote files
+ls -l
+# Log off, return to local shell
+exit
+```
 
-
-1. Familiarize with local shell appearance
-2. Create local folder for results
-
-        mkdir ~/workshop_rsd
-
-3. Log in to aws instance
-
-        ssh <username>@50.17.210.255
-
-4. Become familiar with the differences between local and remote shell
-
-</details>
 
 <br>
 <br>
@@ -78,40 +95,26 @@ Orientation exercise:
 
 1. Log in (or confirm logged in) to aws instance
 2. Ensure in home directory with `cd`
-3. Use `cp` to copy the data from `/rsd/data/` to your home directory
 4. Use `ls` to view references
 5. Use `ls` to view input fastq files
 6. Use `mkdir` to create a folder for our analysis
 
-<details>
-<summary >Click here for solution</summary>
+<br>
+<br>
+<br>
 
-1. Ensure we're logged in to remote
-
-        ssh <username>@50.17.210.255
-
-2. Ensure we are in home directory
-
-        cd
-
-3. Copy data to our home directory
-
-        cp -r /rsd/data/ ~/
-
-4. View our references
-
-        ls ~/data/refs
-
-5. View our input fastq files
-
-        ls ~/data/reads
-
-6. Create a folder for our analysis
-
-        mkdir ~/analysis
-
-</details>
-
+```
+# Log in to aws remote
+ssh <username>@bfx-workshop01.med.umich.edu
+# Ensure we are in home directory
+cd
+# View our references
+ls ~/data/refs
+# View our input fastq files
+ls ~/data/reads
+# Create a folder for our analysis
+mkdir ~/analysis
+```
 
 <br>
 <br>
