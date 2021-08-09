@@ -55,9 +55,7 @@ Yesterday we discussed aspects of quality control assessment at the sequencing d
 
 To do this, we will assess the similarity of our samples by using principal component analysis (PCA). This will allow us to determine how well patterns in the data fits our expectations from the experiments design and possible sources of variation in the dataset.
 
-Other common visualizations that we generate for our analyses include expression heatmaps, sample correlation heatmaps, and boxplots of raw and/or normalized counts. 
-
-**TODO: Link to bonus content which includes code for additional visualizations**
+Other common visualizations that we generate for our analyses include expression heatmaps, sample correlation heatmaps, and boxplots of raw and/or normalized counts, the code for which can be found in the bonus content module.
 
 ## Principle Component Analysis (PCA) Plots
 
@@ -73,11 +71,14 @@ This image from
 
 ### Interpreting PCA plots
 
-**TODO: Add image of PCA to walk through interpretation before going through code or have open local file**
 
-In the plot we'll generate below, principle component 1 (PC1) explains ~80% of the variance in our data while principle component 2 (PC2) explains ~12% of the variance. We also see that samples in both `control` groups are fairly tightly grouped, while samples within each `Tx` group do not cluster as tightly. 
+![](.images/PCAplot_Fancy_rlog_ko.Tx.pdf){width=75%}
 
-We generally expect most of the variance to be explained by the first two or three principle components.
+In this plot of our data, similar to what we'll generate below, principle component 1 (PC1) explains ~80% of the variance in our data while principle component 2 (PC2) explains ~12% of the variance. 
+
+For most experiments, we expect most of the variance to be explained by the first two or three principle components so this plot.
+
+*Question: How might we interpret the variance explained by each principle component in the context of the labeled sample points?*
 
 
 This [helpful overview of PCA basics](https://blog.bioturing.com/2018/06/14/principal-component-analysis-explained-simply/) walks through both the generation and interpretatation of similar plots.    
@@ -94,7 +95,7 @@ At times, batch effects can be quite obvious, such as this example from the [DES
 
 If we color only by sequencing run type (paired-end vs. single-end), we see that PC2 (29% of variance) is primarily explained by this technical covariate. 
 
-![](./images/PCA1_DESeq2Vignette.png)
+![](./images/PCA2_DESeq2Vignette.png)
 
 However, the samples are clearly seperated by experimental condition on PC1, and since PC1 explains more variance than  PC2 **and** since we have non-confounded batches, we could incorporate the technical covariate into our model design, such as outlined in the [DESeq2 vignette](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#multi-factor-designs).
 
@@ -121,8 +122,7 @@ We've already loaded the libraries we need for this module. We'll follow best pr
 ```{r Setupdirectory}
 plotPath = 'figures/'
 dir.create(plotPath, showWarnings = FALSE)
-Comparison <- "ko.Tx" # descriptor for the dataset we are looking at
-# NOTE, is this correct? In the text below 'Gtype.Tx' is mentioned...
+Comparison <- "Gtype.Tx" # descriptor for the dataset we are looking at
 ```
 
 ## PCA Plot initialization
@@ -136,6 +136,8 @@ p.all <- plotPCA(rld, intgroup = c('Gtype.Tx'), ntop = 500)
 p.all
 ```
 
+We also see that samples in both `control` groups are fairly tightly grouped, while samples within each `Tx` group do not cluster as tightly. There does not appear to be any clear evidence of batch effects. 
+
 Next, we'll save this plot to file.
 ```{r PCArlog1}
 pdf(file = paste0(plotPath, 'PCAplot_rlog_', Comparison, '.pdf'), onefile = TRUE)
@@ -144,21 +146,23 @@ dev.off()
 ```
 
 
+**Checkpoint**: *If generated and saved the `p.all` PCA plot, please indicate with the green 'check' button. Otherwise, please use  use the red 'x' button in your zoom reaction panel to have this step repeated.*
+
 <details>
     <summary>*Click for code to customize PCA plots*</summary>
     We can generate a customized plot using the `ggplot2` package, including shape assignments for our treatment groups and color assignments for the individual samples.
-```{r PCArlog4}
-pdf(file = paste0(plotPath, 'PCAplot_Fancy_rlog_', Comparison, '.pdf'), onefile = TRUE)
+    ```{r PCArlog4}
+    pdf(file = paste0(plotPath, 'PCAplot_Fancy_rlog_', Comparison, '.pdf'), onefile = TRUE)
+    
+    #PCA plot for Rlog-Normalized counts for all samples
+    CombinatoricGroup <- factor(MetaInfo$Gtype.Tx)
+    SampleName <- factor(row.names(MetaInfo))
 
-#PCA plot for Rlog-Normalized counts for all samples
-CombinatoricGroup <- factor(MetaInfo$Gtype.Tx)
-SampleName <- factor(row.names(MetaInfo))
 
+    #Generate the PCA projections using the `plotPCA` function from DESeq2.
+    p.all <- plotPCA(rld, intgroup = c('Gtype.Tx'), ntop = 500)
 
-#Generate the PCA projections using the `plotPCA` function from DESeq2.
-p.all <- plotPCA(rld, intgroup = c('Gtype.Tx'), ntop = 500)
-
-gp <- ggplot(p.all$data, aes(x = PC1, y = PC2, color = SampleName, shape = CombinatoricGroup)) +
+    gp <- ggplot(p.all$data, aes(x = PC1, y = PC2, color = SampleName, shape = CombinatoricGroup)) +
     scale_shape_manual(values=1:nlevels(CombinatoricGroup), name = 'Combinatoric Group') +
     geom_point(size=2) +
     ggtitle(label = as.character('All samples Rlog-Normalized')) +
@@ -168,9 +172,9 @@ gp <- ggplot(p.all$data, aes(x = PC1, y = PC2, color = SampleName, shape = Combi
     xlab(p.all$labels[2]) + ylab(p.all$labels[1]) +
     theme(legend.margin = margin(t = 0, unit='mm'), plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 10)
-plot(gp)
-dev.off()
-```
+    plot(gp)
+    dev.off()
+    ```
 </details>
 
 
@@ -197,12 +201,15 @@ image: ![](./images/proportion-of-variance-blog-horz.jpg)
 
 #### Optional - PCA plot for raw data
 
-It can sometimes be useful to also generate a PCA plot for the raw data as well as the normalized data, especially if ...
+It can sometimes be useful to also generate a PCA plot for the raw data as well as the normalized data, particularly 
 
 ```{r PCAPlainRaw}
-p.all <- plotPCA(rld, intgroup = c('Gtype.Tx'), ntop = 500)
-p.all
+RC <- SummarizedExperiment(log2(counts(dds, normalized = FALSE)), colData=colData(dds))
+p.raw <- plotPCA(DESeqTransform(RC), intgroup = c('Gtype.Tx'), ntop = 500)
+p.raw
 ```
+
+We see that there is less variance explained by PC1 and that the samples from the same group are not as well clustered for the raw data. Since this is prior to normalization, these differences are likely due to **technical** considerations like sequencing depth differences that are accounted for by the rlog normalization.  
 
 <details>
     <summary>*Click for code for customized PCA plot of raw data*</summary>
@@ -220,7 +227,6 @@ p.all
     # embedd example of plot (rlog only)
     plot(gpRC)
     ```
-    We see that there is less variance explained by PC1 and that the samples from the same group are not as well clustered for the raw data. Since this is prior to normalization, these differences are likely due to **technical** considerations like sequencing depth differences that are accounted for by the rlog normalization.   
 </details>
 
 ---
@@ -232,6 +238,9 @@ In this section, we:
 * Discussed variance within treatment groups     
 * Discussed technical artifacts, including batches
 * Learned to generate PCA plots
+
+**Before moving on, we'll take a short (10 minute) break.**
+
 
 ---
 

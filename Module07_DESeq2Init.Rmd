@@ -93,7 +93,7 @@ MetaInfo <- read.table("data/SampleInfo_trimmed.csv", sep = ",", header = TRUE, 
 head(MetaInfo)
 ```
 
-**Checkpoint**: *If you see `MetaInfo` in your environment panel, please indicate with the green 'check' button. Otherwise, please use the grey 'slow down' button to have the command repeated*
+**Checkpoint**: *If you see `MetaInfo` in your environment panel, please indicate with the green 'check' button. Otherwise, please use the red 'x' button to have the command repeated*
 
 
 How are the treatment groups encoded in the table we just loaded?
@@ -111,7 +111,7 @@ unique(MetaInfo$Gtype.Tx)
 ```
 Notice that we set the levels in a particular order. This is important for setting the 'Control' group as the denominator in our comparisons when we setup our DESeq2 model. The group name should be last if there are only two groups & first if there are only three groups to generate default pair-wise comparisons.
 
-**Checkpoint**: *If you see `MetaInfo` in your environment panel, please indicate with the green 'check' button. Otherwise, please use the grey 'slow down' button to have the command repeated*
+**Checkpoint**: *If you see `MetaInfo` in your environment panel, please indicate with the green 'check' button. Otherwise, please use the red 'x' button to have the command repeated*
 
 Before we proceed, we need to make sure that the sample labels (column names) in the count table match the sample information table (row names), including the order. 
 
@@ -122,7 +122,7 @@ all(colnames(data) == rownames(MetaInfo))
 ```
 This line of code checks if both the identity and order match between our `data` table and our `MetaInfo`.
 
-**Checkpoint**: *If you your sample info check returns `TRUE`, please indicate with the green 'yes' button. Otherwise, please use the grey 'slow down' button to have the command repeated*
+**Checkpoint**: *If you your sample info check returns `TRUE`, please indicate with the green 'yes' button. Otherwise, please use the red 'x' button to have the command repeated*
 
 # Creating DESeq2 object
 
@@ -138,7 +138,7 @@ dds <- DESeqDataSetFromMatrix(countData = CountTable,
                               design = ~ Gtype.Tx)
 ```
 
-**Checkpoint**: *If you see `dds` in your environment panel, please indicate with the green 'check' button. Otherwise, please use  use the grey 'slow down' button in your zoom reaction panel to have this step repeated. You can use the red 'x' to be put in a breakout room for help*
+**Checkpoint**: *If you see `dds` in your environment panel, please indicate with the green 'check' button. Otherwise, please use  use the red 'x' button in your zoom reaction panel to have this step repeated. You can use the red 'x' to be put in a breakout room for help*
 
 
 <details>
@@ -177,8 +177,6 @@ Notice how the `dds` object now has less elements after filtering, so there were
 
 ---
 
-**TODO: Format optional exercises as drop down code blocks**
-
 
 #### [Optional exercise]
 
@@ -213,6 +211,8 @@ In this section, we:
 
 
 Now that we've created our DESeq2 objects, including specifying what model is appropriate for our data, and filtered our data, we can proceed with assessing the impact of the experimental conditions on gene expression across our samples. 
+
+**Before moving on, we'll take a short (10 minute) break.**
 
 
 ---

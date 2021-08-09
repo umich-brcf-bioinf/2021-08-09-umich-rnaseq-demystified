@@ -38,33 +38,21 @@ load("rdata/RunningData.RData")
 
 Here we will finally test for differential expression between our comparisons of interest.
 
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| 4 | Assess Quality of Raw Reads |
-| 5 | Splice-aware Mapping to Genome |
-| 6 | Count Reads Associated with Genes |
-| --- | --- |
-| 7 | Organize project files locally |
-| 8 | Initialize DESeq2 and fit DESeq2 model |
-| 9 | Assess expression variance within treatment groups |
-| **10** | **Specify pairwise comparisons and test for differential expression** |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+![](./images/wayfinder_09.png){width=75%}
 
 ---
 
 # Generating DE results
 
-Now that we have reviewed the plots by sample and determined that our data passed our quality control checks, specifically that the patterns we observe are likely due to our experimental treatments over technical or other cofounding factors.
+Now that we have reviewed the plots by sample and determined that our data passed our quality control checks, specifically that the patterns we observe are likely due to our experimental treatments over technical or other cofounding factors, we can focus on differential expression testing.
 
 This illustration from the HCB training materials illustrates the basis of the differential expression procedure, where our goal is to compare the distribution of an expressed gene across samples in each treatment groups.
 ![](./images/de_theory.png)
 *Image credit: Paul Pavlidis, UBC*
 
-Only where the distributions of each group are sufficiently seperated will a gene be considered differentially expressed. This is where having sufficient replicates to overcome within group variance is important, as the more replicates we have in each group the better we can determine the distributions of expression for each group.
+Only where the distributions of each group are sufficiently seperated will a gene be considered differentially expressed. 
+
+This is where having sufficient replicates to overcome within group variance is important, as the more replicates we have in each group the better we can determine the distributions of expression for each group.
 
 ## DESeq2 statistical testing
 
@@ -72,7 +60,9 @@ We have already fit our DESeq2 model, specifing our model as `~ Gtype.Tx` and ou
 
 The first step for any statistical test is to define the *null hypothesis*. In this case, the null hypothesis would be that there is no difference in the expression of a gene between two groups of samples, such as illustrated at the bottom of the first figure in this module. The next step is to use a statistical test to determine if, based on the observed data, the null hypothesis can be rejected.
 
-To do this, [DESeq2 applies the Wald test](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#theory-behind-deseq2) to compare two groups. A Wald test statistic is computed as well as the probability that the observed value or more extreme test statistic would be observed. This probability is called the p-value of the test. If the p-value is smaller than a pre-defined threshold, we would reject the null hypothesis and state that there is evidence against the null, i.e. the gene is differentially expressed. However, if the p-value is larger than our threshold, we would *fail to reject* the null hypothesis, meaning that we lack evidence that the expression of this gene is different *NOT* that we have evidence that the expression is indeed the same in both groups. 
+To do this, [DESeq2 applies the Wald test](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#theory-behind-deseq2) to compare two groups. A Wald test statistic is computed as well as the probability that the observed value or more extreme test statistic would be observed. This probability is called the p-value of the test. 
+
+If the p-value is smaller than a pre-defined threshold, we would reject the null hypothesis and state that there is evidence against the null, i.e. the gene is differentially expressed. However, if the p-value is larger than our threshold, we would *fail to reject* the null hypothesis, meaning that we lack evidence that the expression of this gene is different *NOT* that we have evidence that the expression is indeed the same in both groups. 
 
 
 For a more detailed overview of the statistical comparisons , please refer to [this HBC tutorial](https://hbctraining.github.io/DGE_workshop/lessons/05_DGE_DESeq2_analysis2.html) or the [DESeq2 vignette](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#theory-behind-deseq2).
@@ -169,6 +159,9 @@ In this section, we:
 
 
 Now that we've generated our differential comparisons and have an understanding of our results, including multiple hypothesis correction, we can proceed with generating summary figures and tables for our differential expression analysis.
+
+**Check in for taking a short (10 minute) break or continuing on**
+
 
 ---
 

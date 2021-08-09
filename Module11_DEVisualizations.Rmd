@@ -30,8 +30,8 @@ output:
 ```{r Modules, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 library(DESeq2)
 library(ggplot2)
-#library(tidyr)
-#library(dplyr)
+library(tidyr)
+library(dplyr)
 library(ggrepel)
 library(RColorBrewer)
 load("rdata/RunningData.RData")
@@ -39,23 +39,9 @@ load("rdata/RunningData.RData")
 
 # Differential Expression Workflow
 
-Here we will 
+Here we will generate summary figures for our results and annotate our DE tables.
 
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| 4 | Assess Quality of Raw Reads |
-| 5 | Splice-aware Mapping to Genome |
-| 6 | Count Reads Associated with Genes |
-| --- | --- |
-| 7 | Organize project files locally |
-| 8 | Initialize DESeq2 and fit DESeq2 model |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| **11** | **Generate summary figures for comparisons** |
-| **12** | **Annotate differential expression result tables** |
+![](./images/wayfinder_09.png){width=75%}
 
 ---
 

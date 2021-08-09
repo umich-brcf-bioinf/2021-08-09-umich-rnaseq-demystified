@@ -102,25 +102,25 @@ The results include three pairwise comparisons to the specified control as defau
 head(dds)
 ```
 
-**Checkpoint**: *If you see the same results when you execute `resultsNames(dds)`, please indicate with the green 'yes' button. Otherwise, please use the 'red x' button to get help before the break*
+**Checkpoint**: *If you see the same results when you execute `resultsNames(dds)`, please indicate with the green 'yes' button. Otherwise, please use the red 'x' button to get help before the break*
 
 ---
 
-**TODO: Format optional exercises as drop down code blocks**
 
 #### [Optional Exercise]
 
 If you executed the commands in the option exercise from Module 07, you can fit a seperate DESeq2 model for the patient sample example, which included a covariate in our model. 
 
-```{r FitModelCovariate, eval= FALSE, message=FALSE}
-dds_patient <- DESeq(dds_patient)
-```
-```{r FitModelCovariateCheck1,eval=FALSE}
-resultsNames(dds_patient)
-```
-
-
-If you run through the optional exercises, you can explore the impact of adding a covariate by substituting `dds_patient` for `dds` and re-running those commands since both DESeq2 objects have their data organized in the same way.
+<details>
+    <summary>*Click for fitting a model that includes a covariate*</summary>
+    ```{r FitModelCovariate, eval= FALSE, message=FALSE}
+    dds_patient <- DESeq(dds_patient)
+    ```
+    ```{r FitModelCovariateCheck1,eval=FALSE}
+    resultsNames(dds_patient)
+    ```
+    If you run through the optional exercises, you can explore the impact of adding a covariate by substituting `dds_patient` for `dds` and re-running those commands since both DESeq2 objects have their data organized in the same way.
+</details>
 
 ---
 
@@ -134,6 +134,7 @@ In this section, we:
 * Saw the impact of including a covariate in our model 
 
 **Before moving on with our group comparisons, we'll take a short (10 minute) break.**
+
 
 ---
 

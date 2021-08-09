@@ -38,9 +38,9 @@ Today we will proceed through key steps in a differential expression analysis, s
 
 To get started, let's get a sense of what approaches you already use to compare gene expression:    
 
-* If you've run a qPCR assay and enjoyed all the pippeting, put up a green check. If you've run a qPCR assay and needed some time away from the multichannels, put up a grey slow down button. 
-* If cloning a gene reporter (ie: promoter + GFP), worked for you the first time, put up a green check. If you have a freezer box full of cloning attempts, put up a grey slow down button.  
-* If you are ready to learn about bioinformatic tools for comparing gene expression, put up a green check. If you have some questions about the materials covered yesterday or covered in the webinar, put a grey slow down button.  
+* If you've run a qPCR assay and enjoyed all the pippeting, put up a green 'check'. If you've run a qPCR assay and needed some time away from the multichannels, put up a red 'x' from the reaction panel. 
+* If cloning a gene reporter (ie: promoter + GFP), worked for you the first time, put up a green check. If you have a freezer box full of cloning attempts, put up a red 'x'.  
+* If you are ready to learn about bioinformatic tools for comparing gene expression, put up a green check. If you have some questions about the materials covered yesterday or covered in the webinar, put a red 'x'.  
 
 
 # Tools for Differential Gene Expression analysis
@@ -91,7 +91,6 @@ A related aspect to consider for experimental design is how much sequencing dept
 Generally, for the human and mouse genomes, the general recommendation is 30-40 million reads per sample if measuring the ~20,000  protein-coding genes (i.e.: polyA library prep) to capture both highly expressed (common) and more lowly expresssed (rarer) transcripts. However, as the image above shows, sequencing depth has less of an impact than number of replicates in detecting differentially expressed genes (DEGs).
 
 #### [Exercise]
-----
 
 1) Post a question about differential expression analysis that we haven't addressed
 2) OR Add a reaction to your favorite question(s)
@@ -119,7 +118,7 @@ setwd("~/2021-08-09-umich-rnaseq-demystified")
 ```{r CheckDirectories, eval=FALSE}
 getwd()
 ```
-**Checkpoint**: *Please use the `grey slow down` button in your zoom reaction panel if you are not in your own '2021-08-09-umich-rnaseq-demystified' directory after executing the `getwd()` commands.*
+**Checkpoint**: *Please use the red 'x' button in your zoom reaction panel if you are not in your own '2021-08-09-umich-rnaseq-demystified' directory after executing the `getwd()` commands.*
 
 Once we confirm our working directory, we'll create a new folder within `2021-08-09-umich-rnaseq-demystified` called `data` to store our raw data by copying & pasting the following command.
 
@@ -127,7 +126,7 @@ Once we confirm our working directory, we'll create a new folder within `2021-08
 dir.create("data", showWarnings = FALSE)
 ```
 
-**Checkpoint**: *Please use the 'green check' if you see 'data' within your '2021-08-09-umich-rnaseq-demystified' directory and use the 'grey slow down' button in your zoom reaction panel if you'd like the steps repeated*
+**Checkpoint**: *Please use the green 'check' if you see 'data' within your '2021-08-09-umich-rnaseq-demystified' directory and use the red 'x' button in your zoom reaction panel if you'd like the steps repeated*
 
 
 **TODO: Confirm/test URL for download of new input files... currently on unmerged branch of repo**
@@ -213,6 +212,7 @@ Several  packages have already been installed on the server, so we can load them
 library(DESeq2)
 library(ggplot2)
 library(tidyr)
+library(dplyr)
 library(matrixStats)
 library(ggrepel)
 library(pheatmap)
@@ -221,7 +221,7 @@ library(data.table)
 ```
 
 
-*Note: Expect to see some red messages in your console while these packages are loading*
+*Note: We expect to see some red messages in your console while these packages are loading*
 
 As discussed in the computation foundations/prerequsite sessions, R/RStudio has great resources for getting help, including [code 'cheatsheets'](https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) and package vignettes, like for [tidyr](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html).
 
@@ -230,7 +230,7 @@ We previously loaded several libraries into our R session, we can check the tool
 ?`DESeq2-package`
 ```
 
-**Checkpoint**: *If you see the R documentation for `DESeq2` pop up in your 'help' panel on the right, please indicate with the green 'check' button. If not please use the grey 'slow down' button.*
+**Checkpoint**: *If you see the R documentation for `DESeq2` pop up in your 'help' panel on the right, please indicate with the green 'check' button. If not please use the red 'x' button.*
 
 
 ### Raw data as input
@@ -255,7 +255,7 @@ First let's check the count table in a different way, to see if our table includ
 tail(CountTable)
 ```
 
-*To resolve this discrepancy between the RSEM outputs and expected input for DESeq2, what could we do?*
+*Question: To resolve this discrepancy between the RSEM outputs and expected input for DESeq2, what could we do?*
 
 To round down all the columns of our `CountTable` that include count data (all columns since we set the gene names to be our row names), we can use the `floor()` function.
 ```{r RoundRawCounts}
