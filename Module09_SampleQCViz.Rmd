@@ -72,16 +72,16 @@ This image from
 ### Interpreting PCA plots
 
 
-![](.images/PCAplot_Fancy_rlog_ko.Tx.pdf){width=75%}
+![](images/PCAplot_Fancy_rlog_ko.Tx.png){width=75%}
 
-In this plot of our data, similar to what we'll generate below, principle component 1 (PC1) explains ~80% of the variance in our data while principle component 2 (PC2) explains ~12% of the variance. 
+In this plot, which is similar to what we'll generate below for our data, principle component 1 (PC1) explains ~80% of the variance in our data while principle component 2 (PC2) explains ~12% of the variance. 
 
 For most experiments, we expect most of the variance to be explained by the first two or three principle components so this plot.
 
-*Question: How might we interpret the variance explained by each principle component in the context of the labeled sample points?*
+*[Question]: How might we interpret the variance explained by each principle component in the context of the labeled sample points?*
 
 
-This [helpful overview of PCA basics](https://blog.bioturing.com/2018/06/14/principal-component-analysis-explained-simply/) walks through both the generation and interpretatation of similar plots.    
+For more information, this [helpful overview of PCA basics](https://blog.bioturing.com/2018/06/14/principal-component-analysis-explained-simply/) walks through both the generation and interpretatation of similar plots.    
 
 
 ### Evaulating batch effects or confounders
@@ -151,30 +151,30 @@ dev.off()
 <details>
     <summary>*Click for code to customize PCA plots*</summary>
     We can generate a customized plot using the `ggplot2` package, including shape assignments for our treatment groups and color assignments for the individual samples.
-    ```{r PCArlog4}
-    pdf(file = paste0(plotPath, 'PCAplot_Fancy_rlog_', Comparison, '.pdf'), onefile = TRUE)
-    
-    #PCA plot for Rlog-Normalized counts for all samples
-    CombinatoricGroup <- factor(MetaInfo$Gtype.Tx)
-    SampleName <- factor(row.names(MetaInfo))
+```{r PCArlog4}
+pdf(file = paste0(plotPath, 'PCAplot_Fancy_rlog_', Comparison, '.pdf'), onefile = TRUE)
+
+#PCA plot for Rlog-Normalized counts for all samples
+CombinatoricGroup <- factor(MetaInfo$Gtype.Tx)
+SampleName <- factor(row.names(MetaInfo))
 
 
-    #Generate the PCA projections using the `plotPCA` function from DESeq2.
-    p.all <- plotPCA(rld, intgroup = c('Gtype.Tx'), ntop = 500)
+#Generate the PCA projections using the `plotPCA` function from DESeq2.
+p.all <- plotPCA(rld, intgroup = c('Gtype.Tx'), ntop = 500)
 
-    gp <- ggplot(p.all$data, aes(x = PC1, y = PC2, color = SampleName, shape = CombinatoricGroup)) +
-    scale_shape_manual(values=1:nlevels(CombinatoricGroup), name = 'Combinatoric Group') +
-    geom_point(size=2) +
-    ggtitle(label = as.character('All samples Rlog-Normalized')) +
-    guides(colour=guide_legend(nrow=12, title = 'Sample'),
-        legend.key = element_rect(size = 1),
-        legend.key.size = unit(0, 'cm')) +
-    xlab(p.all$labels[2]) + ylab(p.all$labels[1]) +
-    theme(legend.margin = margin(t = 0, unit='mm'), plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 10)
-    plot(gp)
-    dev.off()
-    ```
+gp <- ggplot(p.all$data, aes(x = PC1, y = PC2, color = SampleName, shape = CombinatoricGroup)) +
+scale_shape_manual(values=1:nlevels(CombinatoricGroup), name = 'Combinatoric Group') +
+geom_point(size=2) +
+ggtitle(label = as.character('All samples Rlog-Normalized')) +
+guides(colour=guide_legend(nrow=12, title = 'Sample'),
+    legend.key = element_rect(size = 1),
+    legend.key.size = unit(0, 'cm')) +
+xlab(p.all$labels[2]) + ylab(p.all$labels[1]) +
+theme(legend.margin = margin(t = 0, unit='mm'), plot.title = element_text(hjust = 0.5)) +
+theme_classic(base_size = 10)
+plot(gp)
+dev.off()
+```
 </details>
 
 
@@ -183,15 +183,15 @@ dev.off()
     <summary>*Click for example code for generating a ScreePlot*</summary>
      A screeplot is a way to visualize the variance explained by all principle components. 
      To generate a scree plot, the PCA results need to be used independently of plotting, such as described by [this statquest post](https://statquest.org/pca-clearly-explained/) and replicated below.
-    ```{r ScreePlot}
-    # generate PCA loadings
-    pca <- prcomp(t(assay(rld)), scale=TRUE)
+```{r ScreePlot}
+# generate PCA loadings
+pca <- prcomp(t(assay(rld)), scale=TRUE)
 
-    ## get the scree information
-    pca.var <- pca$sdev^2
-    scree <- pca.var/sum(pca.var)
-    barplot((scree[1:10]*100), main="Scree Plot", xlab="Principal Component", ylab="Percent Variation") 
-    ```
+## get the scree information
+pca.var <- pca$sdev^2
+scree <- pca.var/sum(pca.var)
+barplot((scree[1:10]*100), main="Scree Plot", xlab="Principal Component", ylab="Percent Variation") 
+```
     We can see that the majority (~65%) of the variance across our samples is explained by the first three principle components, giving us some additional confidence regarding the quality of our data.
     In these scree plot examples from BioTuring, the plot on the left fits what we would expect for a dataset with high signal from the experimental treatment, where the majority of the variance is explained by the first few principle components. The plot on the right illustrates a scenario where the variance is distributed across many components, which could be due to low signal from the experimental treatment, complex experimental design, or confounding factors.
 image: ![](./images/proportion-of-variance-blog-horz.jpg)
@@ -212,23 +212,23 @@ We see that there is less variance explained by PC1 and that the samples from th
 
 <details>
     <summary>*Click for code for customized PCA plot of raw data*</summary>
-    ```{r PCAraw}
-    pdf(file = paste0(plotPath, 'PCAplot_raw_', Comparison, '.pdf'), onefile = TRUE)
-    #PCA for Raw counts for all samples
-    RC <- SummarizedExperiment(log2(counts(dds, normalized = FALSE)), colData=colData(dds))
-    p.RC <- plotPCA(DESeqTransform(RC), intgroup = 'Gtype.Tx')
+```{r PCAraw}
+pdf(file = paste0(plotPath, 'PCAplot_raw_', Comparison, '.pdf'), onefile = TRUE)
+#PCA for Raw counts for all samples
+RC <- SummarizedExperiment(log2(counts(dds, normalized = FALSE)), colData=colData(dds))
+p.RC <- plotPCA(DESeqTransform(RC), intgroup = 'Gtype.Tx')
 
-    gpRC <- ggplot(p.RC$data, aes(x = PC1, y = PC2, color = SampleName, shape = CombinatoricGroup)) +     xlab(p.RC$labels[2]) + ylab(p.RC$labels[1]) + scale_shape_manual(values=1:nlevels(CombinatoricGroup), name = 'Combinatoric Group') + geom_point(size=2) + ggtitle(label = as.character('All samples Raw Data')) + theme(plot.title = element_text(hjust = 0.5)) + guides(colour=guide_legend(nrow=12, title = 'Sample'), legend.key = element_rect(size = 1), legend.key.size = unit(0, 'cm')) + theme_classic(base_size = 10) + theme(legend.margin=margin(t = 0, unit='mm'))
-    plot(gpRC)
-    
-    dev.off()
+gpRC <- ggplot(p.RC$data, aes(x = PC1, y = PC2, color = SampleName, shape = CombinatoricGroup)) +     xlab(p.RC$labels[2]) + ylab(p.RC$labels[1]) + scale_shape_manual(values=1:nlevels(CombinatoricGroup), name = 'Combinatoric Group') + geom_point(size=2) + ggtitle(label = as.character('All samples Raw Data')) + theme(plot.title = element_text(hjust = 0.5)) + guides(colour=guide_legend(nrow=12, title = 'Sample'), legend.key = element_rect(size = 1), legend.key.size = unit(0, 'cm')) + theme_classic(base_size = 10) + theme(legend.margin=margin(t = 0, unit='mm'))
+plot(gpRC)
 
-    # embedd example of plot (rlog only)
-    plot(gpRC)
-    ```
+dev.off()
+
+# embedd example of plot (rlog only)
+plot(gpRC)
+```
 </details>
 
----
+
 
 # Summary 
 
@@ -238,7 +238,7 @@ In this section, we:
 * Discussed technical artifacts, including batches
 * Learned to generate PCA plots
 
-**Before moving on, we'll take a short (10 minute) break.**
+**Before moving on, we'll take a short (15 minute) break.**
 
 
 ---
@@ -257,9 +257,8 @@ save.image(file = "rdata/RunningData.RData")
 ```
 
 
----
 
-# Session Info:
+## Session Info:
 ```{r SessionInfo}
 sessionInfo()
 ```
