@@ -1,5 +1,5 @@
 ---
-title: "Wrapping up RNA-seq Demystified"
+title: "RNA-seq Demystified Workshop"
 author: "UM Bioinformatics Core"
 output:
         html_document:
@@ -7,13 +7,26 @@ output:
             toc: true
             toc_depth: 4
             toc_float: true
-            number_sections: true
+            number_sections: false
             fig_caption: true
             markdown: GFM
-            code_download: true
+            code_download: false
 ---
 
-# Wrapping up RNA-Seq Demystified
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+</style>
+
+# Wrapping up
 
 ## In summary
 
@@ -30,7 +43,7 @@ connect to enable gene expression analysis from bulk RNA-Seq data.
 
 ## Housekeeping
 
-- Linux/Unix workshop compute environment (at Amazon) will be available until Friday.
+- BASH/RStudio workshop compute environment (at Amazon) will be available until Friday.
 
 - We will email you a link to the session recordings by next week.
 
