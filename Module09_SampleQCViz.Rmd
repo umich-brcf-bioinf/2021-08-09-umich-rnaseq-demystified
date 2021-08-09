@@ -191,7 +191,6 @@ dev.off()
     pca.var <- pca$sdev^2
     scree <- pca.var/sum(pca.var)
     barplot((scree[1:10]*100), main="Scree Plot", xlab="Principal Component", ylab="Percent Variation") 
-
     ```
     We can see that the majority (~65%) of the variance across our samples is explained by the first three principle components, giving us some additional confidence regarding the quality of our data.
     In these scree plot examples from BioTuring, the plot on the left fits what we would expect for a dataset with high signal from the experimental treatment, where the majority of the variance is explained by the first few principle components. The plot on the right illustrates a scenario where the variance is distributed across many components, which could be due to low signal from the experimental treatment, complex experimental design, or confounding factors.
@@ -252,7 +251,7 @@ In this section, we:
 
 
 
-```{r WriteOut.RData, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+```{r WriteOut.RData, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 #Hidden code block to write out data for knitting
 save.image(file = "rdata/RunningData.RData")
 ```

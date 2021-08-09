@@ -43,6 +43,8 @@ Here we will generate summary figures for our results and annotate our DE tables
 
 ![](./images/wayfinder_09.png){width=75%}
 
+**TODO: double check references to annotated table prior to running annotations**
+
 ---
 
 # Visualizing DE results

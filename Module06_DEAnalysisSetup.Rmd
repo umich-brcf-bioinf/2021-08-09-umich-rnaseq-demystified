@@ -102,52 +102,24 @@ Generally, for the human and mouse genomes, the general recommendation is 30-40 
 
 Today we'll be exploring some RNA-seq data that is fairly representative of what we see in the core and start with input files similar to the count tables currently being delivered by the Advanced Sequencing Core.
 
-**TO DO: UPDATE THUMBNAIL**
+## Logging into the RStudio server
 
-To get started, we'll open up our RStudio console and set up for our analysis.
-![](./images/Rstudio_example.png){width=75%}
+First navigate to server address `bfx-workshop01.med.umich.edu`, using a web browser. You should see a sign-in prompt screen, similar to shown below
 
+![](./images/RStudioLogInPrompt.png){width=50%}
 
-To organize our files for our analysis today we'll create a new folder, ideally in our home directory, using the 'New Folder' button on the right side of our screen & naming it `2021-08-09-umich-rnaseq-demystified`. Then we'll set our working directory using the drop down menu under the `More` icon. This can also be accomplished as code:
-
-```{r SetupDirectories, eval=FALSE, echo=TRUE}
-dir.create("~/2021-08-09-umich-rnaseq-demystified", showWarnings = FALSE)
-setwd("~/2021-08-09-umich-rnaseq-demystified")
-```
-
-```{r CheckDirectories, eval=FALSE}
-getwd()
-```
-**Checkpoint**: *Please use the red 'x' button in your zoom reaction panel if you are not in your own '2021-08-09-umich-rnaseq-demystified' directory after executing the `getwd()` commands.*
-
-Once we confirm our working directory, we'll create a new folder within `2021-08-09-umich-rnaseq-demystified` called `data` to store our raw data by copying & pasting the following command.
-
-```{r SetupDirs2, eval=FALSE, message=FALSE, warning=FALSE}
-dir.create("data", showWarnings = FALSE)
-```
-
-**Checkpoint**: *Please use the green 'check' if you see 'data' within your '2021-08-09-umich-rnaseq-demystified' directory and use the red 'x' button in your zoom reaction panel if you'd like the steps repeated*
+Next, use your unique name and the same password used yesterday to log-in to the server from the command line. You should now see some familar RStudio panels in your web browser window.
 
 
-**TODO: Confirm/test URL for download of new input files... currently on unmerged branch of repo**
+![](./images/RStudioServerWindow.png){width=50%}
 
-Next, we'll download the files we'll need for today by copying and pasting the follow.
-```{r DownloadData, eval = FALSE}
-### TO DO: ENSURE THESE URLS ARE CORRECT
-
-download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/rnaseq_demystified_workshop_2021/DMK_changes/data/Day2Data/SampleInfo_trimmed.csv", "data/SampleInfo_trimmed.csv")
-
-download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/rnaseq_demystified_workshop_2021/DMK_changes/data/Day2Data/gene_expected_count_trimmed.txt", "data/gene_expected_count_trimmed.txt")
-
-
-```
 
 ## Best practices for file organization
 
-
-While your data downloads, as discussed in [Software Carpentry](https://umcarpentries.org/intro-curriculum-r/) and other forums, including a review by [Nobel, 2009](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424), file organization is an important part of reproducible research. 
+As discussed in [Software Carpentry](https://umcarpentries.org/intro-curriculum-r/) and other forums, including a review by [Nobel, 2009](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424), file organization is an important part of reproducible research. 
 
 To follow best practices for file organization for bioinformatics/computational projects, we will need to make sure there are separate locations for:
+
 * Raw data
 * Code
 * Output files
@@ -156,24 +128,23 @@ Such as illustrated in this figure from the Noble review:
 
 ![](./images/Noble2009_dataprojects.png){width=75%}
 
-If we look within our 'data' folder, we should now see two files:
+To organize our files for our analysis today we'll create a new folder, ideally in our home directory, using the 'New Folder' button on the right side of our screen & naming it `2021-08-09-umich-rnaseq-demystified`. Then we'll click to navigate into our new folder, and set our working directory using the drop down menu under the `More` icon. This can also be accomplished as code:
 
-**TODO Fix this screenshot.**
+```{r SetupDirectories, eval=FALSE, echo=TRUE}
+dir.create("~/2021-08-09-umich-rnaseq-demystified", showWarnings = FALSE)
+setwd("~/2021-08-09-umich-rnaseq-demystified")
+```
 
-![](./images/DirectoryWithData.png){width=50%}
+Before moving forward, let's double check that we're in the right place.
+```{r CheckDirectories, eval=FALSE}
+getwd()
+```
+**Checkpoint**: *Please use the red 'x' button in your zoom reaction panel if you are not in your own '2021-08-09-umich-rnaseq-demystified' directory after executing the `getwd()` commands and the green 'check' if you see a similar path as I do*
 
-
-**Checkpoint**: *Please use the 'grey slow down' button button if you don't see the files after clicking on the "data" directory so I can repeat the steps. If you have successfully downloaded the data then used the green 'check' button.*
-
----
-
-# Setting up our analysis
-
-Following best practices, we will create a code file that will record all our commands and will be saved in a separate location from our raw data. 
 
 ## Creating our code file
 
-To create a new code file, use the toolbar at the top of our window and click the icon that looks like white square with a small green plus symbol. From the drop down menu, select the first option named 'R Script'. 
+Next, we'll create a new code file, use the toolbar at the top of our window and click the icon that looks like white square with a small green plus symbol. From the drop down menu, select the first option named 'R Script'. 
 
 **TODO: Add screen shot highlighting 'new file' button**
 
@@ -185,6 +156,39 @@ This new "RNASeqAnalysis.R" will serve as a record of our analysis and should be
 
 
 *Note: This code file can also serve as a starting point for working through differential expression comparisons with other example datasets or your own data in the future.*
+
+## Downloading our data
+
+Next, we'll create a new folder within `2021-08-09-umich-rnaseq-demystified` called `data` to store our raw data by copying & pasting the following command.
+
+```{r SetupDirs2, eval=FALSE, message=FALSE, warning=FALSE}
+dir.create("data", showWarnings = FALSE)
+```
+
+**Checkpoint**: *Please use the green 'check' if you see 'data' within your '2021-08-09-umich-rnaseq-demystified' directory and use the red 'x' button in your zoom reaction panel if you'd like the steps repeated*
+
+
+Next, we'll download the files we'll need for today by copying and pasting the follow.
+```{r DownloadData, eval = FALSE}
+### TO DO: ENSURE THESE URLS ARE CORRECT
+
+download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/rnaseq_demystified_workshop_2021/data/SampleInfo_trimmed.csv", "data/SampleInfo_trimmed.csv")
+
+download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/rnaseq_demystified_workshop_2021/data/gene_expected_count_trimmed.txt", "data/gene_expected_count_trimmed.txt")
+
+```
+
+If we look within our 'data' folder, we should now see two files:
+
+**TODO Fix this screenshot.**
+
+![](./images/DirectoryWithData.png){width=50%}
+
+
+**Checkpoint**: *Please use the red 'x' button button if you don't see the files after clicking on the "data" directory so I can repeat the steps. If you have successfully downloaded the data then used the green 'check' button.*
+
+---
+
 
 
 An important note is that there are several bonus content sections on the instruction pages, like the two below that we will not be covering in this workshop, but that may have useful context or be helpful when you review this material.
