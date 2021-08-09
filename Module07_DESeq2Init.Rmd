@@ -93,7 +93,7 @@ MetaInfo <- read.table("data/SampleInfo_trimmed.csv", sep = ",", header = TRUE, 
 head(MetaInfo)
 ```
 
-**Checkpoint**: *If you see `MetaInfo` in your environment panel, please indicate with the green 'yes' button. Otherwise, please use the grey 'slow down' button to have the command repeated*
+**Checkpoint**: *If you see `MetaInfo` in your environment panel, please indicate with the green 'check' button. Otherwise, please use the grey 'slow down' button to have the command repeated*
 
 
 How are the treatment groups encoded in the table we just loaded?
@@ -101,7 +101,6 @@ How are the treatment groups encoded in the table we just loaded?
 unique(MetaInfo$Gtype.Tx)
 ```
 
-**TODO: Update to set levels within input table & test proper level order to get pairwise comparisons; possibly split up  samples/data to avoid?**
 
 Next, we'll format our table so that we have the appropriate data type (a ordered [factor](https://swcarpentry.github.io/r-novice-inflammation/12-supp-factors/)) for DESeq2 to recognize our treatment groups and appropriately compare samples.
 ```{r SampleInfo2}
@@ -112,7 +111,7 @@ unique(MetaInfo$Gtype.Tx)
 ```
 Notice that we set the levels in a particular order. This is important for setting the 'Control' group as the denominator in our comparisons when we setup our DESeq2 model. The group name should be last if there are only two groups & first if there are only three groups to generate default pair-wise comparisons.
 
-**Checkpoint**: *If you see `MetaInfo` in your environment panel, please indicate with the green 'yes' button. Otherwise, please use the grey 'slow down' button to have the command repeated*
+**Checkpoint**: *If you see `MetaInfo` in your environment panel, please indicate with the green 'check' button. Otherwise, please use the grey 'slow down' button to have the command repeated*
 
 Before we proceed, we need to make sure that the sample labels (column names) in the count table match the sample information table (row names), including the order. 
 
@@ -139,26 +138,25 @@ dds <- DESeqDataSetFromMatrix(countData = CountTable,
                               design = ~ Gtype.Tx)
 ```
 
-**Checkpoint**: *If you see `dds` in your environment panel, please indicate with the green 'check' button. Otherwise, please use  use the grey 'slow down' button in your zoom reaction panel to have this step repeated or the red 'x' to be put in a breakout room for help*
+**Checkpoint**: *If you see `dds` in your environment panel, please indicate with the green 'check' button. Otherwise, please use  use the grey 'slow down' button in your zoom reaction panel to have this step repeated. You can use the red 'x' to be put in a breakout room for help*
 
 
 <details>
     <summary>*Click for how to model batch effects with DESeq2*</summary>
     Differences between samples can also be due to technical reasons, such as collection on different days or different sequencing runs. Differences between samples that are not due to biological factors as called **batch effects**. We can include batch effects in our design model in the same way as covariates, as long as the technical groups do not overlap, or **confound**, the biological treatment groups.  
     Let's try add some additional meta-data information where we have counfounding batch effects and create another DESeq2 object. 
-```{r Confounders, eval=FALSE}
-#MetaInfo
-MetaInfo$batch <- factor(c(rep(c("Day1"), 3), 
+    ```{r Confounders, eval=FALSE}
+    #MetaInfo
+    MetaInfo$batch <- factor(c(rep(c("Day1"), 3), 
                            rep(c("Day2"), 3), 
                            rep(c("Day3"), 3), 
                            rep(c("Day4"), 3)), 
                          levels = c("Day1", "Day2", "Day3", "Day4"))
 
-dds_batch <- DESeqDataSetFromMatrix(countData = CountTable,
+    dds_batch <- DESeqDataSetFromMatrix(countData = CountTable,
                           colData = MetaInfo,
                           design = ~ batch + Gtype.Tx)
-```
-
+    ```
     Notice that if you run the above command, the error indicates that variables in the design formula "are linear combinations" which means that batch and condition are correlated and the function is unable to fill in a required 'slot' in the DESeq2 object. 
     So if batches are **not balanced** by including both case and controls (like in the patient covariate example) then we cannot control for those technical effects through statistical modeling.
 </details> 
@@ -184,25 +182,26 @@ Notice how the `dds` object now has less elements after filtering, so there were
 
 #### [Optional exercise]
 
-**TODO: Double check that covariate is no longer used in required code later in modules**
-
 You can test out manually adding a covariate to our `MetaInfo` data table and then create a new DESeq2 object.
-```{r Covariates, eval=FALSE}
-head(MetaInfo)
-MetaInfo$patient <- factor(rep(c("P1", "P2", "P3"), 4), levels = c("P1", "P2", "P3"))
-head(MetaInfo)
-```
-Notice how we avoid starting with a number our patient covariate labels since R doesn't like that.
 
-```{r CovariateDESeq2Object, eval=FALSE}
-dds_patient <- DESeqDataSetFromMatrix(countData = CountTable,
+<details>
+    <summary>*Click for how to add a covariate to sample information*</summary>
+    ```{r Covariates, eval=FALSE}
+    head(MetaInfo)
+    MetaInfo$patient <- factor(rep(c("P1", "P2", "P3"), 4), levels = c("P1", "P2", "P3"))
+    head(MetaInfo)
+    ```
+    Notice how we avoid starting with a number our patient covariate labels since R doesn't like that.
+
+    ```{r CovariateDESeq2Object, eval=FALSE}
+    dds_patient <- DESeqDataSetFromMatrix(countData = CountTable,
                               colData = MetaInfo,
                               design = ~ patient + Gtype.Tx)
-```
-Now we have specified for DESeq2 that we want to test for the effect of the condition (the last factor) while controlling for the effect of the patient origin (the first factor).
+    ```
+    Now we have specified for DESeq2 that we want to test for the effect of the condition (the last factor) while controlling for the effect of the patient origin (the first factor).
+</details> 
 
 ---
-
 
 # Summary 
 
@@ -214,8 +213,6 @@ In this section, we:
 
 
 Now that we've created our DESeq2 objects, including specifying what model is appropriate for our data, and filtered our data, we can proceed with assessing the impact of the experimental conditions on gene expression across our samples. 
-
-**Before moving on with our group comparisons, we'll take a short (10 minute) break.**
 
 
 ---

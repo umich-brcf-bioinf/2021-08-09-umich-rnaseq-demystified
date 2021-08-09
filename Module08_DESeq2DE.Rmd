@@ -30,27 +30,12 @@ library(DESeq2)
 load("rdata/RunningData.RData")
 ```
 
-![](./images/Day2Workflow.png){width=75%}
 
 # Differential Expression Workflow
 
 Here we will proceed with count normalizations and fit our DESeq2 model.
 
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| 4 | Assess Quality of Raw Reads |
-| 5 | Splice-aware Mapping to Genome |
-| 6 | Count Reads Associated with Genes |
-| --- | --- |
-| 7 | Organize project files locally |
-| **8** | **Initialize DESeq2 and fit DESeq2 model** |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+![](./images/wayfinder_07.png){width=75%}
 
 ---
 
@@ -139,7 +124,14 @@ If you run through the optional exercises, you can explore the impact of adding 
 
 ---
 
+# Summary 
 
+In this section, we:   
+
+* Learned about count normalizations and uses    
+* Generated a normalized count table    
+* Fit two DESeq2 models for our data    
+* Saw the impact of including a covariate in our model 
 
 **Before moving on with our group comparisons, we'll take a short (10 minute) break.**
 
