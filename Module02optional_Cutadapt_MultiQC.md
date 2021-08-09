@@ -21,23 +21,17 @@ In this module we will learn:
 * how to use the cutadapt tool for trimming adapters
 * how to trim all of our samples in a for-loop
 * about the MultiQC tool and its capabilities
-* how to run multiQC on a remote system, transfer and view the reports locally
+* how to run multiQC on a remote system
 
 # Differential Expression Workflow
 
-As a reminder, our overall differential expression workflow is shown below. In this lesson, we will go over the bold part of the workflow.
-
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| **4** | **Assess Quality of Reads** |
-| 5 | Splice-aware Mapping to Genome |
-| 6 | Count Reads Associated with Genes |
-| 7 | Test for DE Genes |
+As a reminder, our overall differential expression workflow is shown below. In this lesson, we will go over the highlighed portion of the workflow.
 
 ![](images/wayfinder_04.png)
+<br>
+<br>
+<br>
+<br>
 
 # Cutadapt
 
@@ -72,13 +66,13 @@ As mentioned above, cutadapt has many capabilities. Depending on the parameters 
 2. Construct a cutadapt command to trim the adapters from paired-end reads
 3. View the output of cutadapt, and verify that it's correct
 
-
-    # View the help page of Cutadapt
-    cutadapt --help
-    # Construct a cutadapt command to trim adapters from paired-end reads
-    cutadapt -a AGATCGGAAGAG -A AGATCGGAAGAG -o out_trimmed/sample_01_R1.trimmed.fastq.gz -p out_trimmed/sample_01_R2.trimmed.fastq.gz reads/sample_01_R1.fastq.gz reads/sample_01_R2.fastq.gz
-    # View the output of cutadapt, (verify presence of output files and peek into the files)
-
+```
+# View the help page of Cutadapt
+cutadapt --help
+# Construct a cutadapt command to trim adapters from paired-end reads
+cutadapt -a AGATCGGAAGAG -A AGATCGGAAGAG -o out_trimmed/sample_01_R1.trimmed.fastq.gz -p out_trimmed/sample_01_R2.trimmed.fastq.gz reads/sample_01_R1.fastq.gz reads/sample_01_R2.fastq.gz
+# View the output of cutadapt, (verify presence of output files and peek into the files)
+```
 
 <details>
 <summary>Running cutadapt on all samples using a bash variable</summary>
@@ -96,12 +90,13 @@ Re-running FastQC Exercise:
 1. Construct and execute FastQC command to evaluate trimmed read FASTQ files
 2. View the output (filenames)
 
-
-    # Construct the fastqc command
-    fastqc -o out_fastqc_trimmed out_trimmed/*.fastq.gz
-    # Execute the command
-    # Then verify that the output files are present
-    ls -l out_fastqc_trimmed
+```
+# Construct the fastqc command
+fastqc -o out_fastqc_trimmed out_trimmed/*.fastq.gz
+# Execute the command
+# Then verify that the output files are present
+ls -l out_fastqc_trimmed
+```
 
 
 # MultiQC
@@ -131,14 +126,12 @@ MultiQC's main output is the report file in HTML format. This can be viewed in a
 2. Construct a MultiQC command to aggregate our QC results into a single report
 3. View the MultiQC report
 
-
-    # View MultiQC help page
-    multiqc --help
-    # Construct a MultiQC command
-    multiqc --outdir out_multiqc out_fastqc_trimmed/
-
-
-
+```
+# View MultiQC help page
+multiqc --help
+# Construct a MultiQC command
+multiqc --outdir out_multiqc out_fastqc_trimmed/
+```
 
 
 <details>

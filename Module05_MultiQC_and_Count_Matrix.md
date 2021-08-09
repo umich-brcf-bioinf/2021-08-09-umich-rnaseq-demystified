@@ -25,18 +25,11 @@ In this module, we will learn:
 
 Here we will take the results from the previous module and operate on them a bit further. This will wrap up the day 1 exercises, leaving us well-poised to begin differential expression, which we will discuss on day 2.
 
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| 4 | Assess Quality of Raw Reads |
-| **5** | **Splice-aware Mapping to Genome** |
-| **6** | **Count Reads Associated with Genes** |
-| 7 | Test for DE Genes |
-
-
 ![](images/wayfinder_06.png)
+<br>
+<br>
+<br>
+<br>
 
 ## Alignment Statistics with MultiQC
 
@@ -112,12 +105,13 @@ Source: [MultiQC example report](https://multiqc.info/examples/rna-seq/multiqc_r
 2. Construct a MultiQC command and execute it on this directory
 3. View the MultiQC report
 
-    # View MultiQC help page
-    multiqc --help
-    # Construct a MultiQC command and execute it
-    multiqc --outdir out_multiqc_rsem out_rsem_star/
-    # Verify that the output files are present
-
+```
+# View MultiQC help page
+multiqc --help
+# Construct a MultiQC command and execute it
+multiqc --outdir out_multiqc_rsem out_rsem_star/
+# Verify that the output files are present
+```
 
 <details>
 <summary>Optional exercise - Transfer the MultiQC report to personal computer</summary>
@@ -165,9 +159,11 @@ The input for this step will be the directory of *.genes.results files from RSEM
 2. Construct / execute a command to combine our results into a count matrix
 3. View the resulting count matrix
 
-    # View the help file of combine.py
-    combine.py --help
-    # Construct and execute the command to combine.py
-    combine.py --input_path out_rsem_star --output_file combined_counts.txt -c expected_count --id_columns gene_id
-    # View the resulting count matrix
-    less combined_counts.txt
+```
+# View the help file of combine.py
+combine.py --help
+# Construct and execute the command to combine.py
+combine.py --input_path out_rsem_star --output_file combined_counts.txt -c expected_count --id_columns gene_id
+# View the resulting count matrix
+less combined_counts.txt
+```

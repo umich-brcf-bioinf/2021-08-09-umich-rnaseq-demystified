@@ -25,19 +25,11 @@ In this module, we will learn:
 
 We'll discuss the alignment and gene quantification steps which gather the necessary data that we will need prior to testing for differential expression, the topic of Day 2.
 
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| 4 | Assess Quality of Raw Reads |
-| **5** | **Splice-aware Mapping to Genome** |
-| **6** | **Count Reads Associated with Genes** |
-| 7 | Test for DE Genes |
-
-
 ![](images/wayfinder_05.png)
-
+<br>
+<br>
+<br>
+<br>
 
 # Alignment and Gene Quantification
 
@@ -171,10 +163,12 @@ Alternatively, we can combine these results into a count matrix. The count matri
 2. Create and execute a command that will index our example genome
 3. Examine the output of the rsem
 
-    # View the help file
-    rsem-prepare-reference -h
-    # Create/execute the prepare-reference command
-    rsem-prepare-reference --gtf refs/Homo_sapiens.GRCh38.98.chr22.15-25Mbp.gtf --star --num-threads 1 refs/Homo_sapiens.GRCh38.dna_sm.chr22.15-25Mbp.fa refs/Homo_sapiens.GRCh38.index.chr22.15-25Mbp
+```
+# View the help file
+rsem-prepare-reference -h
+# Create/execute the prepare-reference command
+rsem-prepare-reference --gtf refs/Homo_sapiens.GRCh38.98.chr22.15-25Mbp.gtf --star --num-threads 1 refs/Homo_sapiens.GRCh38.dna_sm.chr22.15-25Mbp.fa refs/Homo_sapiens.GRCh38.index.chr22.15-25Mbp
+```
 
 
 ## RSEM Calculate Expression Exercise:
@@ -182,9 +176,9 @@ Alternatively, we can combine these results into a count matrix. The count matri
 1. View the help page for rsem-calculate-expression
 2. Create a command to execute RSEM / STAR alignment and quantification for one of our samples
 
-
-    rsem-calculate-expression --star --num-threads 1 --star-gzipped-read-file --star-output-genome-bam --keep-intermediate-files --paired-end out_cutadapt/sample_01_R1.fastq.gz out_cutadapt/sample_01_R2.fastq.gz refs/Homo_sapiens.GRCh38.index.chr22 out_rsem/sample_01
-
+```
+rsem-calculate-expression --star --num-threads 1 --star-gzipped-read-file --star-output-genome-bam --keep-intermediate-files --paired-end out_cutadapt/sample_01_R1.fastq.gz out_cutadapt/sample_01_R2.fastq.gz refs/Homo_sapiens.GRCh38.index.chr22 out_rsem/sample_01
+```
 
 ## Aligning All Samples Exercise:
 

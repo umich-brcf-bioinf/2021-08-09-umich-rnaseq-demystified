@@ -23,19 +23,13 @@ In this Quality Control (QC) module, we will learn:
 
 # Differential Expression Workflow
 
-An overview of the steps of entire differential expression experiment and analysis workflow is shown below. In this lesson, we will go over the bold part of the workflow.
-
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| **4** | **Assess Quality of Reads** |
-| 5 | Splice-aware Mapping to Genome |
-| 6 | Count Reads Associated with Genes |
-| 7 | Test for DE Genes |
+An overview of the steps of entire differential expression experiment and analysis workflow is shown below. In this lesson, we will go over the highlighted part of the workflow.
 
 ![](images/wayfinder_04.png)
+<br>
+<br>
+<br>
+<br>
 
 # RNA-seq Data
 
@@ -65,7 +59,7 @@ Raw sequenced reads are stored in [FASTQ](https://en.wikipedia.org/wiki/FASTQ_fo
 | Line | Description |
 | :--: | ----------- |
 | 1 | Begins with `@` and has information about the read. From AGC will contain flowcell and barcode information. |
-| 2 | The DNA sequence. |
+| 2 | The RNA sequence. |
 | 3 | Always begins with `+` and may contain the same information as line 1. |
 | 4 | A string of characters representing the quality scores. Always the same number of characters as line 2. |
 
@@ -194,9 +188,9 @@ This can be dealt with by adding a step to the workflow that trims the reads of 
 
 ## Examining a FastQC report
 
-There is a report located at ~/data/fastqc_trimmed/sample_01_R1.trimmed_fastqc.html.
+From the zipped folder you downloaded earlier, find the FastQC report `sample_01_R1.trimmed_fastqc.html`.
 
-We'll view this report and try to interpret some of the figures
+We'll view this report and try to interpret some of the figures.
 
 ## Acting on QC - Good or Bad Results?
 
@@ -213,12 +207,14 @@ Let's try running FastQC on our FASTQ input files.
 3. Watch FastQC process the files / gather quality metrics
 4. View the output of FastQC (the filenames)
 
-    # View the FastQC help file
-    fastqc -h
-    # Contstruct the call to FastQC
-    fastqc -o out_fastqc/ input_reads/*.fastq.gz
-    # Watch the output of FastQC
-    # View the output of FastQC (the filenames)
+```
+# View the FastQC help file
+fastqc -h
+# Contstruct the call to FastQC
+fastqc -o out_fastqc/ input_reads/*.fastq.gz
+# Watch the output of FastQC
+# View the output of FastQC (the filenames)
+```
 
 ---
 
