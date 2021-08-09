@@ -70,7 +70,7 @@ As mentioned above, cutadapt has many capabilities. Depending on the parameters 
 # View the help page of Cutadapt
 cutadapt --help
 # Construct a cutadapt command to trim adapters from paired-end reads
-cutadapt -a AGATCGGAAGAG -A AGATCGGAAGAG -o out_trimmed/sample_01_R1.trimmed.fastq.gz -p out_trimmed/sample_01_R2.trimmed.fastq.gz reads/sample_01_R1.fastq.gz reads/sample_01_R2.fastq.gz
+cutadapt -a AGATCGGAAGAG -A AGATCGGAAGAG -o out_trimmed/sample_01_R1.trimmed.fastq.gz -p out_trimmed/sample_01_R2.trimmed.fastq.gz ../data/reads/sample_01_R1.fastq.gz ../data/reads/sample_01_R2.fastq.gz
 # View the output of cutadapt, (verify presence of output files and peek into the files)
 ```
 
@@ -91,6 +91,8 @@ Re-running FastQC Exercise:
 2. View the output (filenames)
 
 ```
+# We'll have to create an output directory first
+mkdir out_fastqc_trimmed
 # Construct the fastqc command
 fastqc -o out_fastqc_trimmed out_trimmed/*.fastq.gz
 # Execute the command
@@ -130,7 +132,7 @@ MultiQC's main output is the report file in HTML format. This can be viewed in a
 # View MultiQC help page
 multiqc --help
 # Construct a MultiQC command
-multiqc --outdir out_multiqc out_fastqc_trimmed/
+multiqc --outdir out_multiqc_cutadapt out_fastqc_trimmed/
 ```
 
 
@@ -143,7 +145,7 @@ scp command format, with the address for AWS remote
 
 ```
 # Usage: scp [source] [destination]
-scp <username>@bfx-workshop01.med.umich.edu:~/example_data/out_multiqc/multiqc_report.html ~/rsd-workshop/
+scp <username>@bfx-workshop01.med.umich.edu:~/analysis/out_multiqc_cutadapt/multiqc_report.html ~/rsd-workshop/multiqc_cutadapt_report.html
 ```
 
 </details>

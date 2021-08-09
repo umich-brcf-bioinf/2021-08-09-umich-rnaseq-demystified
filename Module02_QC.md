@@ -202,16 +202,19 @@ The source of bad QC measures are not always easy to determine, and doesn't nece
 
 Let's try running FastQC on our FASTQ input files.
 
-1. View FastQC help file
-2. Construct the call to FastQC
-3. Watch FastQC process the files / gather quality metrics
-4. View the output of FastQC (the filenames)
+1. Navigate to `analysis` directory
+2. View FastQC help file
+3. Construct the call to FastQC
+4. Watch FastQC process the files / gather quality metrics
+5. View the output of FastQC (the filenames)
 
 ```
+# Navigate to analysis directory
+cd ~/analysis
 # View the FastQC help file
 fastqc -h
 # Contstruct the call to FastQC
-fastqc -o out_fastqc/ input_reads/*.fastq.gz
+fastqc -o out_fastqc/ ../data/reads/*.fastq.gz
 # Watch the output of FastQC
 # View the output of FastQC (the filenames)
 ```

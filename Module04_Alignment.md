@@ -167,7 +167,7 @@ Alternatively, we can combine these results into a count matrix. The count matri
 # View the help file
 rsem-prepare-reference -h
 # Create/execute the prepare-reference command
-rsem-prepare-reference --gtf refs/Homo_sapiens.GRCh38.98.chr22.15-25Mbp.gtf --star --num-threads 1 refs/Homo_sapiens.GRCh38.dna_sm.chr22.15-25Mbp.fa refs/Homo_sapiens.GRCh38.index.chr22.15-25Mbp
+rsem-prepare-reference --gtf ../data/refs/GRCh38.98.chr22reduced.gtf --star --num-threads 1 ../data/refs/GRCh38.98.chr22reduced.fa ../data/refs/GRCh38.98.chr22reduced
 ```
 
 
@@ -177,7 +177,7 @@ rsem-prepare-reference --gtf refs/Homo_sapiens.GRCh38.98.chr22.15-25Mbp.gtf --st
 2. Create a command to execute RSEM / STAR alignment and quantification for one of our samples
 
 ```
-rsem-calculate-expression --star --num-threads 1 --star-gzipped-read-file --star-output-genome-bam --keep-intermediate-files --paired-end out_cutadapt/sample_01_R1.fastq.gz out_cutadapt/sample_01_R2.fastq.gz refs/Homo_sapiens.GRCh38.index.chr22 out_rsem/sample_01
+rsem-calculate-expression --star --num-threads 1 --star-gzipped-read-file --star-output-genome-bam --keep-intermediate-files --paired-end out_trimmed/sample_01_R1.trimmed.fastq.gz out_trimmed/sample_01_R2.trimmed.fastq.gz ../data/refs/GRCh38.98.chr22reduced out_rsem/sample_01
 ```
 
 ## Aligning All Samples Exercise:

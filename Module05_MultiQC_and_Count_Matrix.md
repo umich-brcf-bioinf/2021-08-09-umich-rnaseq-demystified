@@ -109,7 +109,7 @@ Source: [MultiQC example report](https://multiqc.info/examples/rna-seq/multiqc_r
 # View MultiQC help page
 multiqc --help
 # Construct a MultiQC command and execute it
-multiqc --outdir out_multiqc_rsem out_rsem_star/
+multiqc --outdir out_multiqc_rsem out_rsem/
 # Verify that the output files are present
 ```
 
@@ -163,7 +163,7 @@ The input for this step will be the directory of *.genes.results files from RSEM
 # View the help file of combine.py
 combine.py --help
 # Construct and execute the command to combine.py
-combine.py --input_path out_rsem_star --output_file combined_counts.txt -c expected_count --id_columns gene_id
+combine.py --input_path "out_rsem/*.genes.results" --output_file combined_counts.txt -c expected_count --id_columns gene_id
 # View the resulting count matrix
 less combined_counts.txt
 ```
