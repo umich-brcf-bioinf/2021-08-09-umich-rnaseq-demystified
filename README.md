@@ -30,4 +30,5 @@
 |  | <img src="images/wayfinder/wayfinder-08.png" width=200> | [Sample Visualizations for QC](html/Module09_SampleQCViz.html) |
 | <td rowspan="2"><img src="images/wayfinder/wayfinder-09.png" width=200></td> | [DE Comparisons and Gene Annotations](html/Module10_DEComparisons.html) |
 |  | [DE Visualizations and output files](html/Module11_DEVisualizations.html) |
+|  | [Optional - Additional QC Visualizations](html/Module11X_BonusContent.html) |
 | 12:45  | [Wrap-up](html/Module99_Wrap_up.html) |
