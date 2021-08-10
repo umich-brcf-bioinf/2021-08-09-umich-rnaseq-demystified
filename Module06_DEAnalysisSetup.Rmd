@@ -21,8 +21,6 @@ output:
     }
 </style>
 
-![](./images/wayfinder_00-0.png){width=95%}
-
 
 > # Objectives:    
 > * Overview of reproducible research & analysis setup
@@ -34,27 +32,16 @@ output:
 
 Today we will proceed through key steps in a differential expression analysis, starting from a count table that's similar to what would have been generated on Day 1.
 
-| Step | Task |
-| :--: | ---- |
-| 1 | Experimental Design |
-| 2 | Biological Samples / Library Preparation |
-| 3 | Sequence Reads |
-| 4 | Assess Quality of Raw Reads |
-| 5 | Splice-aware Mapping to Genome |
-| 6 | Count Reads Associated with Genes |
-| --- | --- |
-| **7** | **Organize project files locally** |
-| **8** | **Initialize DESeq2 and fit DESeq2 model** |
-| 9 | Assess expression variance within treatment groups |
-| 10 | Specify pairwise comparisons and test for differential expression |
-| 11 | Generate summary figures for comparisons |
-| 12 | Annotate differential expression result tables |
+![](./images/wayfinder_00-0.png){width=95%}
 
----
+#### [Warm-Up]
 
-**TODO: Update summary/orientation figure**
+To get started, let's get a sense of what approaches you already use to compare gene expression:    
 
-**TODO: Add back in per module summaries (might be in markdown files from last workshop)**
+* If you've run a qPCR assay and enjoyed all the pippeting, put up a green 'check'. If you've run a qPCR assay and needed some time away from the multichannels, put up a red 'x' from the reaction panel. 
+* If cloning a gene reporter (ie: promoter + GFP), worked for you the first time, put up a green check. If you have a freezer box full of cloning attempts, put up a red 'x'.  
+* If you are ready to learn about bioinformatic tools for comparing gene expression, put up a green check. If you have some questions about the materials covered yesterday or covered in the webinar, put a red 'x'.  
+
 
 # Tools for Differential Gene Expression analysis
 
@@ -83,7 +70,7 @@ Since variance is key to the statistical approach used for DESeq2, if you try to
 
 ### Replicates in RNA-seq experiments
 
-A question we are frequently asked is "How many replicates do I need?" As mentioned in the seminar, there is often more contributing to the observed gene expression in each sample than the experimental treatment or condition.
+A question we are frequently asked is "How many replicates do I need?" As mentioned in the seminar, there is often more contributing to the observed gene expression in each sample than the experimental treatment or condition of interest.
 
 
 ![Image of technical, biological, and experimental contributors to gene expression, from HBC training materials](./images/de_variation.png)
@@ -104,87 +91,60 @@ A related aspect to consider for experimental design is how much sequencing dept
 Generally, for the human and mouse genomes, the general recommendation is 30-40 million reads per sample if measuring the ~20,000  protein-coding genes (i.e.: polyA library prep) to capture both highly expressed (common) and more lowly expresssed (rarer) transcripts. However, as the image above shows, sequencing depth has less of an impact than number of replicates in detecting differentially expressed genes (DEGs).
 
 #### [Exercise]
-----
 
 1) Post a question about differential expression analysis that we haven't addressed
 2) OR Add a reaction to your favorite question(s)
 
 ----
 
-**TODO: Orienting around button use/getting help - red x vs slow down vs green check usages **
-**TODO: Explain can ask for a breakout at any time but will have points in lesson plan to catch up**
-**TODO: Re-orient around breakout rooms**
 
 # Reproducible Research
 
 Today we'll be exploring some RNA-seq data that is fairly representative of what we see in the core and start with input files similar to the count tables currently being delivered by the Advanced Sequencing Core.
 
-To get started, we'll open up our RStudio console and set up for our analysis.
-![](./images/Rstudio_example.png){width=75%}
+## Logging into the RStudio server
+
+First navigate to server address `bfx-workshop01.med.umich.edu`, using a web browser. You should see a sign-in prompt screen, similar to shown below
+
+![](./images/RStudioLogInPrompt.png){width=50%}
+
+Next, use your unique name and the same password used yesterday to log-in to the server from the command line. You should now see some familar RStudio panels in your web browser window.
 
 
-To organize our files for our analysis today we'll create a new folder, ideally in our home directory, using the 'New Folder' button on the right side of our screen & naming it `2021-08-09-umich-rnaseq-demystified`. Then we'll set our working directory using the drop down menu under the `More` icon. This can also be accomplished as code:
+![](./images/RStudioServerWindow.png){width=50%}
+
+
+## Best practices for file organization
+
+As discussed in [Software Carpentry](https://umcarpentries.org/intro-curriculum-r/) and other forums, including a review by [Nobel, 2009](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424), file organization is an important part of reproducible research. 
+
+To follow best practices for file organization for bioinformatics/computational projects, we will need to make sure there are separate locations for:
+
+* Raw data
+* Code
+* Output files
+
+Such as illustrated in this figure from the Noble review:
+
+![](./images/Noble2009_dataprojects.png){width=75%}
+
+To organize our files for our analysis today we'll create a new folder, ideally in our home directory, using the 'New Folder' button on the right side of our screen & naming it `2021-08-09-umich-rnaseq-demystified`. Then we'll click to navigate into our new folder, and set our working directory using the drop down menu under the `More` icon. This can also be accomplished as code:
 
 ```{r SetupDirectories, eval=FALSE, echo=TRUE}
 dir.create("~/2021-08-09-umich-rnaseq-demystified", showWarnings = FALSE)
 setwd("~/2021-08-09-umich-rnaseq-demystified")
 ```
 
+Before moving forward, let's double check that we're in the right place.
 ```{r CheckDirectories, eval=FALSE}
 getwd()
 ```
-**Checkpoint**: *Please use the `grey slow down` button in your zoom reaction panel if you are not in your own '2021-08-09-umich-rnaseq-demystified' directory after executing the `getwd()` commands.*
+**Checkpoint**: *Please use the red 'x' button in your zoom reaction panel if you are not in your own '2021-08-09-umich-rnaseq-demystified' directory after executing the `getwd()` commands and the green 'check' if you see a similar path as I do*
 
-Once we confirm our working directory, we'll create a new folder within `2021-08-09-umich-rnaseq-demystified` called `data` to store our raw data by copying & pasting the following command.
-
-```{r SetupDirs2, eval=FALSE, message=FALSE, warning=FALSE}
-dir.create("data", showWarnings = FALSE)
-```
-
-**Checkpoint**: *Please use the 'green check' if you see 'data' within your '2021-08-09-umich-rnaseq-demystified' directory and use the 'grey slow down' button in your zoom reaction panel if you'd like the steps repeated*
-
-
-**TODO: Confirm/test URL for download of new input files... currently on unmerged branch of repo**
-
-Next, we'll download the files we'll need for today by copying and pasting the follow.
-```{r DownloadData, eval = FALSE}
-### TO DO: ENSURE THESE URLS ARE CORRECT
-
-download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/rnaseq_demystified_workshop_2021/DMK_changes/data/Day2Data/SampleInfo_trimmed.csv", "data/SampleInfo_trimmed.csv")
-
-download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/rnaseq_demystified_workshop_2021/DMK_changes/data/Day2Data/gene_expected_count_trimmed.txt", "data/gene_expected_count_trimmed.txt")
-
-
-```
-
-## Best practices for file organization
-
-
-While your data downloads, file organization is an important part of reproducible research. To follow best practices for file organization for bioinformatics/computational projects, we will need to make sure there are separate locations for:
-* Raw data
-* Code
-* Output files
-
-![](./images/Noble2009_dataprojects.png){width=75%}
-
-This figure from [Nobel, 2009](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424) shows an example of more complex organization structure that also includes documention and the paper presenting the results from the analysis.
-
-If we look within our 'data' folder, we should now see two files:
-
-![](./images/DirectoryWithData.png){width=50%}
-REPLACE: Fix this screenshot.
-
-**Checkpoint**: *Please use the 'grey slow down' button button if you don't see the files after clicking on the "data" directory so I can repeat the steps. If you have successfully downloaded the data then used the 'green check' button.*
-
----
-
-# Setting up our analysis
-
-Following best practices, we will create a code file that will record all our commands and will be saved in a separate location from our raw data. 
 
 ## Creating our code file
 
-To create a new code file, use the toolbar at the top of our window and click the icon that looks like white square with a small green plus symbol. From the drop down menu, select the first option named 'R Script'. 
+Next, we'll create a new code file, use the toolbar at the top of our window and click the icon that looks like white square with a small green plus symbol. From the drop down menu, select the first option named 'R Script'. 
 
 **TODO: Add screen shot highlighting 'new file' button**
 
@@ -197,8 +157,35 @@ This new "RNASeqAnalysis.R" will serve as a record of our analysis and should be
 
 *Note: This code file can also serve as a starting point for working through differential expression comparisons with other example datasets or your own data in the future.*
 
+## Downloading our data
 
-An important note is that there are several bonus content sections on the instruction pages, like the two below that we will not be covering in this workshop, but that may have useful context or be helpful when you review this material.
+Next, we'll create a new folder within `2021-08-09-umich-rnaseq-demystified` called `data` to store our raw data by copying & pasting the following command.
+
+```{r SetupDirs2, eval=FALSE, message=FALSE, warning=FALSE}
+dir.create("data", showWarnings = FALSE)
+```
+
+**Checkpoint**: *Please use the green 'check' if you see 'data' within your '2021-08-09-umich-rnaseq-demystified' directory and use the red 'x' button in your zoom reaction panel if you'd like the steps repeated*
+
+
+Next, we'll download the files we'll need for today by copying and pasting the follow.
+```{r DownloadData, eval = FALSE}
+
+download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/2021-08-09-umich-rnaseq-demystified/master/data/SampleInfo_trimmed.csv", "data/SampleInfo_trimmed.csv")
+
+download.file("https://raw.githubusercontent.com/umich-brcf-bioinf/2021-08-09-umich-rnaseq-demystified/master/data/gene_expected_count_trimmed.txt", "data/gene_expected_count_trimmed.txt")
+```
+
+If we look within our 'data' folder, we should now see two files:
+
+
+![](./images/DirectoryWithData.png){width=50%}
+
+
+**Checkpoint**: *Please use the red 'x' button button if you don't see the files after clicking on the "data" directory so I can repeat the steps. If you have successfully downloaded the data then used the green 'check' button.*
+
+---
+
 
 #### Code execution shortcut reminder
 
@@ -223,6 +210,7 @@ Several  packages have already been installed on the server, so we can load them
 library(DESeq2)
 library(ggplot2)
 library(tidyr)
+library(dplyr)
 library(matrixStats)
 library(ggrepel)
 library(pheatmap)
@@ -231,7 +219,7 @@ library(data.table)
 ```
 
 
-*Note: Expect to see some red messages in your console while these packages are loading*
+*Note: We expect to see some red messages in your console while these packages are loading*
 
 As discussed in the computation foundations/prerequsite sessions, R/RStudio has great resources for getting help, including [code 'cheatsheets'](https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) and package vignettes, like for [tidyr](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html).
 
@@ -240,7 +228,7 @@ We previously loaded several libraries into our R session, we can check the tool
 ?`DESeq2-package`
 ```
 
-**Checkpoint**: *If you see the R documentation for `DESeq2` pop up in your 'help' panel on the right, please indicate with the green 'check' button. If not please use the grey 'slow down' button.*
+**Checkpoint**: *If you see the R documentation for `DESeq2` pop up in your 'help' panel on the right, please indicate with the green 'check' button. If not please use the red 'x' button.*
 
 
 ### Raw data as input
@@ -251,22 +239,29 @@ To begin our analysis, we'll read in the **raw** count data file, `gene_expected
 
 ```{r DataTable, eval=TRUE}
 CountTable <- read.table("data/gene_expected_count_trimmed.txt", header = TRUE, row.names = 1)
-head(CountTable) # look at the top of the table
+head(CountTable, n=2) # look at the top of the table
 ```
 
 Now that the file is read into R, note that we've created a data frame that includes 'gene ids' in ENSEMBL format as rownames and count data from twelve different samples.
 
-**TODO: Possibly convert to group exercise or move to next module**
+#### [Exercise]
 
-If we think back to the 'expected_counts' RSEM output, the values in the count table are likely *not* integers (due to how the alignment tool resolves reads that map to multiple locuses). Since DESeq2 requires whole numbers, if we try to use the RSEM ouputs without rounding the estimated counts to a whole number first, DESeq2 will give us an error. To resolve this, we'll round down all the columns of our `CountTable` that include count data (all columns since we set the gene names to be our row names).
-```{r RoundRawCounts}
-tail(CountTable) # not all whole numbers
-CountTable <- floor(CountTable)
-tail(CountTable) # now whole numbers
+If we think back to the RSEM outputs, the 'expected_counts' table may include fractions due to how the alignment tool resolves reads that map to multiple locuses). Since DESeq2 requires whole numbers, if we try to use the RSEM ouputs directly, DESeq2 will give us an error. 
+
+First let's check the count table in a different way, to see if our table includes fractions. 
+```{r RSEMoutput}
+tail(CountTable, n=2)
 ```
 
+*[Question]: To resolve this discrepancy between the RSEM outputs and expected input for DESeq2, what could we do?*
 
-**TODO:Possibly move clickable notes up or add more clear summary to end so they get less lost**
+To round down all the columns of our `CountTable` that include count data (all columns since we set the gene names to be our row names), we can use the `floor()` function.
+```{r RoundRawCounts}
+CountTable <- floor(CountTable)
+tail(CountTable, n=2) # now whole numbers
+```
+
+An important note is that there are several bonus content sections on the instruction pages, like the two below that we will not be covering in this workshop, but that may have useful context or be helpful when you review this material.
 
 <details>
     <summary>*Click for alternative DESeq2 input options for RSEM outputs*</summary>
@@ -281,7 +276,36 @@ tail(CountTable) # now whole numbers
 </details>
 
 
-Once we have our count data processed, we can move on to "unblinding" our data, as the sample names are unique identifiers generated by a sequencing center and not very informative as far as our experimental conditions.
+After the count data is processed, we can move on to "unblinding" our data, as the sample names are unique identifiers generated by a sequencing center and not very informative as far what samples belong to which experimental conditions.
+
+## Getting help
+
+R/Rstudio has a strong community component so if you are getting an error or wondering how to make a command work or how to perform a specific task, there is likely already a solution out there. Remember that Google is your friend, although it can sometimes be a challenge to figure out *what to search for*. Key parts of a successful search:
+
+* Package or command run
+* `R` or `Bioconductor`
+* The error message if there is one
+* Version information
+
+How to get session information to aid in a search:
+```{r Session info, eval = FALSE, message = FALSE}
+sessionInfo()
+```
+
+
+Highly recommend using resources like [Bioconductor Support](https://support.bioconductor.org/), [Biostars](https://www.biostars.org/), and [Stack Overflow](https://stackoverflow.com/questions/tagged/r), including threads on specific packages or common bioinformatic tasks. 
+
+I personally use one or more of these resources **every day**.
+
+# Summary
+
+In this section, we:
+
+* Set up our compute environment
+* Learned about DESeq2
+* Loaded our raw count tables (input file 1)
+
+Now that we have our count data processed, we can move on to "unblinding" our data, as the sample names are unique identifiers generated by a sequencing center and not very informative as far as our experimental conditions.
 
 
 ---

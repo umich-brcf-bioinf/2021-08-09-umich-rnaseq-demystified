@@ -36,11 +36,13 @@ load("RunningData.RData")
 > * Additional visualizations for gene level QC assessment
 
 
-## Count boxplots
+# Count boxplots
 
 To understand how skewed our raw data was and how well our normalization worked, we can look at distributions of raw and normalized counts. First, we need to set up some tables and labels.
 ```{r RawCountsSetup}
 ## setup for raw counts
+plotPath = "figures/"
+
 pdata <- data.frame(colData(dds))
 mat <- as.matrix(assay(dds))
 title <- 'Raw counts'
@@ -74,8 +76,8 @@ box_plot = ggplot(tidy_mat, aes(x = sample, y = log2(counts))) +
 box_plot
 ```
 
-After generating the plot with ggplot, we'll save it as a file in the directory we set up.
-```{r BoxplotsRawSave}
+After generating the plot with ggplot, we can save it as a file in the directory we set up.
+```{r BoxplotsRawSave, eval = FALSE}
 ggsave(filename = paste0(plotPath, "BoxPlot_Gtype.Tx_raw.pdf"), plot = box_plot, height = 8, width = 8, dpi = 300)
 ```
 
@@ -105,11 +107,14 @@ box_plot = ggplot(tidy_mat, aes(x = sample, y = counts)) +
     theme_bw() + theme(axis.text.x = element_text(angle = 90))
 box_plot
 
+```
+
+```{r BoxplotsRlogSave, eval = FALSE}
 ggsave(filename = paste0(plotPath, "BoxPlot_Gtype.Tx_rlog.pdf"), plot = box_plot, height = 8, width = 8, dpi = 300)
 ```
 
 
-## Heatmaps
+# Heatmaps
 
 To understand the patterns of expression across all our samples, including how well our samples cluster by group labels, we can generate a heatmaps. 
 
@@ -129,7 +134,7 @@ Next, we'll set up a PDF file and plot our heatmap. Saving the plot as an object
 
 The [`pheatmap` function](https://cran.r-project.org/web/packages/pheatmap/pheatmap.pdf) does quite a lot in a single step, including scaling the data by row and clustering both the samples (columns) and genes (rows).
 
->**Note**: [This blog post](https://towardsdatascience.com/pheatmap-draws-pretty-heatmaps-483dab9a3cc) has a nice step by step overview of the pheatmap options, using basketball data as an example.
+**Note**: [This blog post](https://towardsdatascience.com/pheatmap-draws-pretty-heatmaps-483dab9a3cc) has a nice step by step overview of the pheatmap options, using basketball data as an example.
 
 ```{r GeneratePrettyheatmap}
 pdf(file = paste0(plotPath,'Heatmap_TopExp_', Comparison, '.pdf'), onefile = FALSE, width=10, height=20)
@@ -140,9 +145,9 @@ dev.off()
 
 Looking at the heatmap, we see that samples within the same treatment group cluster together, fitting our understanding of the experimental design. We also see clusters of genes that appear to have contrasting patterns between the treatment groups, which is promising for our differential expression comparisons.
 
-> **Note**: Heatmaps are helpful visualizations, especially for sharing an overview of your RNA-seq data. The why and how of to use them properly can be confusing, such as outlined in the questions and answers in [this biostars post](https://www.biostars.org/p/230115/) that adds additional context to the overview in this workshop. 
+**Note**: Heatmaps are helpful visualizations, especially for sharing an overview of your RNA-seq data. The why and how of to use them properly can be confusing, such as outlined in the questions and answers in [this biostars post](https://www.biostars.org/p/230115/) that adds additional context to the overview in this workshop. 
 
-#### Sample and Top Variable Expressed Heatmaps
+## Sample and Top Variable Expressed Heatmaps
 
 This [blog post](http://www.opiniomics.org/you-probably-dont-understand-heatmaps/) reviews the data transformation procedure for generating heatmaps and is a useful resource. They review the steps for generating a sample correlation heatmap similar to the plot generated below. 
 
