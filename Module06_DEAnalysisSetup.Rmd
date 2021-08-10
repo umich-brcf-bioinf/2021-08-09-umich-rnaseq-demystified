@@ -253,7 +253,7 @@ First let's check the count table in a different way, to see if our table includ
 tail(CountTable, n=2)
 ```
 
-*Question: To resolve this discrepancy between the RSEM outputs and expected input for DESeq2, what could we do?*
+*[Question]: To resolve this discrepancy between the RSEM outputs and expected input for DESeq2, what could we do?*
 
 To round down all the columns of our `CountTable` that include count data (all columns since we set the gene names to be our row names), we can use the `floor()` function.
 ```{r RoundRawCounts}

@@ -59,6 +59,8 @@ Two common factors that need to be accounted for during normalization are **sequ
 
 > **Note**: The above figures are originally from a [HBC  tutorial](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html) that also includes a detailed comparison of different normalization (CPM, TPM, FPKM) approaches and their best uses.
 
+**Check-in: Questions about normalizations?**
+
 ## DESeq2 normalizations
 
 An additional consideration for normalization is **RNA composition**. A few highly differentially expressed genes, differences in the number of genes expressed between samples, or contamination are not accounted for by depth or gene length normalization methods. Accounting for RNA composition is particularly important for differential expression analyses, regardless of the tool used.

@@ -258,11 +258,6 @@ save.image(file = "rdata/RunningData.RData")
 
 
 
-## Session Info:
-```{r SessionInfo}
-sessionInfo()
-```
-
 ---
 
 
