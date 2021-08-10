@@ -26,40 +26,55 @@ pre {
 }
 </style>
 
-# Wrapping up
-
-## In summary
+## Wrapping up
 
 We hope you now have more familiarity with key concepts, data types, tools, and how they all
 connect to enable gene expression analysis from bulk RNA-Seq data.
 
 - Day 1: UNIX, sequence file types, QC, process of producing a count table
 - Day 2: R, DESeq2, QC visualizations, process of differential expression analysis
-- Learning bioinformatic analyses more like a process than a task
-
-- [Training resources/workshops](https://brcf.medicine.umich.edu/cores/bioinformatics-core/training/)
+- Learning bioinformatic analyses more like a process than a task. Resources to
+  consider:
+  - [Training resources/workshops](https://brcf.medicine.umich.edu/cores/bioinformatics-core/training/)
+  - [UMcoderspaces Slack](https://umcoderspaces.slack.com)
 
 ---
 
 ## Housekeeping
 
-- BASH/RStudio workshop compute environment (at Amazon) will be available until Friday.
+- Please take our optional [post-workshop survey](https://forms.gle/NxeQwzQc24s71P457) (5-10 minutes) <br />
+  https://forms.gle/bsqTx6GVsxMvye169
 
 - We will email you a link to the session recordings by next week.
 
-- Please take our optional [post-workshop survey](https://forms.gle/bsqTx6GVsxMvye169) (5-10 minutes) <br />
-  [https://forms.gle/bsqTx6GVsxMvye169](https://forms.gle/bsqTx6GVsxMvye169)
+- The website/notes for this workshop and [UMcoderspaces Slack channel](https://umcoderspaces.slack.com) channel
+  will be available.
+
+- BASH/RStudio workshop compute environment (at Amazon) will be available until this Friday.
+  - You can install necessary programs to run programs locally. Note
+    that for typical data, the Day 1 programs assume your computer has sizable
+    compute and storage capacity. (i.e. It may not be practical to run these on
+    your laptop.)
+  - Installing bioinformatics software is non-trivial and comprehensive instructions
+    to setup a complete compute environment are outside the scope of this workshop.
+    (We are considering offering a Computational Reproducibility workshop that
+    would cover this.) For the intrepid, see relevant links below:
+    - [Installing Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html#regular-installation)
+    - [Conda environment YAML](https://github.com/umich-brcf-bioinf/2021-08-09-umich-rnaseq-demystified/blob/master/server_setup/conda_setup/workshop-rsd.yaml)
+    - [Setting up R/R-Studio](https://umich-brcf-bioinf.github.io/2021-08-09-umich-rnaseq-demystified/setup_instructions_advanced)
 
 ---
 
-## Thank you!
+## Thank you
 
-We welcome your questions and feedback.
+- Sponsors: UM Library, Biomedical Research Core Facilities
+- Instructors: Travis & Dana
+- Helpers: Marci, Becky, Nick, Raymond, Weisheng
+- YOU!
 
-- [bioinformatics-workshops@umich.edu](bioinformatics-workshops@umich.edu)
-- Chris Gates [cgates@umich.edu](cgates@umich.edu)
-- Marci Brandenburg [mbradenb@umich.edu](mbradenb@umich.edu)
-- Travis Saari [trsaari@umich.edu](trsaari@umich.edu)
-- Dana King [damki@umich.edu](damki@umich.edu)
+Thank you for participating on our workshop! We welcome your questions and feedback now and in the future.
 
-![Sponsors](images/Module00_sponsor_logos.png)
+Bioinformatics Workshop Team
+
+[bioinformatics-workshops@umich.edu](mailto:bioinformatics-workshops@umich.edu) <br/>
+[https://brcf.medicine.umich.edu/bioinformatics](https://brcf.medicine.umich.edu/bioinformatics)
