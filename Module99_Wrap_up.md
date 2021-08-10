@@ -42,8 +42,8 @@ connect to enable gene expression analysis from bulk RNA-Seq data.
 
 ## Housekeeping
 
-- Please take our optional [post-workshop survey](https://forms.gle/NxeQwzQc24s71P457) (5-10 minutes) <br />
-  https://forms.gle/bsqTx6GVsxMvye169
+- Please take our optional [post-workshop survey](https://forms.gle/7CQYuKBAcH94tqng8) (5-10 minutes) <br />
+  https://forms.gle/7CQYuKBAcH94tqng8
 
 - We will email you a link to the session recordings by next week.
 
@@ -67,12 +67,18 @@ connect to enable gene expression analysis from bulk RNA-Seq data.
 
 ## Thank you
 
-- Sponsors: UM Library, Biomedical Research Core Facilities
-- Instructors: Travis & Dana
-- Helpers: Marci, Becky, Nick, Raymond, Weisheng
-- YOU!
+![Sponsors](images/Module00_sponsor_logos.png)
 
-Thank you for participating on our workshop! We welcome your questions and feedback now and in the future.
+| ![](images/Module00_headshots/headshot_cgates.jpg) | ![](images/Module00_headshots/headshot_mbradenb.jpg)| ![](images/Module00_headshots/headshot_trsaari.jpg)| ![](images/Module00_headshots/headshot_damki.jpg)|
+|:-:|:-:|:-:|:-:|
+| **Chris** | **Marci** | **Travis** | **Dana** |
+| | | | |
+| ![](images/Module00_headshots/headshot_rtagett.jpg) | ![](images/Module00_headshots/headshot_ncarruth.jpg)| ![](images/Module00_headshots/headshot_rcavalca.jpg)| ![](images/Module00_headshots/headshot_weishwu.jpg)|
+| **Becky** | **Nick** | **Raymond** | **Weisheng** |
+
+YOU!
+
+Thank you for participating on our workshop. We welcome your questions and feedback now and in the future.
 
 Bioinformatics Workshop Team
 
